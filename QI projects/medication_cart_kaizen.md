@@ -4,6 +4,6 @@
 **this is bold**
 *this is italics*
 
-'''cadence
+```
 some code
-'''
+```
