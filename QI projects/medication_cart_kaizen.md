@@ -5,7 +5,7 @@
 The organization of medication carts are suboptimal as location of medications in the trolley are not standardized and there is room to improve the ergonomics of medication dispensing using the trolley. The current design of the medication cart dividers is such that columns of the dividers are screwed onto the base of the drawer, and horizontal dividers are fitted with pieces of cardboard or plastic. This design impedes efforts to upkeep the cleanliness of the medication cart as the dividers cannot be easily removed and reassembled for cleaning. Furthermore, improvement in the construction of the cart dividers can improve the clarity and presentation of items in the cart. In addition, the arrangement of items in the medication carts are not standardized across the different teams’ designated carts, which could reduce nurses’ familiarity with their placement and impair productivity. </br>
 **The aim of this QI project is to improve the cleanliness, construction quality, ergonomics, readability, and safety of medication carts within 6 months.**
 
-## Measures
+## Methods
 Users were given a pre-test survey of 10 questions on a 5-point likert scale ranging from 1(strongly disagree) to 5(strongly agree) to assess their impression of the cart’s cleanliness, ergonomics, construction quality, readability of labels, and safety. 6 months after initiation of interventions, users were given a post-test survey with the same set of questions as the pre-test to evaluate their impression of the cart. Both surveys were administered via surveyplanet. 
 Sample sizes of n = 32 and n = 29 were gathered from the pre-test and post-test surveys respectively. The data was exported from surveyplanet into an excel.csv file and subsequently analysed using R (version 4.2.1). 
 Results from the questionnaires were grouped into their respective categories, i.e. cleanliness, ergonomics, construction quality, readability and safety. Their scores for each category were then summed and divided by the sample size to obtain the mean.
@@ -23,6 +23,8 @@ The survey questions include the following:
 10. Similar looking medications are easy to tell apart as they are adequately separated					
 
 *As the data collected is confidential, results will not be reported here*
+
+### Code
 
 First, the post-test dataset is cleaned and prepared for analysis
 ```
