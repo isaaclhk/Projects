@@ -22,7 +22,7 @@ The survey questions include the following:
 9. The labelling of medications in the drawers are easy to read					
 10. Similar looking medications are easy to tell apart as they are adequately separated					
 
-*As the data collected is confidential, results will not be reported here*
+*As the data collected is confidential, results will not be reported here.*
 
 ### Code
 
