@@ -218,3 +218,6 @@ readability_wil
 safety_wil <- wilcox.test(data = safety_result, paired = FALSE, exact = FALSE, total_score ~ variables)
 safety_wil
 ```
+
+## Reflections
+This is the first project which I've ever completed in R. I am beginning to see how powerful this language can be, and I love how readable and intuitive it can be especially with the help of powerful libraries. Looking forward to more ways I can put my newly attained skills to good use!
