@@ -65,28 +65,31 @@ There are two questions to assess each category. The scores from both questions 
 ```
 #calculating overall scores by category
   mutate(
-      Ergonomics2 = ergonomics1 + ergonomics2,
-      Cleanliness2 = cleanliness1 + cleanliness2,
-      Safety2 = safety1 + safety2,
-      Construction_Quality2 = construction_quality1 + construction_quality2,
-      Readability2 = readability1 + readability2
+      Ergonomics = ergonomics1 + ergonomics2,
+      Cleanliness = cleanliness1 + cleanliness2,
+      Safety = safety1 + safety2,
+      Construction_Quality = construction_quality1 + construction_quality2,
+      Readability = readability1 + readability2
         ) %>%
 ```
 one NA value was found in the readability category. Admittedly, this was an error in survey creation. participants should not have been allowed to complete the survey with an unanswered question. The missing value is replaced by the average of the remaining readability scores.
 
 ```
 #replacing NA value in readability
-  mutate(Readability2 = replace_na(Readability2, mean(Readability2, na.rm = TRUE))) %>%
+  mutate(Readability = replace_na(Readability, mean(Readability, na.rm = TRUE))) %>%
 ```
-The data is transformed to prepare for visualization
+The data is transformed to prepare for analysis. we arrange the data into two columns: variables and total_score. This is so that we may analyse the data later. To plot the data, we first sum the total scores in each variable then divide by the sample size. This gives us the average scores for each category.
 ```
 #selecting by categories
-  select(Ergonomics2:Readability2) %>%
-  
-#Transforming to plotable format
+  select(Ergonomic:Readability) %>%
   pivot_longer(cols = 1:5, names_to = "variables", values_to = "total_score")
+  
+ #obtaining average scores by category for plotting
+  kaizen_data_post_plot <- kaizen_data_post %>%
+  group_by(variables) %>%
+  summarize(total_score = sum(total_score)/ 29)
   ```
- The same treatment is repeated on the pre-test dataset
+The same treatment is repeated on the pre-test dataset
  ```
  #Reading pre-test dataset
 kaizen_data_pre <- read_csv("C:\\Users\\isaac\\OneDrive\\Documents\\Projects\\datasets\\medication_cart_kaizen_pre.csv")
@@ -131,8 +134,77 @@ kaizen_data_pre <- kaizen_data_pre %>%
   
 #selecting by categories
   select(Ergonomics:Readability) %>%
-
-#Transforming to plotable format
   pivot_longer(cols = 1:5, names_to = "variables", values_to = "total_score")
+
+#obtaining average scores by category for plotting
+kaizen_data_pre_plot <- kaizen_data_pre %>%
+  group_by(variables) %>%
+  summarize(total_score = sum(total_score)/ 32) 
   ```
+Finally, we are ready to plot. geom_point is used for post-test data while geom_col is used for pre-test so that the difference in results are clearly visible. Furthermore, I've chosen an alpha of 0.5 to add some transparency so that points can be seen even if they overlap with the columns. The colors and theme were chosen as such to enhance clarity and visual appeal. The labels on the x axis are dodged to avoid clutter.
+```
+#plotting data
+ggplot() + geom_point(data = kaizen_data_post_plot, aes(variables, total_score, col = variables)) +
+  geom_col(data = kaizen_data_pre_plot, aes(variables, total_score, fill = variables), col = "black", alpha = 0.5) +
+  labs(title = "Medication cart kaizen", x = "Assessment Categories", y = "Average Scores", color = "Post-test", fill = "Pre-test") +
+  scale_fill_brewer(palette = "Dark2") +
+  scale_color_brewer(palette = "Dark2") +
+  guides(x = guide_axis(n.dodge = 2)) +
+  theme_classic()
+  ```
+Now we'd like to statistically compare our pre-test and post-test results. Before we get to that, we must first rename the variables so that those in pre and post tests can be differentiated. Then, we combine both datasets and filter for each category so that they may be analysed individually.
+
+```
+#Differentiating pre-test and post-test data
+kaizen_data_post$variables[kaizen_data_post$variables == "Ergonomics"] <- "Ergonomics2"
+kaizen_data_post$variables[kaizen_data_post$variables == "Cleanliness"] <- "Cleanliness2"
+kaizen_data_post$variables[kaizen_data_post$variables == "Construction_Quality"] <- "Construction_Quality2"
+kaizen_data_post$variables[kaizen_data_post$variables == "Readability"] <- "Readability2"
+kaizen_data_post$variables[kaizen_data_post$variables == "Safety"] <- "Safety2"
+
+#combining pre-test and post-test datasets
+kaizen_data_prepost <- rbind(kaizen_data_pre, kaizen_data_post)
+
+#filter by categories
+ergonomics_result <- kaizen_data_prepost %>% filter(variables == "Ergonomics" | variables == "Ergonomics2")
+cleanliness_result <- kaizen_data_prepost %>% filter(variables == "Cleanliness" | variables == "Cleanliness2")
+construction_result <- kaizen_data_prepost %>% filter(variables == "Construction_Quality" | variables == "Construction_Quality2")
+readability_result <- kaizen_data_prepost %>% filter(variables == "Readability" | variables == "Readability2")
+safety_result <- kaizen_data_prepost %>% filter(variables == "Safety" | variables == "Safety2")
+ ```
  
+Now we are ready to perform statistical tests on our data. First, we'll take a quick look at the distribution of results in each category, then we'll perform Mann Whitney U tests to compare each pairs of pre and post-test data. Ideally, wilcoxon signed ranked test or paired samples t tests should be used for pre and posttest data. Unfortunately, our pre and posttest samples are unmatched due to unforeseen movement of staff. Here, Mann Whitney U tests are used instead of independent sample t tests as the sample sizes are small (n= 32) and (n= 29)
+```
+#Summary of results
+table(ergonomics_result)
+summary(ergonomics_result)
+hist(ergonomics_result$total_score, main = "Ergonomics", ylab = "Total score")
+
+table(cleanliness_result)
+summary(cleanliness_result)
+hist(cleanliness_result$total_score, main = "Cleanliness", ylab = "Total score")
+
+table(construction_result)
+summary(construction_result)
+hist(construction_result$total_score, main = "Construction Quality", ylab = "Total score")
+
+table(readability_result)
+summary(readability_result)
+hist(readability_result$total_score, main = "Readability", ylab = "Total score")
+
+table(safety_result)
+summary(safety_result)
+hist(safety_result$total_score, main = "Safety", ylab = "Total score")
+
+#Mann whitney U tests for ordinal data
+ergonomics_wil <- wilcox.test(data = ergonomics_result, paired = FALSE, exact = FALSE, total_score ~ variables)
+ergonomics_wil
+cleanliness_t <- wilcox.test(data = cleanliness_result, paired = FALSE, exact = FALSE, total_score ~ variables)
+cleanliness_t
+construction_wil <- wilcox.test(data = construction_result, paired = FALSE, exact = FALSE, total_score ~ variables)
+construction_wil
+readability_wil <- wilcox.test(data = readability_result, paired = FALSE, exact = FALSE, total_score ~ variables)
+readability_wil
+safety_wil <- wilcox.test(data = safety_result, paired = FALSE, exact = FALSE, total_score ~ variables)
+safety_wil
+```
