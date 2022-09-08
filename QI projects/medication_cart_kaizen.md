@@ -37,6 +37,7 @@ kaizen_data_post <- kaizen_data_post %>%
 #selecting relevant data
   select(c(11:20)) %>%
 ```
+
 columns from the excel sheet are renamed according to their respective question categories
 ```
   rename(
@@ -52,6 +53,7 @@ columns from the excel sheet are renamed according to their respective question 
     readability2 = "Q1 - From a scale of 1(strongly disagree) to 5 (strongly agree), tell us how strongly you agree/disagree with the following statements regarding our medication carts: (Similar looking medications are easy to tell apart as they are adequately separated)"
       ) %>%
 ```
+
 As some survey questions were phrased in different wording, the scores for these questions were reverse coded.
 ```
 #reverse coding
@@ -61,6 +63,7 @@ As some survey questions were phrased in different wording, the scores for these
       construction_quality2 = abs(5 - construction_quality2)
         )%>%
 ```
+
 There are two questions to assess each category. The scores from both questions are added to aggregate the total score for each category.
 ```
 #calculating overall scores by category
@@ -72,12 +75,14 @@ There are two questions to assess each category. The scores from both questions 
       Readability = readability1 + readability2
         ) %>%
 ```
+
 one NA value was found in the readability category. Admittedly, this was an error in survey creation. participants should not have been allowed to complete the survey with an unanswered question. The missing value is replaced by the average of the remaining readability scores.
 
 ```
 #replacing NA value in readability
   mutate(Readability = replace_na(Readability, mean(Readability, na.rm = TRUE))) %>%
 ```
+
 The data is transformed to prepare for analysis. we arrange the data into two columns: variables and total_score. This is so that we may analyse the data later. To plot the data, we first sum the total scores in each variable then divide by the sample size. This gives us the average scores for each category.
 ```
 #selecting by categories
@@ -89,6 +94,7 @@ The data is transformed to prepare for analysis. we arrange the data into two co
   group_by(variables) %>%
   summarize(total_score = sum(total_score)/ 29)
   ```
+  
 The same treatment is repeated on the pre-test dataset
  ```
  #Reading pre-test dataset
@@ -141,7 +147,8 @@ kaizen_data_pre_plot <- kaizen_data_pre %>%
   group_by(variables) %>%
   summarize(total_score = sum(total_score)/ 32) 
   ```
-Finally, we are ready to plot. geom_point is used for post-test data while geom_col is used for pre-test so that the difference in results are clearly visible. Furthermore, I've chosen an alpha of 0.5 to add some transparency so that points can be seen even if they overlap with the columns. The colors and theme were chosen as such to enhance clarity and visual appeal. The labels on the x axis are dodged to avoid clutter.
+  
+Finally,the data is primed for plotting. geom_point is used for post-test data while geom_col is used for pre-test so that the difference in results are clearly visible. Furthermore, I've chosen an alpha of 0.5 to add some transparency so that points can be seen even if they overlap with the columns. The colors and theme were chosen as such to enhance clarity and visual appeal. The labels on the x axis are dodged to avoid clutter.
 ```
 #plotting data
 ggplot() + geom_point(data = kaizen_data_post_plot, aes(variables, total_score, col = variables)) +
@@ -152,7 +159,8 @@ ggplot() + geom_point(data = kaizen_data_post_plot, aes(variables, total_score, 
   guides(x = guide_axis(n.dodge = 2)) +
   theme_classic()
   ```
-Now we'd like to statistically compare our pre-test and post-test results. Before we get to that, we must first rename the variables so that those in pre and post tests can be differentiated. Then, we combine both datasets and filter for each category so that they may be analysed individually.
+  
+Now we'd like to statistically compare the pre-test and post-test results. Before getting to that, variables in the posttest dataset were renamed so that those in pre and post tests can be differentiated. Then, both datasets were combined and filtered for each category so that they may be analysed individually.
 
 ```
 #Differentiating pre-test and post-test data
@@ -173,7 +181,7 @@ readability_result <- kaizen_data_prepost %>% filter(variables == "Readability" 
 safety_result <- kaizen_data_prepost %>% filter(variables == "Safety" | variables == "Safety2")
  ```
  
-Now we are ready to perform statistical tests on our data. First, we'll take a quick look at the distribution of results in each category, then we'll perform Mann Whitney U tests to compare each pairs of pre and post-test data. Ideally, wilcoxon signed ranked test or paired samples t tests should be used for pre and posttest data. Unfortunately, our pre and posttest samples are unmatched due to unforeseen movement of staff. Here, Mann Whitney U tests are used instead of independent sample t tests as the sample sizes are small (n= 32) and (n= 29)
+Now the dataset is ready for statistical analysis. First, we'll take a quick look at the distribution of results in each category, then perform Mann Whitney U tests to compare each pairs of pre and post-test data. Ideally, wilcoxon signed ranked test or paired samples t tests should be used for pre and posttest data. Unfortunately, the pre and posttest samples are unmatched due to unforeseen movement of staff. Here, Mann Whitney U tests are used instead of independent sample t tests as the sample sizes are small (n= 32) and (n= 29)
 ```
 #Summary of results
 table(ergonomics_result)
