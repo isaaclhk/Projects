@@ -308,7 +308,7 @@ Amongst these measures, SGRQ explains the most variance. Therefore it will be in
 Packhistory and smoking, age and agequartiles are also likely to be collinear.
 Packhistory and age will be favoured for inclusion in the multiple linear regression model as they provide more information.
 </br></br>
-There are methods of automated variable selection such as stepwise, foward and backwards selection that can help us decide which variables to include in the multiple linear regression model. However, these models come with their [limitations](https://www.stata.com/support/faqs/statistics/stepwise-regression-problems/)
+There are methods of automated variable selection such as stepwise, foward and backwards selection that can help us decide which variables to include in the multiple linear regression model. However, these models [come with their limitations](https://www.stata.com/support/faqs/statistics/stepwise-regression-problems/)
 and I prefer to be more intentional about developing a model that best answers the research question.
 </br></br>
 
@@ -326,5 +326,36 @@ mlr1<- lm(mwt1best ~ age + packhistory + fev1 + had + sgrq + comorbid, data)
 summary(mlr1)
 confint(mlr1) 
 plot(mlr1)
+
+#checking for collinearity
+imcdiag(mod = mlr1, method = "VIF")
 ```
 </br>
+
+Based on the plots, the residuals are somewhat homogeneous and normally distributed.
+A calculation of the variance inflation factors also show that multicollinearity is not a problem.
+</br>
+
+```
+> imcdiag(mod = mlr1, method = "VIF")
+
+Call:
+imcdiag(mod = mlr1, method = "VIF")
+
+
+ VIF Multicollinearity Diagnostics
+
+               VIF detection
+age         1.1720         0
+packhistory 1.1150         0
+fev1        1.1825         0
+had         1.5606         0
+sgrq        1.5108         0
+comorbid1   1.2500         0
+
+NOTE:  VIF Method Failed to detect multicollinearity
+
+
+0 --> COLLINEARITY is not detected by the test
+```
+
