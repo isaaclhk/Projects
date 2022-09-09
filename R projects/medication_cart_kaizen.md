@@ -102,7 +102,7 @@ The data is transformed to prepare for analysis. we arrange the data into two co
   summarize(total_score = sum(total_score)/ 29)
 ```
  </br>
-The same treatment is repeated on the pre-test dataset
+The same treatment is repeated on the pre-test dataset.
 
 ```
  #Reading pre-test dataset
