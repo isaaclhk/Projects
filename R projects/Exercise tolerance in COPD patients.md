@@ -333,6 +333,10 @@ imcdiag(mod = mlr1, method = "VIF")
 </br>
 
 Based on the plots, the residuals are somewhat homogeneous and normally distributed.
+![COPD_homoscedasticity](https://user-images.githubusercontent.com/71438259/189305048-0bb9cf13-dff0-49da-a485-dae53dbb3f2f.jpeg)
+
+![COPD_QQplot](https://user-images.githubusercontent.com/71438259/189305176-a11383e6-5c22-44a6-856b-fbf16b05e716.jpeg)
+
 A calculation of the variance inflation factors also show that multicollinearity is not a problem.
 </br>
 
