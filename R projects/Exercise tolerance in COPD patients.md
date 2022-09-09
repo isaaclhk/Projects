@@ -49,6 +49,7 @@ head(data)
 str(data)
 describe(data)
 ```
+
 </br>
 
 After examining the dataset's structure, we note a few important points:
@@ -60,6 +61,7 @@ Missing values are a common problem. In a research study, we can always approach
 However, since this dataset is fictitious, the missing value will be left empty. </br> </br>
 
 The categorical and binary variables will be changed to factors, and the first two columns of the dataset will be removed as they are not required.
+</br>
 
 ```
 #changing categorical variables to factors
@@ -77,9 +79,11 @@ data <- data %>% mutate(
 select(-c(...1, id))
 
 ```
+
 </br>
 Each continuous variable is examined individually. This will give us a sense of the variable's distribution and help us to identify outliers.
 </br>
+
 ```
 #examining continuous variables individually
 summary(data$age)
@@ -123,6 +127,7 @@ hist(data$cat, main = "had")
 data$had[data$had > 21] <- NA
 data$cat[data$cat > 40] <- NA
 ```
+
 </br>
 Note that there is an outlier in CAT.
 copd assessment test (CAT) scores should range between 0 to 40, but in this sample there is a max value of 188.
@@ -134,6 +139,7 @@ In a research study, we would always approach the researcher to clarify whether 
 sometimes the error can be rectified by replacing erroneous data with the accurate one. 
 However, since this dataset is fictitious, the incorrect data will be removed.
 </br>
+
 ```
 #removing false values
 data$had[data$had > 21] <- NA
@@ -146,8 +152,10 @@ hist(data$cat, main = "cat")
 summary(data$had)
 hist(data$had, main = "had")
 ```
+
 </br>
 As with the continuous variables, the categorical and binary variables are also examined.
+
 ```
 describe(data$copdseverity)
 describe(data$copd)
@@ -160,6 +168,7 @@ describe(data$hypertension)
 describe(data$atrialfib)
 describe(data$ihd)
 ```
+
 </br> 
 After looking at the data, we note that:
 1. there are only 2 distinct values: ex- smokers and current smokers. there are no non-smokers in this sample.
@@ -170,6 +179,7 @@ Hence, copdseverity will be removed. mwt1 and mwt2 will also be removed as they 
 ```
 data <- data %>% select(-c(copd, mwt1, mwt2))
 ```
+
 </br>
 Due to limitations of sample size, comorbid conditions cannot be analysed as individual predictors. 
 They will be combined to a single binomial variable "comorbid" to reduce the number of predictors and avoid overfitting.
@@ -189,4 +199,5 @@ data$comorbid <- as.factor(data$comorbid)
 #examining comorbid variable
 describe(data$comorbid)
 ```
+
 </br>
