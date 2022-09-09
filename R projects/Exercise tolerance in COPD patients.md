@@ -331,6 +331,7 @@ plot(mlr1)
 imcdiag(mod = mlr1, method = "VIF")
 ```
 </br>
+
 ## Results
 
 Based on the plots, the residuals are somewhat homogeneous and normally distributed.
