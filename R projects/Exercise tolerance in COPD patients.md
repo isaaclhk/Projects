@@ -79,7 +79,7 @@ select(-c(...1, id))
 ```
 </br>
 Each continuous variable is examined individually. This will give us a sense of the variable's distribution and help us to identify outliers.
-
+</br>
 ```
 #examining continuous variables individually
 summary(data$age)
@@ -133,7 +133,7 @@ hospital anxiety and depression scale(HADS) shuold range between 0 to 21, but in
 In a research study, we would always approach the researcher to clarify whether the outlier is an error in data entry. 
 sometimes the error can be rectified by replacing erroneous data with the accurate one. 
 However, since this dataset is fictitious, the incorrect data will be removed.
-
+</br>
 ```
 #removing false values
 data$had[data$had > 21] <- NA
@@ -173,7 +173,7 @@ data <- data %>% select(-c(copd, mwt1, mwt2))
 </br>
 Due to limitations of sample size, comorbid conditions cannot be analysed as individual predictors. 
 They will be combined to a single binomial variable "comorbid" to reduce the number of predictors and avoid overfitting.
-
+</br>
 ```
 data <- data %>% mutate(comorbid = ifelse(
   diabetes == 0 & 
