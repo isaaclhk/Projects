@@ -95,7 +95,7 @@ The data is transformed to prepare for analysis. we arrange the data into two co
   kaizen_data_post_plot <- kaizen_data_post %>%
   group_by(variables) %>%
   summarize(total_score = sum(total_score)/ 29)
-  ```
+ ```
   </br>
 The same treatment is repeated on the pre-test dataset
  ```
@@ -148,9 +148,10 @@ kaizen_data_pre <- kaizen_data_pre %>%
 kaizen_data_pre_plot <- kaizen_data_pre %>%
   group_by(variables) %>%
   summarize(total_score = sum(total_score)/ 32) 
-  ```
+ ```
  </br>
 Finally,the data is primed for plotting. geom_point is used for post-test data while geom_col is used for pre-test so that the difference in results are clearly visible. Furthermore, I've chosen an alpha of 0.5 to add some transparency so that points can be seen even if they overlap with the columns. The colors and theme were chosen as such to enhance clarity and visual appeal. The labels on the x axis are dodged to avoid clutter.
+
 ```
 #plotting data
 ggplot() + geom_point(data = kaizen_data_post_plot, aes(variables, total_score, col = variables)) +
