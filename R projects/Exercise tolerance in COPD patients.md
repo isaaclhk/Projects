@@ -322,7 +322,7 @@ The predictor variables we will include in the final regression model are:
 # fitting the multiple linear regression model
 mlr1<- lm(mwt1best ~ age + packhistory + fev1 + had + sgrq + comorbid, data)
 summary(mlr1)
-confint(mlr1)
+confint(mlr1) 
 plot(mlr1)
 ```
 </br>
