@@ -192,7 +192,7 @@ readability_result <- kaizen_data_prepost %>% filter(variables == "Readability" 
 safety_result <- kaizen_data_prepost %>% filter(variables == "Safety" | variables == "Safety2")
 ```
 </br>
-Now the dataset is ready for statistical analysis. First, we'll take a quick look at the distribution of results in each category, then perform Mann Whitney U tests to compare each pairs of pre and post-test data. Ideally, wilcoxon signed ranked test or paired samples t tests should be used for paired samples. Unfortunately, the pre and posttest samples are unmatched due to unforeseen movement of staff. Here, Mann Whitney U tests are used instead of independent sample t tests as the sample sizes are small (n= 32) and (n= 29). </br>  
+Now the dataset is ready for statistical analysis. First, we'll take a quick look at the distribution of results in each category, then perform Mann Whitney U tests to compare each pairs of pre and post-test data. Ideally, wilcoxon signed ranked test or paired samples t tests should be used for paired samples. Unfortunately, the pre and posttest samples are unmatched due to unforeseen movement of staff. Here, Mann Whitney U tests are used instead of independent sample t tests as the sample sizes are small (n= 32) and (n= 29). </br>  </br>
 H0: There is no difference between pre and posttest results </br>
 H1: There is significant difference between pre and posttest results
 
