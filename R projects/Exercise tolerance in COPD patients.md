@@ -310,8 +310,8 @@ Packhistory and age will be favoured for inclusion in the multiple linear regres
 </br></br>
 There are methods of automated variable selection such as stepwise, foward and backwards selection that can help us decide which variables to include in the multiple linear regression model. </br>
 
-However, such methods [come with limitations](https://www.stata.com/support/faqs/statistics/stepwise-regression-problems/) 
-and I prefer to be more intentional about developing a model that best answers the research question.
+However, such methods [come with limitations](https://www.stata.com/support/faqs/statistics/stepwise-regression-problems/).
+Where possible, I prefer to be more intentional about developing a model that best answers the research question.
 </br></br>
 
 The predictor variables we will include in the final regression model are:
