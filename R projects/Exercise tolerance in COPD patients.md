@@ -22,5 +22,5 @@ we want to identify factors that predict walking ability in patients with COPD a
 14. AGEquartiles- Age variable categorised into quartiles
 15. COPD- Indication of COPD severity, levels = 1:4 (mild to very severe)
 16. Gender- levels = 0(female), 1(male)
-17. Smoking- levels = 0(non-smokers), 1(ex-smokers), 2(current smokers) </br>
-(18 to 22. ) Other comorbidities e.g. Diabetes, muscular, hypertension, AtrialFib, IHD- levels - 0(absent), 1(present)
+17. Smoking- levels = 0(non-smokers), 1(ex-smokers), 2(current smokers)
+18. Other comorbidities e.g. Diabetes, muscular, hypertension, AtrialFib, IHD- levels - 0(absent), 1(present)
