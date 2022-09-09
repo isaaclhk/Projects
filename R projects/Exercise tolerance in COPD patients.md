@@ -51,7 +51,6 @@ describe(data)
 ```
 
 </br>
-
 After examining the dataset's structure, we note a few important points:
 1. The sample size is n = 101
 2. Missing values are present in mwt1, mwt2, and mwt1best
@@ -155,6 +154,7 @@ hist(data$had, main = "had")
 
 </br>
 As with the continuous variables, the categorical and binary variables are also examined.
+</br>
 
 ```
 describe(data$copdseverity)
@@ -175,6 +175,7 @@ After looking at the data, we note that:
 2. copd and copdseverity are duplicates.
 </br> </br>
 Hence, copdseverity will be removed. mwt1 and mwt2 will also be removed as they are measures that directly determine the outcome mwt1best, so they should not be considered as candidate predictors.
+</br>
 
 ```
 data <- data %>% select(-c(copd, mwt1, mwt2))
@@ -184,6 +185,7 @@ data <- data %>% select(-c(copd, mwt1, mwt2))
 Due to limitations of sample size, comorbid conditions cannot be analysed as individual predictors. 
 They will be combined to a single binomial variable "comorbid" to reduce the number of predictors and avoid overfitting.
 </br>
+
 ```
 data <- data %>% mutate(comorbid = ifelse(
   diabetes == 0 & 
