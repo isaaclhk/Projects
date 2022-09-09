@@ -207,7 +207,7 @@ The relationships between each candidate predictor variable and the outcome vari
 This informs us about what we should expect in the final regression model. Moreover, if large differences in the coefficients arise between the results of the simple linear regressions and the multiple linear regression model, it may hint at multicollinearity between predictors in the multiple linear regression model.
 </br>
 
-
+```
 #fitting simple linear regression models between the outcome variable(MTW1Best) and each candidate predictor variable
 lr1 <- lm(mwt1best ~ age, data)
 summary(lr1)
