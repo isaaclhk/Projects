@@ -282,3 +282,47 @@ Variables that are statistically significantly associated with walking distance:
 * had
 * sgrq
 * comorbid
+</br>
+</br>
+
+Since fev1, fev1pred, fvc and fvcpred are all measures of lung volume, it is expected that they will be highly correlated.
+CAT and SGRQ are also expected to be correlated as they are both measures of COPD severity.
+this is confirmed by examining the correlation matrix.
+</br>
+
+```
+#correlation matrix
+continuous <- data[, c("age", "packhistory","fev1", "fev1pred", "fvc", "fvcpred", "cat", "had", "sgrq")]
+cor_matrix <- cor(continuous, method = "spearman", use = "complete.obs")
+cor_matrix
+pairs(~age + packhistory + fev1 + fev1pred + fvc + fvcpred + cat + had + sgrq, data = data)
+```
+
+</br>
+To avoid multicollinearity, variables that are highly correlated must be excluded from the multiple linear regression model.
+Amongst the different measures of lung function, fev1 explains the most variance. Therefore it will be included in the final model.
+</br> </br>
+As CAT, SGRQ and copdseverity are all measures of COPD severity, only one of these will be included in the multiple linear regression model.
+Amongst these measures, SGRQ explains the most variance. Therefore it will be included in the final model.
+</br> </br>
+Packhistory and smoking, age and agequartiles are also likely to be collinear.
+Packhistory and age will be favoured for inclusion in the multiple linear regression model as they provide more information.
+</br></br>
+There are methods of automated variable selection such as stepwise, foward and backwards selection that can help us decide which variables to include in the multiple linear regression model. However, these models [come with their limitations](https://www.stata.com/support/faqs/statistics/stepwise-regression-problems/) and I prefer to be more intentional about developing a model that best answers the research question.
+</br></br>
+The predictor variables we will include in the final regression model are:
+1. age
+2. packhistory
+3. fev1
+4. had
+5. sgrq
+6. comorbid
+
+```
+# fitting the multiple linear regression model
+mlr1<- lm(mwt1best ~ age + packhistory + fev1 + had + sgrq + comorbid, data)
+summary(mlr1)
+confint(mlr1)
+plot(mlr1)
+```
+</br>
