@@ -98,7 +98,8 @@ The data is transformed to prepare for analysis. we arrange the data into two co
  ```
   </br>
 The same treatment is repeated on the pre-test dataset
- ```
+
+```
  #Reading pre-test dataset
 kaizen_data_pre <- read_csv("C:\\Users\\isaac\\OneDrive\\Documents\\Projects\\datasets\\medication_cart_kaizen_pre.csv")
 
@@ -149,6 +150,7 @@ kaizen_data_pre_plot <- kaizen_data_pre %>%
   group_by(variables) %>%
   summarize(total_score = sum(total_score)/ 32) 
  ```
+ 
  </br>
 Finally,the data is primed for plotting. geom_point is used for post-test data while geom_col is used for pre-test so that the difference in results are clearly visible. Furthermore, I've chosen an alpha of 0.5 to add some transparency so that points can be seen even if they overlap with the columns. The colors and theme were chosen as such to enhance clarity and visual appeal. The labels on the x axis are dodged to avoid clutter.
 
@@ -161,7 +163,8 @@ ggplot() + geom_point(data = kaizen_data_post_plot, aes(variables, total_score, 
   scale_color_brewer(palette = "Dark2") +
   guides(x = guide_axis(n.dodge = 2)) +
   theme_classic()
-  ```
+ ```
+ 
  </br>
 Now we'd like to statistically compare the pre-test and post-test results. Before getting to that, variables in the posttest dataset were renamed so that those in pre and post tests can be differentiated. Then, both datasets were combined and filtered for each category so that they may be analysed individually.
 
@@ -182,11 +185,12 @@ cleanliness_result <- kaizen_data_prepost %>% filter(variables == "Cleanliness" 
 construction_result <- kaizen_data_prepost %>% filter(variables == "Construction_Quality" | variables == "Construction_Quality2")
 readability_result <- kaizen_data_prepost %>% filter(variables == "Readability" | variables == "Readability2")
 safety_result <- kaizen_data_prepost %>% filter(variables == "Safety" | variables == "Safety2")
- ```
+```
 </br>
 Now the dataset is ready for statistical analysis. First, we'll take a quick look at the distribution of results in each category, then perform Mann Whitney U tests to compare each pairs of pre and post-test data. Ideally, wilcoxon signed ranked test or paired samples t tests should be used for paired samples. Unfortunately, the pre and posttest samples are unmatched due to unforeseen movement of staff. Here, Mann Whitney U tests are used instead of independent sample t tests as the sample sizes are small (n= 32) and (n= 29). </br>  
 H0: There is no difference between pre and posttest results </br>
 H1: There is significant difference between pre and posttest results
+
 ```
 #Summary of results
 table(ergonomics_result)
