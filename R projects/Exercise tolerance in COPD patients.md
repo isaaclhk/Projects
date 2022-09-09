@@ -203,3 +203,82 @@ describe(data$comorbid)
 ```
 
 </br>
+The relationships between each candidate predictor variable and the outcome variable is analysed individually by fitting simple linear regression models.
+This informs us about what we should expect in the final regression model. Moreover, if large differences in the coefficients arise between the results of the simple linear regressions and the multiple linear regression model, it may hint at multicollinearity between predictors in the multiple linear regression model.
+</br>
+
+
+#fitting simple linear regression models between the outcome variable(MTW1Best) and each candidate predictor variable
+lr1 <- lm(mwt1best ~ age, data)
+summary(lr1)
+confint(lr1)
+
+
+lr2 <- lm(mwt1best ~ packhistory, data)
+summary(lr2)
+confint(lr2)
+
+
+lr3 <- lm(mwt1best ~ copdseverity, data)
+summary(lr3)
+confint(lr3)
+
+
+lr4 <- lm(mwt1best ~ fev1, data)
+summary(lr4)
+confint(lr4)
+
+lr5 <- lm(mwt1best ~ fev1pred, data)
+summary(lr5)
+confint(lr5)
+
+lr6 <- lm(mwt1best ~ fvc, data)
+summary(lr6)
+confint(lr6)
+
+lr7 <- lm(mwt1best ~ fvcpred, data)
+summary(lr7)
+confint(lr7)
+
+lr8 <- lm(mwt1best ~ cat, data)
+summary(lr8)
+confint(lr8)
+
+lr9 <- lm(mwt1best ~ had, data)
+summary(lr9)
+confint(lr9)
+
+lr10 <- lm(mwt1best ~ sgrq, data)
+summary(lr10)
+confint(lr10)
+
+lr11 <- lm(mwt1best ~ agequartiles, data)
+summary(lr11)
+confint(lr11)
+
+lr12 <- lm(mwt1best ~ gender, data)
+summary(lr12)
+confint(lr12)
+
+lr13 <- lm(mwt1best ~ smoking, data)
+summary(lr13)
+confint(lr13)
+
+lr14 <- lm(mwt1best ~ comorbid, data)
+summary(lr14)
+confint(lr14)
+```
+</br>
+
+Variables that are statistically significantly associated with walking distance:
+* age
+* packhistory
+* copdseverity
+* fev1
+* fev1pred
+* fvc
+* fvcpred 
+* cat
+* had
+* sgrq
+* comorbid
