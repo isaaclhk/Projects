@@ -59,6 +59,7 @@ columns from the excel sheet are renamed according to their respective question 
 
 </br>
 As some survey questions were phrased in different wording, the scores for these questions were reverse coded.
+
 ```
 #reverse coding
   mutate(
@@ -69,6 +70,7 @@ As some survey questions were phrased in different wording, the scores for these
 ```
 </br>
 There are two questions to assess each category. The scores from both questions are added to aggregate the total score for each category.
+
 ```
 #calculating overall scores by category
   mutate(
@@ -88,6 +90,7 @@ one NA value was found in the readability category. Admittedly, this was an erro
 ```
 </br>
 The data is transformed to prepare for analysis. we arrange the data into two columns: variables and total_score. This is so that we may analyse the data later. To plot the data, we first sum the total scores in each variable then divide by the sample size. This gives us the average scores for each category.
+
 ```
 #selecting by categories
   select(Ergonomic:Readability) %>%
@@ -97,8 +100,8 @@ The data is transformed to prepare for analysis. we arrange the data into two co
   kaizen_data_post_plot <- kaizen_data_post %>%
   group_by(variables) %>%
   summarize(total_score = sum(total_score)/ 29)
- ```
-  </br>
+```
+ </br>
 The same treatment is repeated on the pre-test dataset
 
 ```
