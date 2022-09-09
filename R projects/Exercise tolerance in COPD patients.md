@@ -25,8 +25,8 @@ The aim is to identify factors that predict walking ability in patients with COP
 17. Smoking- levels = 0(non-smokers), 1(ex-smokers), 2(current smokers)
 18. Other comorbidities e.g. Diabetes, muscular, hypertension, AtrialFib, IHD- levels - 0(absent), 1(present)
 
-Continuous variables: age, packhistory, mwt1, mwt2, mwt1best, fev1, fev1pred, fvc, fvcpred, cat, had, sgrq
-Categorical variables: copdseverity, agequartiles, copd, smoking
+Continuous variables: age, packhistory, mwt1, mwt2, mwt1best, fev1, fev1pred, fvc, fvcpred, cat, had, sgrq </br>
+Categorical variables: copdseverity, agequartiles, copd, smoking </br>
 Binary variables: gender, diabetes, muscular, hypertension, atrialfib, ihd
 
 ## Code
