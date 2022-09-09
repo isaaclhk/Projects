@@ -173,6 +173,7 @@ data <- data %>% select(-c(copd, mwt1, mwt2))
 </br>
 Due to limitations of sample size, comorbid conditions cannot be analysed as individual predictors. 
 They will be combined to a single binomial variable "comorbid" to reduce the number of predictors and avoid overfitting.
+
 ```
 data <- data %>% mutate(comorbid = ifelse(
   diabetes == 0 & 
