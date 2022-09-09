@@ -331,6 +331,7 @@ plot(mlr1)
 imcdiag(mod = mlr1, method = "VIF")
 ```
 </br>
+## Results
 
 Based on the plots, the residuals are somewhat homogeneous and normally distributed.
 ![COPD_homoscedasticity](https://user-images.githubusercontent.com/71438259/189305048-0bb9cf13-dff0-49da-a485-dae53dbb3f2f.jpeg)
@@ -362,4 +363,50 @@ NOTE:  VIF Method Failed to detect multicollinearity
 
 0 --> COLLINEARITY is not detected by the test
 ```
+</br>
 
+The results of the final model are printed.
+
+```
+> summary(mlr1)
+
+Call:
+lm(formula = mwt1best ~ age + packhistory + fev1 + had + sgrq + 
+    comorbid, data = data)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-150.30  -52.37   -3.26   56.11  174.38 
+
+Coefficients:
+            Estimate Std. Error t value Pr(>|t|)    
+(Intercept) 828.5206    99.6418   8.315 1.66e-12 ***
+age          -4.5891     1.1922  -3.849 0.000234 ***
+packhistory  -0.8465     0.3629  -2.332 0.022133 *  
+fev1         31.8759    13.9105   2.292 0.024499 *  
+had          -2.3822     1.8347  -1.298 0.197786    
+sgrq         -2.3746     0.6149  -3.862 0.000224 ***
+comorbid1    -8.4218    18.6878  -0.451 0.653425    
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 78.6 on 82 degrees of freedom
+  (12 observations deleted due to missingness)
+Multiple R-squared:  0.473,	Adjusted R-squared:  0.4344 
+F-statistic: 12.26 on 6 and 82 DF,  p-value: 8.396e-10
+
+> confint(mlr1)
+                 2.5 %       97.5 %
+(Intercept) 630.301269 1026.7399345
+age          -6.960759   -2.2174311
+packhistory  -1.568551   -0.1245139
+fev1          4.203541   59.5482014
+had          -6.031927    1.2675951
+sgrq         -3.597925   -1.1513415
+comorbid1   -45.597693   28.7540925
+```
+
+</br>
+In the final model, age, packhistory, fev1, and sgrq are significantly associated with walking tolerance in COPD patients.</br>
+The model suggests that walking distance of COPD patients in the 6- minute walk will likely reduce by an average of 4.59 metres for every year the patient is older. 
+An increase in 1 unit of packhistory decreases walking distance in the test by an average of about -0.85 metres. Every unit of HAD or SGRQ score decreases walking distance in the test by an average of 2.38 and 2.37 metres respectively, and having at least 1 comorbid condition decreases walking distance in the test by an average of 8.4 metres. A 1 unit increase of FEV1 was estimated to improve walking distance in the test by an average of 31.89 metres.
