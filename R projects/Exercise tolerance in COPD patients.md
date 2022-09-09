@@ -339,7 +339,7 @@ Based on the plots, the residuals are somewhat homogeneous and normally distribu
 
 ![COPD_QQplot](https://user-images.githubusercontent.com/71438259/189305176-a11383e6-5c22-44a6-856b-fbf16b05e716.jpeg)
 
-A calculation of the variance inflation factors also show that multicollinearity is not a problem.
+A calculation of variance inflation factors also show that multicollinearity is not a problem.
 </br>
 
 ```
@@ -414,3 +414,4 @@ comorbid1   -45.597693   28.7540925
 In the final model, age, packhistory, FEV1, and SGRQ are significantly associated with walking tolerance in COPD patients.</br>
 The model suggests that walking distance of COPD patients in the 6- minute walk will likely reduce by an average of 4.59 metres for every year the patient is older. 
 An increase in 1 unit of packhistory decreases walking distance in the test by an average of about -0.85 metres. Every unit of HAD or SGRQ score decreases walking distance in the test by an average of 2.38 and 2.37 metres respectively, and having at least 1 comorbid condition decreases walking distance in the test by an average of 8.4 metres. A 1 unit increase of FEV1 was estimated to improve walking distance in the test by an average of 31.89 metres.
+[test](www.hi.com)
