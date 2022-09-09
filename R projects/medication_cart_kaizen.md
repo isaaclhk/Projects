@@ -41,6 +41,7 @@ kaizen_data_post <- kaizen_data_post %>%
 ```
 </br>
 columns from the excel sheet are renamed according to their respective question categories
+
 ```
   rename(
     ergonomics1 = "Q1 - From a scale of 1(strongly disagree) to 5 (strongly agree), tell us how strongly you agree/disagree with the following statements regarding our medication carts: (I frequently need to bend low or squat in order to reach the item I wish to get.)",
@@ -55,6 +56,7 @@ columns from the excel sheet are renamed according to their respective question 
     readability2 = "Q1 - From a scale of 1(strongly disagree) to 5 (strongly agree), tell us how strongly you agree/disagree with the following statements regarding our medication carts: (Similar looking medications are easy to tell apart as they are adequately separated)"
       ) %>%
 ```
+
 </br>
 As some survey questions were phrased in different wording, the scores for these questions were reverse coded.
 ```
