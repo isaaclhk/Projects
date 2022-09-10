@@ -51,7 +51,8 @@ describe(data)
 ```
 
 </br>
-After examining the dataset's structure, we note a few important points: </br>
+After examining the dataset's structure, we note a few important points:
+
 1. The sample size is n = 101.
 2. Missing values are present in mwt1, mwt2, and mwt1best.
 3. Most variables are numeric, except for copdseverity which is character.
