@@ -172,6 +172,7 @@ describe(data$ihd)
 
 </br> 
 After looking at the data, we note that:
+
 1. there are only 2 distinct values: ex- smokers and current smokers. there are no non-smokers in this sample.
 2. copd and copdseverity are duplicates.
 </br> </br>
