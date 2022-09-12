@@ -1,9 +1,9 @@
 # Predictors of Exercise Tolerance in Patients with COPD
 ## Background
-This analysis performed on a fictitious dataset obtained from the 2nd course of the Statistical Analysis with R for Public Health specialization: Linear Regression in R for public health.
+This analysis performed on a dataset obtained from the 2nd course of the Statistical Analysis with R for Public Health specialization: Linear Regression in R for public health.
 The dataset can be found [here](https://github.com/isaaclhk/Projects/blob/main/datasets/COPD.csv).
-The outcome variable for this analysis is MWT1Best, a measure of walking distance. 
-The aim is to identify factors that predict walking ability in patients with COPD and produce a regression model that will best quantify the impact of these factors.
+The outcome variable for this analysis is MWT1Best, a measure of walking distance, which is used as an indicator of exercise tolerance.
+The aim is to identify factors that predict exercise tolerance in patients with COPD and produce a regression model that will best quantify the impact of these factors.
 
 ### Variables in the dataset
 1. Age - Age in years
