@@ -413,7 +413,7 @@ comorbid1   -45.597693   28.7540925
 
 </br>
 
-## Conclusion
+## Model Intepretation
 
 In the final model, age, packhistory, FEV1, and SGRQ are significantly associated with walking tolerance in COPD patients.</br>
 The model suggests that walking distance of COPD patients in the 6- minute walk will likely reduce by an average of 4.59 metres for every year the patient is older. 
