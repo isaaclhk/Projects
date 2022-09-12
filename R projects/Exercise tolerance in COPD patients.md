@@ -411,8 +411,6 @@ sgrq         -3.597925   -1.1513415
 comorbid1   -45.597693   28.7540925
 ```
 
-</br>
-
 ### Model Intepretation
 
 In the final model, age, packhistory, FEV1, and SGRQ are significantly associated with walking tolerance in COPD patients.</br>
