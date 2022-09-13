@@ -287,6 +287,12 @@ Variables that are statistically significantly associated with walking distance:
 </br>
 </br>
 
+### Variable Selection
+
+When selecting the variables to include in a multiple linear regression model, it is always important to first review the literature. 
+independent variables that are known to predict the outcome variable should be included in the model regardless of whether its associated p values fall within the threshold because the dataset we have is only a sample of the population. </br> </br>
+
+During variable selection, it is also important to ensure that the selected predictors are independent.
 Since fev1, fev1pred, fvc and fvcpred are all measures of lung volume, it is expected that they will be highly correlated.
 CAT and SGRQ are also expected to be correlated as they are both measures of COPD severity.
 this is confirmed by examining the correlation matrix.
@@ -313,7 +319,7 @@ Packhistory and age will be favoured for inclusion in the multiple linear regres
 There are methods of automated variable selection such as stepwise, foward and backwards selection that can help us decide which variables to include in the multiple linear regression model. </br>
 
 However, such methods [come with limitations](https://www.stata.com/support/faqs/statistics/stepwise-regression-problems/).
-Where possible, I prefer to be intentional about developing a model that best answers the research question by manually selecting predictors.
+It is imperative to be intentional about developing a model that best answers the research question by manually selecting predictors. 
 </br></br>
 
 The predictor variables we will include in the final regression model are:
