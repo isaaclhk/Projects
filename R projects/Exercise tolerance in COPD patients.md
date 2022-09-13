@@ -292,10 +292,12 @@ Variables that are statistically significantly associated with walking distance:
 When selecting the variables to include in a multiple linear regression model, it is always important to first review the literature. 
 independent variables that are known to predict the outcome variable should be included in the model regardless of whether their associated p values fall within the threshold. </br> </br>
 
-During variable selection, it is also important to ensure that the selected predictors are independent.
-Since fev1, fev1pred, fvc and fvcpred are all measures of lung volume, it is expected that they will be highly correlated.
+Secondly, examining the data as we have done will help us to identify variables that are unsuitable for the model. These may include variables that have large proportions of missing data, have narrow distributions, or are collinear with other candidate predictor variables. </br> </br>
+
+To avoid multicollinearity, it is important to ensure that the selected predictors are independent.
+Since fev1, fev1pred, fvc and fvcpred are all measures of lung volume, it is expected for them to be highly correlated.
 CAT and SGRQ are also expected to be correlated as they are both measures of COPD severity.
-this is confirmed by examining the correlation matrix.
+This is confirmed by examining the correlation matrix.
 </br>
 
 ```
@@ -307,7 +309,7 @@ pairs(~age + packhistory + fev1 + fev1pred + fvc + fvcpred + cat + had + sgrq, d
 ```
 
 </br>
-To avoid multicollinearity, variables that are highly correlated must be excluded from the multiple linear regression model.
+variables that are highly correlated must be excluded to ensure indepdence of predictor variables in the multiple linear regression model.
 Amongst the different measures of lung function, fev1 explains the most variance. Therefore it will be included in the final model.
 </br> </br>
 As CAT, SGRQ and copdseverity are all measures of COPD severity, only one of these will be included in the multiple linear regression model.
