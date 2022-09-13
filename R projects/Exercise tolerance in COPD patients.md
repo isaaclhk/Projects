@@ -290,7 +290,7 @@ Variables that are statistically significantly associated with walking distance:
 ### Variable Selection
 
 When selecting the variables to include in a multiple linear regression model, it is always important to first review the literature. 
-independent variables that are known to predict the outcome variable should be included in the model regardless of whether its associated p values fall within the threshold because the dataset we have is only a sample of the population. </br> </br>
+independent variables that are known to predict the outcome variable should be included in the model regardless of whether their associated p values fall within the threshold. </br> </br>
 
 During variable selection, it is also important to ensure that the selected predictors are independent.
 Since fev1, fev1pred, fvc and fvcpred are all measures of lung volume, it is expected that they will be highly correlated.
