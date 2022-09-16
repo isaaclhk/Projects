@@ -20,9 +20,9 @@ The aim is to identify factors that predict exercise tolerance in patients with 
 12. HAD <- Hospital Anxiety and Depression Scale, a questionnaire to measure anxiety and depression
 13. SGRQ <- St George's Respiratory Questionnaire, measures impact on daily life and perceived well-being in patients with obstructive airways disease.
 14. AGEquartiles <- Age variable categorised into quartiles
-15. COPD <- Indication of COPD severity, levels = 1:4 (mild to very severe)
-16. Gender <- levels = 0(female), 1(male)
-17. Smoking <- levels = 0(non-smokers), 1(ex-smokers), 2(current smokers)
+15. COPD <- Indication of COPD severity, 1:4 (mild to very severe)
+16. Gender <- 0(female), 1(male)
+17. Smoking <- 0(non-smokers), 1(ex-smokers), 2(current smokers)
 18. Other comorbidities e.g. Diabetes, muscular, hypertension, AtrialFib, IHD- levels - 0(absent), 1(present)
 
 Continuous variables: age, packhistory, mwt1, mwt2, mwt1best, fev1, fev1pred, fvc, fvcpred, cat, had, sgrq </br>
