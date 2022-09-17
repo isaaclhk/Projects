@@ -205,67 +205,87 @@ describe(data$comorbid)
 ```
 
 </br>
-The relationships between each candidate predictor variable and the outcome variable is analysed individually by fitting simple linear regression models.
-This informs us about what we should expect in the final regression model. Moreover, if large differences in the coefficients arise between the results of the simple linear regressions and the multiple linear regression model, it may hint at multicollinearity between predictors in the multiple linear regression model.
+The relationships between each candidate predictor variable and the outcome variable were analysed individually by visualizing them on plots and fitting simple linear regression models. The least-squares regression lines were also added to the plots for clarity.
+By visualizing the data as such, we can determine whether linear relationships exist between the independent and outcome variables, which informs us whether or not it makes sense to include any particular variable in the multiple linear regression model. 
 </br>
 
 ```
 #fitting simple linear regression models between the outcome variable(MTW1Best) and each candidate predictor variable
-lr1 <- lm(mwt1best ~ age, data)
+plot(data$age, data$mwt1best)
+lr1 <- lm(mwt1best ~ age, data, main = "Age")
 summary(lr1)
 confint(lr1)
+abline(lr1, col = "blue", lwd = 2)
 
-
+plot(data$packhistory, data$mwt1best, main = "Pack history")
 lr2 <- lm(mwt1best ~ packhistory, data)
 summary(lr2)
 confint(lr2)
+abline(lr2, col = "blue", lwd = 2)
 
-
+plot(data$copdseverity, data$mwt1best, main = "COPD Severity")
 lr3 <- lm(mwt1best ~ copdseverity, data)
 summary(lr3)
 confint(lr3)
 
-
+plot(data$fev1, data$mwt1best, main = "FEV1")
 lr4 <- lm(mwt1best ~ fev1, data)
 summary(lr4)
 confint(lr4)
+abline(lr4, col = "blue", lwd = 2)
 
+plot(data$fev1pred, data$mwt1best, main = "Predicted FEV1")
 lr5 <- lm(mwt1best ~ fev1pred, data)
 summary(lr5)
 confint(lr5)
+abline(lr5, col = "blue", lwd = 2)
 
+plot(data$fvc, data$mwt1best, main = "FVC")
 lr6 <- lm(mwt1best ~ fvc, data)
 summary(lr6)
 confint(lr6)
+abline(lr6, col = "blue", lwd = 2)
 
+plot(data$fvcpred, data$mwt1best, main = "Predicted FVC")
 lr7 <- lm(mwt1best ~ fvcpred, data)
 summary(lr7)
 confint(lr7)
+abline(lr7, col = "blue", lwd = 2)
 
+plot(data$cat, data$mwt1best)
 lr8 <- lm(mwt1best ~ cat, data)
 summary(lr8)
 confint(lr8)
+abline(lr8, col = "blue", lwd = 2)
 
+plot(data$had, data$mwt1best, main = "HAD")
 lr9 <- lm(mwt1best ~ had, data)
 summary(lr9)
 confint(lr9)
+abline(lr9, col = "blue", lwd = 2)
 
+plot(data$sgrq, data$mwt1best, main = "SGRQ")
 lr10 <- lm(mwt1best ~ sgrq, data)
 summary(lr10)
 confint(lr10)
+abline(lr10, col = "blue", lwd = 2)
 
+plot(data$agequartiles, data$mwt1best)
 lr11 <- lm(mwt1best ~ agequartiles, data)
 summary(lr11)
 confint(lr11)
 
+plot(data$gender, data$mwt1best)
 lr12 <- lm(mwt1best ~ gender, data)
 summary(lr12)
 confint(lr12)
 
+plot(data$smoking, data$mwt1best)
 lr13 <- lm(mwt1best ~ smoking, data)
 summary(lr13)
 confint(lr13)
 
+plot(data$comorbid, data$mwt1best)
 lr14 <- lm(mwt1best ~ comorbid, data)
 summary(lr14)
 confint(lr14)
