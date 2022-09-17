@@ -312,7 +312,12 @@ Variables that are statistically significantly associated with walking distance:
 When selecting the variables to include in a multiple linear regression model, it is always important to first review the literature. 
 independent variables that are known to predict the outcome variable should be included in the model regardless of whether their associated p values fall within the threshold. </br> </br>
 
-Secondly, examining the data as we have done will help us to identify variables that are unsuitable for the model. These may include variables that have large proportions of missing data, have narrow distributions, or are collinear with other candidate predictor variables. </br> </br>
+Secondly, examining the data as we have done will help us to identify variables that are not suitable for the model. Factors to consider when deciding whether it is appropriate to include a variable in the model include:
+1. The proportion of missing data, 
+2. Data with narrow distributions 
+3. Variables that are collinear with other candidate predictor variables
+4. Variables that do not exhibit a linear relationship with the outcome variable
+</br> </br>
 
 To avoid multicollinearity, it is important to ensure that the selected predictors are independent.
 Since fev1, fev1pred, fvc and fvcpred are all measures of lung volume, it is expected for them to be highly correlated.
