@@ -30,7 +30,7 @@ Categorical variables: copdseverity, agequartiles, copd, smoking </br>
 Binary variables: gender, diabetes, muscular, hypertension, atrialfib, ihd
 
 ## Code
-First, the relevant libraries and dataset were loaded. The column names are changed to all lowercase letters for simplicity, 
+First, the relevant libraries and dataset were loaded. The column names were changed to all lowercase letters for simplicity, 
 then we have a brief overview of the dataset.
 
 ```
