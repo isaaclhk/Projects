@@ -137,7 +137,7 @@ hospital anxiety and depression scale(HADS) shuold range between 0 to 21, but in
 </br> </br>
 In a research study, we would always approach the researcher to clarify whether the outlier is an error in data entry. 
 sometimes the error can be rectified by replacing erroneous data with the accurate one. 
-However, since this dataset is fictitious, the incorrect data will be removed.
+However for this project, the incorrect data will be removed.
 </br>
 
 ```
