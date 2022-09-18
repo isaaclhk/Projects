@@ -149,6 +149,7 @@ describe(diabetes$chol_cat, exclude.missing = FALSE)
 ```
 
 An outlier was seen on the histogram of the ratio variable. When in doubt, always clarify with the researcher whether or not the data could be spurious.
+There were also large amounts of missing data in bp.2s and bp.2d.
 Also note that there were only 9 underweight participants. As the distribution of patients in this category was too narrow, the underweight and normal BMI categories were combined to form a single category.
 
 ```
@@ -157,4 +158,121 @@ levels(diabetes$bmi_cat)
 diabetes <- diabetes %>% mutate(bmi_cat = fct_recode(bmi_cat, 
                    "normal or less" = "normal",
                    "normal or less" = "underweight"))
+levels(diabetes$bmi_cat)
+describe(diabetes$bmi_cat, exclude.missing = FALSE)
 ```
+
+The relationships between each candidate predictor variable and the outcome variable (DM diagnosis) is analysed. The data is visualized on tables for categorical predictors and plots for continunous predictors. Inspecting the data visually helps to determine whether a linear relationship exists and whether it makes sense to include any particular variable in the final logistic regression model. </br> </br>
+Unlike linear regressions, the outcome variable in logistic regressions are binomial and consists of only two values. It doesnt make sense to plot the two values of the outcome variable on the y axis, so we plot the log of their likelihoods instead, which can take on any value from negative to positive infinity.
+
+```
+#examining relationships between individual categorical variables and dm
+crosstable(diabetes, location, by = dm) %>% as_flextable()
+crosstable(diabetes, gender, by = dm) %>% as_flextable()
+crosstable(diabetes, frame, by = dm) %>% as_flextable()
+crosstable(diabetes, insurance, by = dm) %>% as_flextable()
+crosstable(diabetes, fh, by = dm) %>% as_flextable()
+crosstable(diabetes, age_group, by = dm) %>% as_flextable() 
+crosstable(diabetes, bmi_cat, by = dm) %>% as_flextable() 
+crosstable(diabetes, chol_cat, by = dm) %>% as_flextable()
+
+#examining relationships between individual continous variables and log odds of dm
+chol_table <- table(diabetes$chol, diabetes$dm)
+prop_chol_table <- prop.table(chol_table, margin = 1)
+odds_chol <- prop_chol_table[, 2]/ prop_chol_table[, 1]
+logodds_chol <- log(odds_chol)
+plot(rownames(chol_table), logodds_chol, main = "cholesterol", xlim = c(140, 300))
+
+hdl_table <- table(diabetes$hdl, diabetes$dm)
+prop_hdl_table <- prop.table(hdl_table, margin = 1)
+odds_hdl <- prop_hdl_table[, 2]/ prop_hdl_table[, 1]
+logodds_hdl <- log(odds_hdl)
+plot(rownames(hdl_table), logodds_hdl, main = "hdl", xlim = c(20, 90))
+
+ratio_table <- table(diabetes$ratio, diabetes$dm)
+prop_ratio_table <- prop.table(ratio_table, margin = 1)
+odds_ratio <- prop_ratio_table[, 2]/ prop_ratio_table[, 1]
+logodds_ratio <- log(odds_ratio)
+plot(rownames(ratio_table), logodds_ratio, main = "ratio", xlim = c(2, 10))
+
+age_table<- table(diabetes$age, diabetes$dm)
+prop_age_table <- prop.table(age_table, margin = 1)
+odds_age <- prop_age_table[, 2]/ prop_age_table[, 1]
+logodds_age <- log(odds_age)
+plot(rownames(age_table), logodds_age, main = "age")
+
+height_table <- table(diabetes$height, diabetes$dm)
+prop_height_table <- prop.table(height_table, margin = 1)
+odds_height <- prop_height_table[, 2]/ prop_height_table[, 1]
+logodds_height <- log(odds_height)
+plot(rownames(height_table), logodds_height, main = "height", xlim = c(55, 80), ylim = c(-2.5, -0.5))
+
+weight_table <- table(diabetes$weight, diabetes$dm)
+prop_weight_table <- prop.table(weight_table, margin = 1)
+odds_weight <- prop_weight_table[,2]/ prop_weight_table[,1]
+logodds_weight <- log(odds_weight)
+plot(rownames(weight_table), logodds_weight, main = "weight", xlim = c(110, 250))
+
+bp.1s_table <- table(diabetes$bp.1s, diabetes$dm)
+prop_bp.1s_table <- prop.table(bp.1s_table, margin = 1)
+odds_prop_bp.1s <- prop_bp.1s_table[,2]/ prop_bp.1s_table[1]
+logodds_prop_bp.1s <- log(odds_prop_bp.1s)
+plot(rownames(bp.1s_table), logodds_prop_bp.1s, main = "systolic bp 1", xlim = c(100, 210))
+
+bp.2s_table <- table(diabetes$bp.2s, diabetes$dm)
+prop_bp.2s_table <- prop.table(bp.2s_table, margin = 1)
+odds_prop_bp.2s <- prop_bp.2s_table[,2]/ prop_bp.2s_table[1]
+logodds_prop_bp.2s <- log(odds_prop_bp.2s)
+plot(rownames(bp.2s_table), logodds_prop_bp.2s, main = "systolic bp 2", xlim = c(120, 220))
+
+bp.1d_table <- table(diabetes$bp.1d, diabetes$dm)
+prop_bp.1d_table <- prop.table(bp.1d_table, margin = 1)
+odds_prop_bp.1d <- prop_bp.1d_table[,2]/ prop_bp.1d_table[1]
+logodds_prop_bp.1d <- log(odds_prop_bp.1d)
+plot(rownames(bp.1d_table), logodds_prop_bp.1d, main = "diastolic bp 1")
+
+bp.2d_table <- table(diabetes$bp.2d, diabetes$dm)
+prop_bp.2d_table <- prop.table(bp.2d_table, margin = 1)
+odds_prop_bp.2d <- prop_bp.2d_table[,2]/ prop_bp.2d_table[1]
+logodds_prop_bp.2d <- log(odds_prop_bp.2d)
+plot(rownames(bp.2d_table), logodds_prop_bp.2d, main = "diastolic bp 1", xlim = c(70, 115))
+
+waist_table <- table(diabetes$waist, diabetes$dm)
+prop_waist_table <- prop.table(waist_table, margin = 1)
+odds_prop_waist <- prop_waist_table[,2]/ prop_waist_table[1]
+logodds_prop_waist <- log(odds_prop_waist)
+plot(rownames(waist_table), logodds_prop_waist, main = "waist circumference in inches")
+
+hip_table <- table(diabetes$hip, diabetes$dm)
+prop_hip_table <- prop.table(hip_table, margin = 1)
+odds_prop_hip <- prop_hip_table[,2]/ prop_hip_table[1]
+logodds_prop_hip <- log(odds_prop_hip)
+plot(rownames(hip_table), logodds_prop_hip, main = "hip circumference in inches", xlim = c(35, 65))
+
+```
+
+Positive trends between frame, bmi_cat, chol_cat and prevalence of DM were identified.
+We also note that the relationship between hdl and log odds of DM diagnosis does not appear linear.
+
+### Variable Selection
+
+When selecting the variables to include in a multiple linear regression model, it is always important to first review the literature. independent variables that are known to predict the outcome variable should be included in the model regardless of whether their associated p values fall within the threshold.
+</br> </br>
+Secondly, examining the data as we have done will help us to identify variables that are not suitable for the model. Factors to consider when deciding whether it is appropriate to include a variable in the model include:
+1. The proportion of missing data
+2. Data with narrow distributions
+3. Variables that are collinear with other candidate predictor variables
+4. Variables that do not exhibit a linear relationship with the log odds of the outcome variable
+</br> </br>
+To avoid multicollinearity, it is important to ensure that the selected predictors are not correlated. To do this, the continuous variables were screened for correlation by forming a correlation matrix. bp.2s and bp.2d were not included as they have too many missing values to be used as predictors.
+
+```
+continuous <-diabetes[, c("chol", "hdl", "ratio", "age", "height", "weight", "bp.1s", "bp.1d", "waist", "hip", "bmi")]
+cor(continuous, method = "spearman", use = "complete.obs")
+pairs(~chol + hdl + ratio + age + height + weight + bp.1s + bp.1d + waist + hip + bmi, data = diabetes)
+```
+
+Based on the matrix, systolic and diastolic blood pressure were expectedly correlated. BMI, waist, hip and weight were also strongly correlated.
+chol and ratio were moderately correlated, while hdl and ratio were strongly correlated.
+
+
