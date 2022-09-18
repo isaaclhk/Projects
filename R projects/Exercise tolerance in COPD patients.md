@@ -30,7 +30,7 @@ Categorical variables: copdseverity, agequartiles, copd, smoking </br>
 Binary variables: gender, diabetes, muscular, hypertension, atrialfib, ihd
 
 ## Code
-First, the relevant libraries and dataset are loaded. The column names are changed to all lowercase letters for simplicity, 
+First, the relevant libraries and dataset were loaded. The column names are changed to all lowercase letters for simplicity, 
 then we have a brief overview of the dataset.
 
 ```
@@ -60,7 +60,7 @@ After examining the dataset's structure, we note a few important points:
 Missing values are a common problem. In a research study, we can always approach the researcher to ask them about to the missing value. 
 However, since this dataset is fictitious, the missing value will be left empty. </br> </br>
 
-The categorical and binary variables will be changed to factors, and the first two columns of the dataset will be removed as they are not required.
+The categorical and binary variables will be changed to factors, and the first two columns of the dataset were removed as they were not required.
 </br>
 
 ```
@@ -81,7 +81,7 @@ select(-c(...1, id))
 ```
 
 </br>
-Each continuous variable is examined individually. This will give us a sense of the variable's distribution and help us to identify outliers.
+Each continuous variable was examined individually. This gives us a sense of the variable's distribution and help us to identify outliers.
 </br>
 
 ```
@@ -137,7 +137,7 @@ hospital anxiety and depression scale(HADS) shuold range between 0 to 21, but in
 </br> </br>
 In a research study, we would always approach the researcher to clarify whether the outlier is an error in data entry. 
 sometimes the error can be rectified by replacing erroneous data with the accurate one. 
-However for this project, the incorrect data will be removed.
+However for this project, the incorrect data was removed.
 </br>
 
 ```
@@ -154,7 +154,7 @@ hist(data$had, main = "had")
 ```
 
 </br>
-As with the continuous variables, the categorical and binary variables are also examined.
+As with the continuous variables, the categorical and binary variables were also examined.
 </br>
 
 ```
@@ -176,7 +176,7 @@ After looking at the data, we note that:
 1. there are only 2 distinct values: ex- smokers and current smokers. there are no non-smokers in this sample.
 2. copd and copdseverity are duplicates.
 </br> </br>
-Hence, copdseverity will be removed. mwt1 and mwt2 will also be removed as they are measures that directly determine the outcome mwt1best, so they should not be considered as candidate predictors.
+Hence, copdseverity was removed. mwt1 and mwt2 were also removed as they are measures that directly determine the outcome mwt1best, so they should not be considered as candidate predictors.
 </br>
 
 ```
@@ -184,8 +184,8 @@ data <- data %>% select(-c(copd, mwt1, mwt2))
 ```
 
 </br>
-Due to limitations of sample size, comorbid conditions cannot be analysed as individual predictors. 
-They will be combined to a single binomial variable "comorbid" to reduce the number of predictors and avoid overfitting.
+Due to limitations of sample size, comorbid conditions could not be analysed as individual predictors. 
+They were combined to a single binomial variable "comorbid" to reduce the number of predictors and avoid overfitting.
 </br>
 
 ```
@@ -322,7 +322,7 @@ Secondly, examining the data as we have done will help us to identify variables 
 To avoid multicollinearity, it is important to ensure that the selected predictors are independent.
 Since fev1, fev1pred, fvc and fvcpred are all measures of lung volume, it is expected for them to be highly correlated.
 CAT and SGRQ are also expected to be correlated as they are both measures of COPD severity.
-This is confirmed by examining the correlation matrix.
+This was confirmed by examining the correlation matrix.
 </br>
 
 ```
@@ -335,13 +335,13 @@ pairs(~age + packhistory + fev1 + fev1pred + fvc + fvcpred + cat + had + sgrq, d
 
 </br>
 variables that are highly correlated must be excluded to ensure indepdence of predictor variables in the multiple linear regression model.
-Amongst the different measures of lung function, fev1 explains the most variance. Therefore it will be included in the final model.
+Amongst the different measures of lung function, fev1 explains the most variance. Therefore it was included in the final model.
 </br> </br>
-As CAT, SGRQ and copdseverity are all measures of COPD severity, only one of these will be included in the multiple linear regression model.
-Amongst these measures, SGRQ explains the most variance. Therefore it will be included in the final model.
+As CAT, SGRQ and copdseverity are all measures of COPD severity, only one of these were included in the multiple linear regression model.
+Amongst these measures, SGRQ explains the most variance. Therefore it was be included in the final model.
 </br> </br>
 Packhistory and smoking, age and agequartiles are also likely to be collinear.
-Packhistory and age will be favoured for inclusion in the multiple linear regression model as they provide more information.
+Packhistory and age were favoured for inclusion in the multiple linear regression model as they provide more information.
 </br></br>
 There are methods of automated variable selection such as stepwise, foward and backwards selection that can help us decide which variables to include in the multiple linear regression model. </br>
 
@@ -349,7 +349,7 @@ However, such methods [come with limitations](https://www.stata.com/support/faqs
 It is imperative to be intentional about developing a model that best answers the research question by manually selecting predictors. However, when elimination is necessary, backwards selection can still be used with caution.
 </br></br>
 
-The predictor variables we will include in the final regression model are:
+The predictor variables included in the final regression model were:
 1. age
 2. packhistory
 3. fev1
