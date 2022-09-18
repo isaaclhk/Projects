@@ -313,13 +313,13 @@ When selecting the variables to include in a multiple linear regression model, i
 independent variables that are known to predict the outcome variable should be included in the model regardless of whether their associated p values fall within the threshold. </br> </br>
 
 Secondly, examining the data as we have done will help us to identify variables that are not suitable for the model. Factors to consider when deciding whether it is appropriate to include a variable in the model include:
-1. The proportion of missing data, 
+1. The proportion of missing data
 2. Data with narrow distributions 
 3. Variables that are collinear with other candidate predictor variables
 4. Variables that do not exhibit a linear relationship with the outcome variable
 </br> </br>
 
-To avoid multicollinearity, it is important to ensure that the selected predictors are independent.
+To avoid multicollinearity, it is important to ensure that the selected predictors are not correlated.
 Since fev1, fev1pred, fvc and fvcpred are all measures of lung volume, it is expected for them to be highly correlated.
 CAT and SGRQ are also expected to be correlated as they are both measures of COPD severity.
 This was confirmed by examining the correlation matrix.
