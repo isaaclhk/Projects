@@ -54,12 +54,12 @@ diabetes %>% filter(stab.glu >= 200 & dm == "no" | glyhb >= 6.5 & dm == "no")
 6 patients who were not diagnosed with DM were found to meet the criteria for DM diagnosis. Where possible, this discrepency should be clarified with the researcher.
 </br> </br>
 After examining the data, 403 observations were noted. Furthermore, variables meant to be categorical were characters or integers. These will be changed to factors.
-</br>
+</br> </br>
 It is sometimes useful to categorize patients into groups, for example by BMI or cholesterol levels, as thresholds are often used for clinical decision-making. Categorizing can also make it easier to track proportions of patients who meet certain thresholds. 
-</br>
-For this analysis, age, BMI and cholesterol will be categorised.
-We note that there are some columns and variables that are either not relevant to the research question or are not appropriate as candidate predictors.
-stab.glu and glyhb will be removed because they are used as diagnostic criteria for diabetes, hence not appropriate to be used as a predictor for our outcome DM.
+</br> </br>
+For this analysis, age, BMI and cholesterol were categorised.
+It was noted that some columns and variables were either irrelevant to the research question or not appropriate as candidate predictors.
+stab.glu and glyhb were removed because they are used as diagnostic criteria for diabetes, hence not appropriate as predictors of DM.
 time.ppn will also be removed as it is not a candidate predictor.
 
 ```
@@ -93,7 +93,7 @@ diabetes <- diabetes %>% mutate(
 
 str(diabetes)
 ```
-Each variable is examined individually to observe the data's distribution and identify outliers.
+Each variable was examined individually to observe the data's distribution and identify outliers.
 
 ```
 #examining individual variables
@@ -148,8 +148,8 @@ describe(diabetes$bmi_cat, exclude.missing = FALSE)
 describe(diabetes$chol_cat, exclude.missing = FALSE)
 ```
 
-Note that an outlier is seen on the histogram of the ratio variable. When in doubt, always clarify with the researcher whether or not the data could be spurious.
-Also note that there are only 9 underweight participants. As the distribution of patients in this category is too narrow, the underweight and normal BMI categories will be combined to form a single category.
+An outlier was seen on the histogram of the ratio variable. When in doubt, always clarify with the researcher whether or not the data could be spurious.
+Also note that there were only 9 underweight participants. As the distribution of patients in this category was too narrow, the underweight and normal BMI categories were combined to form a single category.
 
 ```
 #combining BMI categories
