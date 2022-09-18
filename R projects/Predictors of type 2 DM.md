@@ -28,8 +28,8 @@ This analysis performed on a dataset obtained from the 3rd course of the Statist
 22. dm <- yes or no
 
 ## Code
-First, the relevant libraries and dataset are loaded. 
-The column names are changed to all lowercase letters for simplicity, then we have a brief overview of the dataset.
+First, the relevant libraries and dataset were loaded. 
+The column names were changed to all lowercase letters for simplicity, then we have a brief overview of the dataset.
 
 ```
 #loading libraries and dataset
@@ -51,9 +51,13 @@ The data from these variables can be checked against the patient's diagnosis of 
 diabetes %>% filter(stab.glu >= 200 & dm == "no" | glyhb >= 6.5 & dm == "no")
 ```
 
-6 patients were found to meet the criteria for DM diagnosis, but are not diagnosed with DM. Where possible, this discrepency should be clarified with the researcher.
+6 patients who were not diagnosed with DM were found to meet the criteria for DM diagnosis. Where possible, this discrepency should be clarified with the researcher.
+</br> </br>
+After examining the data, 403 observations were noted. Furthermore, variables meant to be categorical were characters or integers. These will be changed to factors.
 </br>
-After examining the data, we note that there are 403 observations, and that variables meant to be categorical are characters or integers. These will be changed to factors. It is sometimes useful to categorize patients into groups, for example by BMI or cholesterol levels, as thresholds are often used for clinical decision-making. Categorizing can also make it easier to track proportions of patients who meet certain thresholds. For this analysis, age, BMI and cholesterol will be categorised.
+It is sometimes useful to categorize patients into groups, for example by BMI or cholesterol levels, as thresholds are often used for clinical decision-making. Categorizing can also make it easier to track proportions of patients who meet certain thresholds. 
+</br>
+For this analysis, age, BMI and cholesterol will be categorised.
 We note that there are some columns and variables that are either not relevant to the research question or are not appropriate as candidate predictors.
 stab.glu and glyhb will be removed because they are used as diagnostic criteria for diabetes, hence not appropriate to be used as a predictor for our outcome DM.
 time.ppn will also be removed as it is not a candidate predictor.
@@ -89,6 +93,68 @@ diabetes <- diabetes %>% mutate(
 
 str(diabetes)
 ```
+Each variable is examined individually to observe the data's distribution and identify outliers.
+
+```
+#examining individual variables
+summary(diabetes$chol, exclude = NULL)
+hist(diabetes$chol, main = "chol", breaks = 15)
+
+summary(diabetes$hdl, exclude = NULL)
+hist(diabetes$hdl, main = "hdl", breaks = 15)
+
+summary(diabetes$ratio, exclude = NULL)
+hist(diabetes$ratio, main = "ratio", breaks = 15) 
+
+summary(diabetes$age, exclude = NULL)
+hist(diabetes$age, main = "age", breaks = 15)
+
+summary(diabetes$height, exclude = NULL)
+hist(diabetes$height, main = "height", breaks = 15)
+
+summary(diabetes$weight, exclude = NULL)
+hist(diabetes$weight, main = "weight", breaks = 15)
+
+summary(diabetes$bp.1s, exclude = NULL)
+hist(diabetes$bp.1s, main = "systolic bp 1", breaks = 15)
+
+summary(diabetes$bp.2s, exclude = NULL)
+hist(diabetes$bp.2s, main = "systolic bp 2", breaks = 15)
+
+summary(diabetes$bp.1d, exclude = NULL)
+hist(diabetes$bp.1d, main = "diastolic bp 1", breaks = 15)
+
+summary(diabetes$bp.2d, exclude = NULL)
+hist(diabetes$bp.2d, main = "diastolic bp 2", breaks = 15)
+
+## notice many missing values in 2s and 2d
+
+summary(diabetes$waist, exclude = NULL)
+hist(diabetes$waist, main = "waist circumference, inches", breaks = 15)
+
+summary(diabetes$hip, exclude = NULL)
+hist(diabetes$hip, main = "hip circumference, inches", breaks = 15)
 
 
+describe(diabetes$location, exclude.missing = FALSE)
+describe(diabetes$gender, exclude.missing = FALSE)
+describe(diabetes$frame, exclude.missing = FALSE)
+describe(diabetes$insurance, exclude.missing = FALSE)
+describe(diabetes$fh, exclude.missing = FALSE)
+describe(diabetes$smoking, exclude.missing = FALSE)
+describe(diabetes$dm, exclude.missing = FALSE)
+describe(diabetes$age_group, exclude.missing = FALSE)
+describe(diabetes$bmi_cat, exclude.missing = FALSE) 
+describe(diabetes$chol_cat, exclude.missing = FALSE)
+```
 
+Note that an outlier is seen on the histogram of the ratio variable. When in doubt, always clarify with the researcher whether or not the data could be spurious.
+Also note that there are only 9 underweight participants. As the distribution of patients in this category is too narrow, the underweight and normal BMI categories will be combined to form a single category.
+
+```
+#combining BMI categories
+levels(diabetes$bmi_cat)
+diabetes <- diabetes %>% mutate(bmi_cat = fct_recode(bmi_cat, 
+                   "normal or less" = "normal",
+                   "normal or less" = "underweight"))
+```
