@@ -55,7 +55,7 @@ After examining the dataset's structure, we note a few important points:
 
 1. The sample size is n = 101.
 2. Missing values are present in mwt1, mwt2, and mwt1best.
-3. Most variables are numeric, except for copdseverity which is character.
+3. Most variables are numeric, except for copdseverity which is character. Categorical variables will need to be changed to factors.
 
 Missing values are a common problem. In a research study, we can always approach the researcher to ask them about to the missing value. 
 However, since this dataset is fictitious, the missing value will be left empty. </br> </br>
