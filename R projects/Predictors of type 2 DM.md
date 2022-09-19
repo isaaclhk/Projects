@@ -291,6 +291,11 @@ exp(confint(model))
 The results of the initial model are shown below:
 
 ```
+Call:
+glm(formula = dm ~ age + gender + height + location + smoking + 
+    fh + bp.1s + bmi + chol + insurance, family = binomial(link = "logit"), 
+    data = diabetes)
+
 Deviance Residuals: 
     Min       1Q   Median       3Q      Max  
 -1.9065  -0.5524  -0.3428  -0.1661   2.7004  
@@ -321,9 +326,43 @@ Residual deviance: 255.96  on 366  degrees of freedom
 AIC: 281.96
 
 Number of Fisher Scoring iterations: 6
+
+> exp(sum_model$coefficients)
+                   Estimate Std. Error     z value Pr(>|z|)
+(Intercept)    4.080140e-08 109.613922  0.02671696 1.000292
+age            1.057157e+00   1.012481 88.33102951 1.000007
+gendermale     8.323621e-01   1.593578  0.67451187 2.001214
+height         1.115736e+00   1.064936  5.70121476 1.085173
+locationLouisa 8.518950e-01   1.389710  0.61442460 1.870507
+smoking2       9.201621e-01   1.449078  0.79906179 2.276207
+smoking3       8.848598e-01   1.659045  0.78534228 2.245802
+fh1            3.108086e+00   1.441051 22.28028451 1.001913
+bp.1s          1.006396e+00   1.007460  2.35793692 1.478473
+bmi            1.081716e+00   1.025681 22.14729993 1.001952
+chol           1.010018e+00   1.003494 17.42865953 1.004271
+insurance1     7.533025e-01   1.474640  0.48222362 1.593271
+insurance2     5.609816e-01   1.494567  0.23726828 1.162153
+> exp(confint(model))
+Waiting for profiling to be done...
+                      2.5 %       97.5 %
+(Intercept)    2.718202e-12 0.0002848735
+age            1.032578e+00 1.0842709197
+gendermale     3.308809e-01 2.0653166214
+height         9.894877e-01 1.2666464327
+locationLouisa 4.450972e-01 1.6258215395
+smoking2       4.480238e-01 1.9320984912
+smoking3       3.174662e-01 2.3476317654
+fh1            1.509314e+00 6.3696747781
+bp.1s          9.916247e-01 1.0211652105
+bmi            1.029682e+00 1.1379428558
+chol           1.003234e+00 1.0171431111
+insurance1     3.494859e-01 1.6150672516
+insurance2     2.517428e-01 1.2267936673
 ```
 
-age, family history, bmi, and cholesterol were significantly correlated with the log odds of DM diagnosis. It was surprising that blood pressure was not a significant result because the evidence of its relationship with DM is strong in the literature. To investigate this, we check whether blood pressure is significantly correlated with other predictor variables.
+Age, family history, bmi, and cholesterol were significantly correlated with the log odds of DM diagnosis. It was surprising that blood pressure was not a significant result because the evidence of its relationship with DM is strong in the literature. The exponentiated coefficients show the odds of being diagnosed with DM for every unit change in the corresponding predictor variable. For example, every year increase in age was estimated to multiply the odds of being diagnosed by 1.03, and having family history of DM was estimated to multiply the odds by 1.51. the 95% confidence intervals were also printed.
+
+To understand why the relationship between blood pressure and DM was not significant in this model, we checked whether blood pressure is significantly correlated with other predictor variables.
 
 ```
 #colinearity check
@@ -352,6 +391,8 @@ sum_model2 <- summary(model2)
 sum_model2
 exp(sum_model$coefficients)
 exp(confint(model))
+
+vif(model2)
 ```
 
 The results of the second model are printed below:
@@ -383,7 +424,22 @@ Number of Fisher Scoring iterations: 5
 ```
 
 The standard errors of every variable has reduced, but not unexpectedly large differences were seen (this is a good sign). 
-The relationship between bp.1s and DM is still insignificant.
+The relationship between bp.1s and DM is still insignificant. </br> </br>
+In the third model, bp.1s was replaced with bp.1d.
+
+```
+model3 <- glm(data = diabetes, dm~age + bp.1d + fh + bmi + chol, family = binomial(link = "logit"))
+sum_model3 <- summary(model3)
+sum_model3
+exp(sum_model$coefficients)
+exp(confint(model))
+
+vif(model3)
+```
+Results of the third model are printed below:
+
+```
+
 
 
 
@@ -392,7 +448,7 @@ To quality of a model can be assess in two ways:
 2. Goodness of fit
 
 The predictive power of a model can be measured either by using R squared or c statistic. </br>
-R squared is also used for assessing linear regression models. in logistic regressions, a slightly different method (mcfadden's pseudo R squared) is used, but the interpretation is similar. R squared measures the proportion of variance that can be explained by the predictor variables. </br>
+R squared is also used for assessing linear regression models. in logistic regressions, a slightly different method (mcfadden's pseudo R squared) is used, but the interpretation is similar. R squared measures the proportion of variance that can be explained by the predictor variables. </br></br>
 The c statistic is a measure of discrimination- it measures how well a model can distinguish between those who have and do not have the outcome of interest.
 The receiver operating characteristic (ROC) curve is a plot of sensitivity/ 1 - specificity, and the concordonce statistic is the area under a ROC curve. A c statistic of 0.5 indicates that a model is only as good at predicting the outcome as random chance, and a c statistic of 1 indicates perfect prediction.
 
