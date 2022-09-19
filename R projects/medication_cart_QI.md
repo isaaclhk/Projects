@@ -1,4 +1,4 @@
-*Note: Data from this project will not be reported here. However, the methodology described below is reproducible and can be used for similar projects.
+*Note: Data from this project will not be reported here. However, the methodology described below is reproducible and can be used for similar projects.*
 
 # Medication Cart Quality Improvement Project
 
