@@ -1,7 +1,7 @@
 # Predictors of Type 2 Diabetes Mellitus
 
 ## Background
-This analysis performed on a dataset obtained from the 3rd course of the Statistical Analysis with R for Public Health specialization: Logistic Regression in R for public health. The dataset can be found [here](https://github.com/isaaclhk/Projects/blob/main/datasets/diabetes.csv). The outcome variable for this analysis is dm, a binary variable indicating whether or not a participant is diagnosed with type 2 diabetes mellitus. The aim of this project is to identify predictors of Type 2 DM and quantify their risks.
+This analysis performed on a dataset obtained from the 3rd course of the Statistical Analysis with R for Public Health specialization: Logistic Regression in R for public health. The dataset can be found [here](https://github.com/isaaclhk/Projects/blob/main/datasets/diabetes.csv). The outcome variable for this analysis is dm, a binary variable indicating whether or not a participant is diagnosed with type 2 diabetes mellitus (DM). The aim of this project is to identify predictors of Type 2 DM and quantify their risks.
 
 ### Variables in the dataset
 1. chol <- total cholesterol in mg/dL
@@ -235,7 +235,7 @@ bp.2d_table <- table(diabetes$bp.2d, diabetes$dm)
 prop_bp.2d_table <- prop.table(bp.2d_table, margin = 1)
 odds_prop_bp.2d <- prop_bp.2d_table[,2]/ prop_bp.2d_table[1]
 logodds_prop_bp.2d <- log(odds_prop_bp.2d)
-plot(rownames(bp.2d_table), logodds_prop_bp.2d, main = "diastolic bp 1", xlim = c(70, 115))
+plot(rownames(bp.2d_table), logodds_prop_bp.2d, main = "diastolic bp 2", xlim = c(70, 115))
 
 waist_table <- table(diabetes$waist, diabetes$dm)
 prop_waist_table <- prop.table(waist_table, margin = 1)
@@ -264,7 +264,9 @@ Secondly, examining the data as we have done will help us to identify variables 
 3. Variables that are collinear with other candidate predictor variables
 4. Variables that do not exhibit a linear relationship with the log odds of the outcome variable
 </br> </br>
-To avoid multicollinearity, it is important to ensure that the selected predictors are not correlated. To do this, the continuous variables were screened for correlation by forming a correlation matrix. bp.2s and bp.2d were not included as they have too many missing values to be used as predictors.
+bp.2s and bp.2d were not included in the model as they had large proportions of missing data. There was a narrow distribution of patients in the underweight category of bmi_cat, but that was resolved by combining the normal and underweight levels. hdl was also excluded from the model as it did not appear to have a linear relationship with the log odds of DM diagnosis.
+
+To verify that predictor variables are not collinear, the continuous variables were screened for correlation by forming a correlation matrix.
 
 ```
 continuous <-diabetes[, c("chol", "hdl", "ratio", "age", "height", "weight", "bp.1s", "bp.1d", "waist", "hip", "bmi")]
@@ -272,7 +274,118 @@ cor(continuous, method = "spearman", use = "complete.obs")
 pairs(~chol + hdl + ratio + age + height + weight + bp.1s + bp.1d + waist + hip + bmi, data = diabetes)
 ```
 
-Based on the matrix, systolic and diastolic blood pressure were expectedly correlated. BMI, waist, hip and weight were also strongly correlated.
+Based on the matrix, systolic and diastolic blood pressure were expectedly correlated. bmi, waist, hip and weight were also strongly correlated.
 chol and ratio were moderately correlated, while hdl and ratio were strongly correlated.
+</br> </br>
+Between bmi, waist, hip and weight, bmi will be chosen as a predictor as the evidence for it is strong in the literature. Between chol and ratio, chol will be chosen as there was an outlying value in ratio. Models that include bp.1s and bp.1d will be tested to identify the better predictor.
+
+```
+null_model<- glm(data = diabetes, dm~1, family = binomial(link = "logit"))
+
+model <- glm(data= diabetes, dm~ age + gender + height +location + smoking + fh + bp.1s + bmi + chol + insurance, family = binomial(link = "logit"))
+sum_model <- summary(model)
+sum_model
+exp(sum_model$coefficients)
+exp(confint(model))
+```
+The results of the initial model is shown below:
+
+```
+Deviance Residuals: 
+    Min       1Q   Median       3Q      Max  
+-1.9065  -0.5524  -0.3428  -0.1661   2.7004  
+
+Coefficients:
+                 Estimate Std. Error z value Pr(>|z|)    
+(Intercept)    -17.014550   4.696964  -3.622 0.000292 ***
+age              0.055583   0.012404   4.481 7.43e-06 ***
+gendermale      -0.183488   0.465982  -0.394 0.693754    
+height           0.109515   0.062915   1.741 0.081740 .  
+locationLouisa  -0.160292   0.329095  -0.487 0.626209    
+smoking2        -0.083205   0.370928  -0.224 0.822511    
+smoking3        -0.122326   0.506242  -0.242 0.809063    
+fh1              1.134007   0.365372   3.104 0.001911 ** 
+bp.1s            0.006375   0.007432   0.858 0.391010    
+bmi              0.078549   0.025357   3.098 0.001950 ** 
+chol             0.009968   0.003488   2.858 0.004262 ** 
+insurance1      -0.283288   0.388414  -0.729 0.465789    
+insurance2      -0.578067   0.401836  -1.439 0.150274    
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+(Dispersion parameter for binomial family taken to be 1)
+
+    Null deviance: 324.38  on 378  degrees of freedom
+Residual deviance: 255.96  on 366  degrees of freedom
+  (24 observations deleted due to missingness)
+AIC: 281.96
+
+Number of Fisher Scoring iterations: 6
+```
+
+age, family history, bmi, and cholesterol were significantly correlated with the log odds of DM diagnosis. It was surprising that blood pressure was not a significant result because the evidence of its relationship with DM is strong in the literature. To investigate this, we check whether blood pressure is significantly correlated with other predictor variables.
+
+```
+#colinearity check
+cor.test(diabetes$bp.1s, diabetes$age)
+cor.test(diabetes$bp.1s, diabetes$height)
+cor.test(diabetes$bp.1s, diabetes$bmi)
+cor.test(diabetes$bp.1s, diabetes$chol)
+
+cor.test(diabetes$bp.1d, diabetes$age)
+cor.test(diabetes$bp.1d, diabetes$height)
+cor.test(diabetes$bp.1d, diabetes$bmi)
+cor.test(diabetes$bp.1d, diabetes$chol)
+
+library(car)
+vif(model)
+```
+
+Based on our investigation, bp.1s was moderately and significantly correlated to age, and mildly but significantly correlated with bmi and cholesterol.
+bp.1d is also mildly but significantly correlated with bmi and cholesterol. However, vif values are within acceptable range.
+
+
+
+To quality of a model can be assess in two ways:
+1. Predictive power
+2. Goodness of fit
+
+The predictive power of a model can be measured either by using R squared or c statistic. </br>
+R squared is also used for assessing linear regression models. in logistic regressions, a slightly different method (mcfadden's pseudo R squared) is used, but the interpretation is similar. R squared measures the proportion of variance that can be explained by the predictor variables. </br>
+The c statistic is a measure of discrimination- it measures how well a model can distinguish between those who have and do not have the outcome of interest.
+The receiver operating characteristic (ROC) curve is a plot of sensitivity/ 1 - specificity, and the concordonce statistic is the area under a ROC curve. A c statistic of 0.5 indicates that a model is only as good at predicting the outcome as random chance, and a c statistic of 1 indicates perfect prediction.
+
+```
+library(car)
+predicted <- predict(model, diabetes, type = "response")
+predicted
+
+library(pROC)
+roc <- roc(diabetes$dm, predicted)
+auc <- round(auc(diabetes$dm, predicted), digits = 4)
+ggroc(roc, color = "blue") + ggtitle(paste0("ROC curve ", "(AUC = ", auc, ")"))
+```
+
+The goodness of fit of a model can be measured by examining the residual deviance. The residual deviance is provided in the model summary and is a measure of the difference between the log likelihoods of outcomes in the saturated and the proposed models. To test whether a parameter in the model decreases the deviance by a significant amount for the degrees of freedom taken by the parameter, we can use a chi-square test which generates a p-value. </br>
+Another way to assess goodness of fit is to use the Akaike Information Criterion (AIC) provided in the model summary. AIC is no use by itself but it can be used to compare to or more models, where a smaller value suggests better fit. </br>
+A third method to measure goodness of fit is the hosmer-lemeshow statistic and test.
+Using this method, participants are grouped into typically 10 groups, according to their predicted values. The observed number of outcomes are compared with the predicted number of outcomes using pearson's chi-square test. a large p value indicates that the model is a good fit.
+The hosmer lemeshow method has limitations when sample sizes are too small or too large. Another issue is that there is no good way of deciding on the number of groups to split the participants into. Nonetheless, it will be demonstrated in this project for learning purposes.
+
+```
+anova(model, test = "Chisq")
+
+library(ResourceSelection)
+HL <- hoslem.test(x = model$y, y = fitted(model), g = 10)
+HL
+
+# plot of predicted value's prevalence against observed value's prevalence
+plot(x = HL$observed[, "y1"]/ (HL$observed[,"y1"] + HL$observed[, "y0"]),
+     y = HL$expected[, "yhat1"]/ (HL$expected[, "yhat1"] + HL$expected[, "yhat0"]))
+```
+
+
+
+
 
 
