@@ -342,7 +342,48 @@ vif(model)
 ```
 
 Based on our investigation, bp.1s was moderately and significantly correlated to age, and mildly but significantly correlated with bmi and cholesterol.
-bp.1d is also mildly but significantly correlated with bmi and cholesterol. However, vif values are within acceptable range.
+bp.1d is also mildly but significantly correlated with bmi and cholesterol. However, vif values are within acceptable range. </br> </br>
+
+Due to the small sample size and relatively small proportion of participants who are diagnosed with diabetes (n = 60), the number of predictors we can expect to have is few.  A general rule of thumb to avoid over fitting is to have at least 10 events or participants per variable. Therefore, backward elimination was applied to retain variables that have demonstrated a significant relationship with the outcome. However, blood pressure was retained because of its known relationship with DM.
+
+```
+model2 <- glm(data= diabetes, dm~ age + bp.1s + fh + bmi + chol, family = binomial(link = "logit"))
+sum_model2 <- summary(model2)
+sum_model2
+exp(sum_model$coefficients)
+exp(confint(model))
+```
+
+The results of the second model are printed below:
+
+```
+Deviance Residuals: 
+    Min       1Q   Median       3Q      Max  
+-1.7216  -0.5630  -0.3584  -0.2069   2.7581  
+
+Coefficients:
+             Estimate Std. Error z value Pr(>|z|)    
+(Intercept) -9.335135   1.392694  -6.703 2.04e-11 ***
+age          0.048777   0.011267   4.329 1.50e-05 ***
+bp.1s        0.005392   0.006959   0.775  0.43848    
+fh1          1.096957   0.354464   3.095  0.00197 ** 
+bmi          0.065334   0.023185   2.818  0.00483 ** 
+chol         0.009756   0.003403   2.867  0.00414 ** 
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+(Dispersion parameter for binomial family taken to be 1)
+
+    Null deviance: 324.38  on 378  degrees of freedom
+Residual deviance: 263.76  on 373  degrees of freedom
+  (24 observations deleted due to missingness)
+AIC: 275.76
+
+Number of Fisher Scoring iterations: 5
+```
+
+The standard errors of every variable has reduced, but not unexpectedly large differences were seen (this is a good sign). 
+The relationship between bp.1s and DM is still insignificant.
 
 
 
