@@ -288,7 +288,7 @@ sum_model
 exp(sum_model$coefficients)
 exp(confint(model))
 ```
-The results of the initial model is shown below:
+The results of the initial model are shown below:
 
 ```
 Deviance Residuals: 
