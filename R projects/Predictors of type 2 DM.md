@@ -360,7 +360,7 @@ insurance1     3.494859e-01 1.6150672516
 insurance2     2.517428e-01 1.2267936673
 ```
 
-Age, family history, bmi, and cholesterol were significantly correlated with the log odds of DM diagnosis. It was surprising that blood pressure was not a significant result because the evidence of its relationship with DM is strong in the literature. The exponentiated coefficients show the odds of being diagnosed with DM for every unit change in the corresponding predictor variable. For example, every year increase in age was estimated to multiply the odds of being diagnosed by 1.03, and having family history of DM was estimated to multiply the odds by 1.51. the 95% confidence intervals were also printed.
+Age, family history, bmi, and cholesterol were significantly correlated with the log odds of DM diagnosis. It is surprising that blood pressure was not a significant result because the evidence of its relationship with DM is strong in the literature. The exponentiated coefficients show the odds of being diagnosed with DM for every unit change in the corresponding predictor variable. For example, every year increase in age was estimated to multiply the odds of being diagnosed by 1.03, and having family history of DM was estimated to multiply the odds by 1.51. the 95% confidence intervals were also printed.
 
 To understand why the relationship between blood pressure and DM was not significant in this model, we checked whether blood pressure is significantly correlated with other predictor variables.
 
@@ -389,13 +389,13 @@ Due to the small sample size and relatively small proportion of participants who
 model2 <- glm(data= diabetes, dm~ age + bp.1s + fh + bmi + chol, family = binomial(link = "logit"))
 sum_model2 <- summary(model2)
 sum_model2
-exp(sum_model$coefficients)
-exp(confint(model))
+exp(sum_model2$coefficients)
+exp(confint(model2))
 
 vif(model2)
 ```
 
-The results of the second model are printed below:
+The model summary of the second model are printed below:
 
 ```
 Deviance Residuals: 
@@ -423,8 +423,8 @@ AIC: 275.76
 Number of Fisher Scoring iterations: 5
 ```
 
-The standard errors of every variable has reduced, but not unexpectedly large differences were seen (this is a good sign). 
-The relationship between bp.1s and DM is still insignificant. </br> </br>
+The standard errors of every variable were reduced, but no unexpectedly large differences were seen (this is a good sign). 
+The relationship between bp.1s and DM remained insignificant. </br> </br>
 In the third model, bp.1s was replaced with bp.1d.
 
 ```
@@ -436,33 +436,85 @@ exp(confint(model))
 
 vif(model3)
 ```
-Results of the third model are printed below:
+The model summary of the third model is printed below:
 
 ```
 
+Deviance Residuals: 
+    Min       1Q   Median       3Q      Max  
+-1.5961  -0.5674  -0.3514  -0.2048   2.7781  
 
+Coefficients:
+             Estimate Std. Error z value Pr(>|z|)    
+(Intercept) -9.235788   1.567238  -5.893 3.79e-09 ***
+age          0.052363   0.010447   5.012 5.38e-07 ***
+bp.1d        0.004838   0.012495   0.387  0.69858    
+fh1          1.090801   0.353830   3.083  0.00205 ** 
+bmi          0.066542   0.023111   2.879  0.00399 ** 
+chol         0.009903   0.003406   2.907  0.00364 ** 
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
+(Dispersion parameter for binomial family taken to be 1)
 
-To quality of a model can be assess in two ways:
+    Null deviance: 324.38  on 378  degrees of freedom
+Residual deviance: 264.20  on 373  degrees of freedom
+  (24 observations deleted due to missingness)
+AIC: 276.2
+
+Number of Fisher Scoring iterations: 5
+```
+In the third, the relationship between diastolic blood pressure and DM diagnosis is insignificant. </br> </br>
+
+### Assessing model fit and predictive power
+
+The quality of a model can be assess in two ways:
 1. Predictive power
-2. Goodness of fit
+2. Goodness of fit </br> </br>
 
+**Predictive power**
 The predictive power of a model can be measured either by using R squared or c statistic. </br>
 R squared is also used for assessing linear regression models. in logistic regressions, a slightly different method (mcfadden's pseudo R squared) is used, but the interpretation is similar. R squared measures the proportion of variance that can be explained by the predictor variables. </br></br>
 The c statistic is a measure of discrimination- it measures how well a model can distinguish between those who have and do not have the outcome of interest.
 The receiver operating characteristic (ROC) curve is a plot of sensitivity/ 1 - specificity, and the concordonce statistic is the area under a ROC curve. A c statistic of 0.5 indicates that a model is only as good at predicting the outcome as random chance, and a c statistic of 1 indicates perfect prediction.
 
 ```
-library(car)
+#Calculating McFadden's Pseudo R^2
+R2 <-1 - logLik(model)/logLik(null_model)
+R2
+
+R2_2 <- 1- loglik(model2)/loglik(null_model)
+R2_2
+
+R2_3 <- 1 - loglik(model3)/loglik(null_model)
+R2_3
+
+#Plotting ROC curve and calculating C statistic
 predicted <- predict(model, diabetes, type = "response")
 predicted
 
-library(pROC)
-roc <- roc(diabetes$dm, predicted)
-auc <- round(auc(diabetes$dm, predicted), digits = 4)
-ggroc(roc, color = "blue") + ggtitle(paste0("ROC curve ", "(AUC = ", auc, ")"))
-```
+predicted2 <- predict(model2, diabetes, type = "response")
+predicted2
 
+predicted3 <- predict(model3, diabetes, type = "response")
+predicted3
+
+cstat <- round(auc(diabetes$dm, predicted), digits = 4)
+cstat
+
+cstat2 <- round(auc(diabetes$dm, predicted2), digits = 4)
+cstat2
+
+cstat3 <- round(auc(diabetes$dm, predicted3), digits = 4)
+cstat3
+
+roc1 <- plot.roc(diabetes$dm, predicted, col = "red", main = "ROC comparison")
+roc2 <- lines.roc(diabetes$dm, predicted2, col = "blue")
+roc3 <- lines.roc(diabetes$dm, predicted3, col = "green")
+```
+Based on the analysis above, model 1 had the best predictive power with an R^2 value of 0.236, followed by model 2 with R^2 = 0.228, and model 3 R^2 = 0.225.
+The cstat values also suggest that model 1 had the best predictive power (cstat = 0.819). Cstat for model 2 was 0.808, and 0.805 for model 3.
+</br> </br>
 The goodness of fit of a model can be measured by examining the residual deviance. The residual deviance is provided in the model summary and is a measure of the difference between the log likelihoods of outcomes in the saturated and the proposed models. To test whether a parameter in the model decreases the deviance by a significant amount for the degrees of freedom taken by the parameter, we can use a chi-square test which generates a p-value. </br>
 Another way to assess goodness of fit is to use the Akaike Information Criterion (AIC) provided in the model summary. AIC is no use by itself but it can be used to compare to or more models, where a smaller value suggests better fit. </br>
 A third method to measure goodness of fit is the hosmer-lemeshow statistic and test.
