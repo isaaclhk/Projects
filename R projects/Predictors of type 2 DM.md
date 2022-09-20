@@ -163,7 +163,7 @@ describe(diabetes$bmi_cat, exclude.missing = FALSE)
 ```
 
 The relationships between each candidate predictor variable and the outcome variable (DM diagnosis) is analysed. The data is visualized on tables for categorical predictors and plots for continunous predictors. Inspecting the data visually helps to determine whether a linear relationship exists and whether it makes sense to include any particular variable in the final logistic regression model. </br> </br>
-Unlike linear regressions, the outcome variable in logistic regressions are binomial and consists of only two values. It doesnt make sense to plot the two values of the outcome variable on the y axis, so we plot the log of their likelihoods instead, which can take on any value from negative to positive infinity.
+Unlike linear regressions, the outcome variable in logistic regressions are binomial and consists of only two values. It doesnt make sense to plot the two values of the outcome variable on the y axis, so we plot the log of their odds instead (also known as logit), which can take on any value from negative to positive infinity. 
 
 ```
 #examining relationships between individual categorical variables and dm
