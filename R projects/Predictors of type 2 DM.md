@@ -513,8 +513,9 @@ roc2 <- lines.roc(diabetes$dm, predicted2, col = "blue")
 roc3 <- lines.roc(diabetes$dm, predicted3, col = "green")
 ```
 Based on the analysis above, model 1 had the best predictive power with an R^2 value of 0.236, followed by model 2 with R^2 = 0.228, and model 3 R^2 = 0.225.
-The cstat values also suggest that model 1 had the best predictive power (cstat = 0.819). Cstat for model 2 was 0.808, and 0.805 for model 3.
-</br> </br>
+The cstat values also suggest that model 1 had the best predictive power (cstat = 0.819). Cstat for model 2 was 0.808, and 0.805 for model 3. A plot of the ROC curve is shown in the image below. The red line represents model 1, blue = model 2, green = model 3.
+</br> ![DM_ROC](https://user-images.githubusercontent.com/71438259/191149558-042135c6-099c-44bd-bdfb-f0149685110f.jpeg)
+</br></br>
 The goodness of fit of a model can be measured by examining the residual deviance. The residual deviance is provided in the model summary and is a measure of the difference between the log likelihoods of outcomes in the saturated and the proposed models. To test whether a parameter in the model decreases the deviance by a significant amount for the degrees of freedom taken by the parameter, we can use a chi-square test which generates a p-value. </br>
 Another way to assess goodness of fit is to use the Akaike Information Criterion (AIC) provided in the model summary. AIC is no use by itself but it can be used to compare to or more models, where a smaller value suggests better fit. </br>
 A third method to measure goodness of fit is the hosmer-lemeshow statistic and test.
