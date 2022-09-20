@@ -58,7 +58,6 @@ After examining the data, 403 observations were noted. Furthermore, variables me
 It is sometimes useful to categorize patients into groups, for example by BMI or cholesterol levels, as thresholds are often used for clinical decision-making. Categorizing can also make it easier to track proportions of patients who meet certain thresholds. 
 </br> </br>
 For this analysis, age, BMI and cholesterol were categorised.
-It was noted that some columns and variables were either irrelevant to the research question or not appropriate as candidate predictors.
 stab.glu and glyhb were removed because they are used as diagnostic criteria for diabetes, hence not appropriate as predictors of DM.
 time.ppn will also be removed as it is not a candidate predictor.
 
@@ -385,7 +384,7 @@ vif(model)
 Based on our investigation, bp.1s was moderately and significantly correlated to age, and mildly but significantly correlated with bmi and cholesterol.
 bp.1d is also mildly but significantly correlated with bmi and cholesterol. However, vif values are within acceptable range. </br> </br>
 
-Due to the small sample size and relatively small proportion of participants who are diagnosed with diabetes (n = 60), the number of predictors we can expect to have is few.  A general rule of thumb to avoid over fitting is to have at least 10 events or participants per variable. Therefore, backward elimination was applied to retain variables that have demonstrated a significant relationship with the outcome. A chi-square test helps to inform us which variables to eliminate. Although systolic blood pressure was insignificant, it was retained because of its known relationship with DM.
+Due to the small sample size and relatively small proportion of participants who are diagnosed with diabetes (n = 60), the number of predictors we can expect to have is few.  A general rule of thumb to avoid over fitting is to have at least 10 events or participants per variable. Therefore, continuous cholesterol and bmi were selected as predictors instead of their categorical counterparts, whose levels are each considered a parameter. Furthermore, backward elimination was applied, retaining variables that have demonstrated a significant relationship with the outcome. A chi-square test helps to inform us which variables to eliminate. Although systolic blood pressure was insignificant, it was retained because of its known relationship with DM.
 
 ```
 model2 <- glm(data= diabetes, dm~ age + bp.1s + fh + bmi + chol, family = binomial(link = "logit"))
