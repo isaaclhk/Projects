@@ -263,6 +263,7 @@ Secondly, examining the data as we have done will help us to identify variables 
 3. Variables that are collinear with other candidate predictor variables
 4. Variables that do not exhibit a linear relationship with the log odds of the outcome variable
 </br> </br>
+
 bp.2s and bp.2d were not included in the model as they had large proportions of missing data. There was a narrow distribution of patients in the underweight category of bmi_cat, but that was resolved by combining the normal and underweight levels. hdl was also excluded from the model as it did not appear to have a linear relationship with the log odds of DM diagnosis.
 
 To verify that predictor variables are not collinear, the continuous variables were screened for correlation by forming a correlation matrix. Nominal variables can also be tested for correlation with chi-square test.
