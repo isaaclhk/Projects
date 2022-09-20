@@ -474,6 +474,8 @@ The quality of a model can be assess in two ways:
 1. Predictive power
 2. Goodness of fit </br> </br>
 
+Where possible, it is often advisable to split the dataset into a training set and a test set. Running our model on both sets will help us to verify that the generated model is robust and reproducible. However, this is not possible for this project because of the small sample size.
+
 **Predictive power** </br>
 The predictive power of a model can be measured either by using R squared or c statistic. </br>
 R squared is also used for assessing linear regression models. in logistic regressions, a slightly different method (mcfadden's pseudo R squared) is used, but the interpretation is similar. R squared measures the proportion of variance that can be explained by the predictor variables. </br></br>
@@ -607,6 +609,9 @@ plot3
 ![DM_lrm_plot](https://user-images.githubusercontent.com/71438259/191163940-6410b658-cac8-4138-9bf6-4bf6aafc2490.jpeg)
 
 ## Conclusion
+
+Out of the 3 models, model 1 has the best predictive power. This is expected because it has the most number of predictors. However, having too many predictors when the sample size is small can lead to overfitting which makes the model less robust. Between models 2 and 3, model 2 has slightly better fit and predictive power.
+</br> </br>
 The results of this analysis show that older age, family history, higher bmi and higher cholesterol increase the risk of having DM. Although  systolic blood pressure was found to be a slightly better predictor of DM than diastolic blood pressure, both blood pressure variables were not significant in our models despite the strong evidence of its relationship with DM in the literature. This insignificance may reasonably be imputed to insufficient sample size or some collinearity between blood pressure and other variables in the model.
 
 
