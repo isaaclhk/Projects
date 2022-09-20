@@ -59,7 +59,7 @@ It is sometimes useful to categorize patients into groups, for example by BMI or
 </br> </br>
 For this analysis, age, BMI and cholesterol were categorised.
 stab.glu and glyhb were removed because they are used as diagnostic criteria for diabetes, hence not appropriate as predictors of DM.
-time.ppn will also be removed as it is not a candidate predictor.
+time.ppn was also removed as it is not a candidate predictor.
 
 ```
 #categorizing
@@ -255,7 +255,7 @@ We also note that the relationship between hdl and log odds of DM diagnosis does
 
 ### Variable Selection
 
-When selecting the variables to include in a multiple linear regression model, it is always important to first review the literature. independent variables that are known to predict the outcome variable should be included in the model regardless of whether their associated p values fall within the threshold.
+When selecting the variables to include in a logistic regression model, it is always important to first review the literature. independent variables that are known to predict the outcome variable should be included in the model regardless of whether their associated p values fall within the threshold.
 </br> </br>
 Secondly, examining the data as we have done will help us to identify variables that are not suitable for the model. Factors to consider when deciding whether it is appropriate to include a variable in the model include:
 1. The proportion of missing data
@@ -277,7 +277,7 @@ pairs(~chol + hdl + ratio + age + height + weight + bp.1s + bp.1d + waist + hip 
 Based on the matrix, systolic and diastolic blood pressure were expectedly correlated. bmi, waist, hip and weight were also strongly correlated.
 chol and ratio were moderately correlated, while hdl and ratio were strongly correlated.
 </br> </br>
-Between bmi, waist, hip and weight, bmi will be chosen as a predictor as the evidence for it is strong in the literature. Between chol and ratio, chol will be chosen as there was an outlying value in ratio. Models that include bp.1s and bp.1d will be tested to identify the better predictor.
+Between bmi, waist, hip and weight, bmi was chosen as a predictor as the evidence for it is strong in the literature. Between chol and ratio, chol will be chosen as there was an outlying value in ratio. Models that include bp.1s and bp.1d will be tested to identify the better predictor.
 
 ```
 null_model<- glm(data = diabetes, dm~1, family = binomial(link = "logit"))
@@ -364,7 +364,7 @@ insurance2     2.517428e-01 1.2267936673
 
 Age, family history, bmi, and cholesterol were significantly correlated with the log odds of DM diagnosis. It is surprising that blood pressure was not a significant result because the evidence of its relationship with DM is strong in the literature. The exponentiated coefficients show the odds of being diagnosed with DM for every unit change in the corresponding predictor variable. For example, every year increase in age was estimated to multiply the odds of being diagnosed by 1.03, and having family history of DM was estimated to multiply the odds by 1.51. the 95% confidence intervals were also printed.
 
-To understand why the relationship between blood pressure and DM was not significant in this model, we checked whether blood pressure is significantly correlated with other predictor variables.
+To understand why the relationship between blood pressure and DM was not significant in this model, the correlations between blood pressure amd other predictor variables in the model was checked for colinearity.
 
 ```
 #colinearity check
@@ -478,9 +478,9 @@ Where possible, it is often advisable to split the dataset into a training set a
 
 **Predictive power** </br>
 The predictive power of a model can be measured either by using R squared or c statistic. </br>
-R squared is also used for assessing linear regression models. in logistic regressions, a slightly different method (mcfadden's pseudo R squared) is used, but the interpretation is similar. R squared measures the proportion of variance that can be explained by the predictor variables. </br></br>
+R squared is also used for assessing linear regression models. in logistic regressions, a similar method (mcfadden's pseudo R squared) with the same interpretation is used. R squared measures the proportion of variance that can be explained by the predictor variables. </br></br>
 The c statistic is a measure of discrimination- it measures how well a model can distinguish between those who have and do not have the outcome of interest.
-The receiver operating characteristic (ROC) curve is a plot of sensitivity/ 1 - specificity, and the concordonce statistic is the area under a ROC curve. A c statistic of 0.5 indicates that a model is only as good at predicting the outcome as random chance, and a c statistic of 1 indicates perfect prediction.
+The receiver operating characteristic (ROC) curve is a plot of sensitivity/ 1 - specificity, and the concordonce statistic is the area under the ROC curve. A c statistic of 0.5 indicates that a model is only as good at predicting the outcome as random chance, and a c statistic of 1 indicates perfect prediction.
 
 ```
 #Calculating McFadden's Pseudo R^2
@@ -612,7 +612,7 @@ plot3
 
 Out of the 3 models, model 1 has the best predictive power. This is expected because it has the most number of predictors. However, having too many predictors when the sample size is small can lead to overfitting which makes the model less robust. Between models 2 and 3, model 2 has slightly better fit and predictive power.
 </br> </br>
-The results of this analysis show that older age, family history, higher bmi and higher cholesterol increase the risk of having DM. Although  systolic blood pressure was found to be a slightly better predictor of DM than diastolic blood pressure, both blood pressure variables were not significant in our models despite the strong evidence of its relationship with DM in the literature. This insignificance may reasonably be imputed to insufficient sample size or some collinearity between blood pressure and other variables in the model.
+The results of this analysis show that older age, family history, higher bmi and higher cholesterol increase the risk of having DM. Although  systolic blood pressure was found to be a slightly better predictor of DM than diastolic blood pressure, both blood pressure variables were not significant in our models despite the strong evidence of its relationship with DM in the literature. This insignificance may reasonably be imputed to insufficient sample size and some collinearity between blood pressure and other variables in the model.
 
 
 
