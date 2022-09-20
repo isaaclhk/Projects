@@ -522,7 +522,7 @@ The cstat values also suggest that model 1 had the best predictive power (cstat 
 </br></br>
 
 **Goodness of fit** </br>
-The goodness of fit of a model can be measured by examining the residual deviance. The residual deviance is provided in the model summary and is a measure of the difference between the log likelihoods of outcomes in the saturated and the proposed models. To test whether a parameter in the model decreases the deviance by a significant amount for the degrees of freedom taken by the parameter, we can use a chi-square test which generates a p-value. The variables that were eliminated from model 1 were chosen based on the result of the chi-square test.
+The goodness of fit of a model can be measured by examining the residual deviance. The residual deviance is provided in the model summary and is a measure of the difference between the log odds of outcomes in the saturated and the proposed models. To test whether a parameter in the model decreases the deviance by a significant amount for the degrees of freedom taken by the parameter, we can use a chi-square test which generates a p-value. The variables that were eliminated from model 1 were chosen based on the result of the chi-square test.
 
 ```
 anova(model, test = "Chisq")
