@@ -287,6 +287,8 @@ sum_model <- summary(model)
 sum_model
 exp(sum_model$coefficients)
 exp(confint(model))
+
+anova(model, test = "Chisq")
 ```
 The results of the initial model are shown below:
 
@@ -383,7 +385,7 @@ vif(model)
 Based on our investigation, bp.1s was moderately and significantly correlated to age, and mildly but significantly correlated with bmi and cholesterol.
 bp.1d is also mildly but significantly correlated with bmi and cholesterol. However, vif values are within acceptable range. </br> </br>
 
-Due to the small sample size and relatively small proportion of participants who are diagnosed with diabetes (n = 60), the number of predictors we can expect to have is few.  A general rule of thumb to avoid over fitting is to have at least 10 events or participants per variable. Therefore, backward elimination was applied to retain variables that have demonstrated a significant relationship with the outcome. However, blood pressure was retained because of its known relationship with DM.
+Due to the small sample size and relatively small proportion of participants who are diagnosed with diabetes (n = 60), the number of predictors we can expect to have is few.  A general rule of thumb to avoid over fitting is to have at least 10 events or participants per variable. Therefore, backward elimination was applied to retain variables that have demonstrated a significant relationship with the outcome. A chi-square test helps to inform us which variables to eliminate. Although systolic blood pressure was insignificant, it was retained because of its known relationship with DM.
 
 ```
 model2 <- glm(data= diabetes, dm~ age + bp.1s + fh + bmi + chol, family = binomial(link = "logit"))
@@ -516,14 +518,34 @@ Based on the analysis above, model 1 had the best predictive power with an R^2 v
 The cstat values also suggest that model 1 had the best predictive power (cstat = 0.819). Cstat for model 2 was 0.808, and 0.805 for model 3. A plot of the ROC curve is shown in the image below. The red line represents model 1, blue = model 2, green = model 3.
 </br> ![DM_ROC](https://user-images.githubusercontent.com/71438259/191149558-042135c6-099c-44bd-bdfb-f0149685110f.jpeg)
 </br></br>
-The goodness of fit of a model can be measured by examining the residual deviance. The residual deviance is provided in the model summary and is a measure of the difference between the log likelihoods of outcomes in the saturated and the proposed models. To test whether a parameter in the model decreases the deviance by a significant amount for the degrees of freedom taken by the parameter, we can use a chi-square test which generates a p-value. </br>
-Another way to assess goodness of fit is to use the Akaike Information Criterion (AIC) provided in the model summary. AIC is no use by itself but it can be used to compare to or more models, where a smaller value suggests better fit. </br>
-A third method to measure goodness of fit is the hosmer-lemeshow statistic and test.
-Using this method, participants are grouped into typically 10 groups, according to their predicted values. The observed number of outcomes are compared with the predicted number of outcomes using pearson's chi-square test. a large p value indicates that the model is a good fit.
-The hosmer lemeshow method has limitations when sample sizes are too small or too large. Another issue is that there is no good way of deciding on the number of groups to split the participants into. Nonetheless, it will be demonstrated in this project for learning purposes.
+
+**Goodness of fit**
+The goodness of fit of a model can be measured by examining the residual deviance. The residual deviance is provided in the model summary and is a measure of the difference between the log likelihoods of outcomes in the saturated and the proposed models. To test whether a parameter in the model decreases the deviance by a significant amount for the degrees of freedom taken by the parameter, we can use a chi-square test which generates a p-value. The variables that were eliminated from model 1 were chosen based on the result of the chi-square test.
 
 ```
 anova(model, test = "Chisq")
+anova(model2, test = "Chisq")
+anova(model3, test = "Chisq")
+```
+
+Another way to assess goodness of fit is to use the Akaike Information Criterion (AIC) provided in the model summary. The AIC aims to describe how well the model fits the data while penalising models with lots of coefficients. In this context, it is the residual deviance adjusted for the number of parameters in the model. AIC is no use by itself but it can be used to compare to or more models, where a smaller value suggests better fit. As shown in the model summaries above, the AIC values for our 3 models were 281.96 (model 1), 275.76 (model 2) and 276.2 (model 3) respectively. This suggests that model 2 has the best fit out of the three.  </br>
+
+
+A third method to measure goodness of fit is the hosmer-lemeshow statistic and test.
+Using this method, participants are grouped into typically 10 groups, according to their predicted values. The observed number of outcomes are compared with the predicted number of outcomes using pearson's chi-square test. A large p value indicates that the model is a good fit.
+The hosmer lemeshow method has limitations when sample sizes are too small or too large, and there is no good way of deciding on the number of groups to split the participants into. However, a useful plot of the observed against the expected can be generated from the hosmer-lemeshow test in R.
+
+```
+library(ResourceSelection)
+HL <- hoslem.test(x = model$y, y = fitted(model), g = 10)
+HL
+
+HL2 <- hoslem.test(x = model2$y, y = fitted(model2), g = 10)
+HL2
+
+HL3 <- hoslem.test(x = model3$y, y = fitted(model3), g = 10)
+HL3
+
 
 library(ResourceSelection)
 HL <- hoslem.test(x = model$y, y = fitted(model), g = 10)
@@ -532,7 +554,61 @@ HL
 # plot of predicted value's prevalence against observed value's prevalence
 plot(x = HL$observed[, "y1"]/ (HL$observed[,"y1"] + HL$observed[, "y0"]),
      y = HL$expected[, "yhat1"]/ (HL$expected[, "yhat1"] + HL$expected[, "yhat0"]))
+
+plot(x = HL2$observed[, "y1"]/ (HL2$observed[,"y1"] + HL2$observed[, "y0"]),
+     y = HL2$expected[, "yhat1"]/ (HL2$expected[, "yhat1"] + HL2$expected[, "yhat0"]))
+
+plot(x = HL3$observed[, "y1"]/ (HL3$observed[,"y1"] + HL3$observed[, "y0"]),
+     y = HL3$expected[, "yhat1"]/ (HL3$expected[, "yhat1"] + HL3$expected[, "yhat0"]))
 ```
+The hosmer-lemeshow tests indicate that all the 3 models' predicted values are a good match for their observed value.
+</br> </br>
+Finally, the models are plotted to visualize the predicted probability of having DM and the observed cases.
+
+```
+#plot of logistic regression model
+plot_data <- data.frame(probability = predicted, dm = diabetes$dm)
+plot_data <- plot_data %>% 
+  arrange(probability) %>%
+  mutate(rank = row_number()) %>%
+  na.omit()
+
+plot_data2 <- data.frame(probability = predicted2, dm = diabetes$dm)
+plot_data2 <- plot_data %>% 
+  arrange(probability) %>%
+  mutate(rank = row_number()) %>%
+  na.omit()
+
+plot_data3 <- data.frame(probability = predicted3, dm = diabetes$dm)
+plot_data3 <- plot_data %>% 
+  arrange(probability) %>%
+  mutate(rank = row_number()) %>%
+  na.omit()
+
+plot1 <- ggplot(data = plot_data, aes(rank, probability)) + 
+  geom_point(aes(color = dm), alpha = 0.7, stroke = 2, shape = 4, size = 0.4) +
+  theme_bw() + 
+  labs(x = "Index", y = "Predicted probability of having DM", title = "model 1")
+
+plot2 <- ggplot(data = plot_data2, aes(rank, probability)) + 
+  geom_point(aes(color = dm), alpha = 0.7, stroke = 2, shape = 4, size = 0.4) +
+  theme_bw() +
+  labs(x = "Index", y = "Predicted probability of having DM", title = "model 2")
+
+plot3 <- ggplot(data = plot_data3, aes(rank, probability)) + 
+  geom_point(aes(color = dm), alpha = 0.7, stroke = 2, shape = 4, size = 0.4) +
+  theme_bw() +
+  labs(x = "Index", y = "Predicted probability of having DM", title = "model 3")
+
+plot1
+plot2
+plot3
+```
+![DM_lrm_plot](https://user-images.githubusercontent.com/71438259/191163940-6410b658-cac8-4138-9bf6-4bf6aafc2490.jpeg)
+
+## Conclusion
+The results of this analysis show that older age, family history, higher bmi and higher cholesterol increase the risk of having DM. Although  systolic blood pressure was found to be a slightly better predictor of DM than diastolic blood pressure, both blood pressure variables were not significant in our models despite the strong evidence of its relationship with DM in the literature. This insignificance may reasonably be imputed to insufficient sample size or some collinearity between blood pressure and other variables in the model.
+
 
 
 
