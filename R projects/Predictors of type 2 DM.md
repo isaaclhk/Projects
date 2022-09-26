@@ -1,7 +1,7 @@
 # Predictors of Type 2 Diabetes Mellitus
 
 ## Background
-This analysis performed on a dataset obtained from the 3rd course of the Statistical Analysis with R for Public Health specialization: Logistic Regression in R for public health. The dataset can be found [here](https://github.com/isaaclhk/Projects/blob/main/datasets/diabetes.csv). The outcome variable for this analysis is dm, a binary variable indicating whether or not a participant is diagnosed with type 2 diabetes mellitus (DM). The aim of this project is to identify predictors of Type 2 DM and quantify their risks.
+This analysis was performed on a dataset obtained from the 3rd course of the Statistical Analysis with R for Public Health specialization: Logistic Regression in R for public health. The dataset can be found [here](https://github.com/isaaclhk/Projects/blob/main/datasets/diabetes.csv). The outcome variable for this analysis is dm, a binary variable indicating whether or not a participant is diagnosed with type 2 diabetes mellitus (DM). The aim of this project is to identify predictors of Type 2 DM and quantify their risks.
 
 ### Variables in the dataset
 1. chol <- total cholesterol in mg/dL
