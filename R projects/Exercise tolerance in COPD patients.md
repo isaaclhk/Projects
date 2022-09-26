@@ -29,6 +29,18 @@ Continuous variables: age, packhistory, mwt1, mwt2, mwt1best, fev1, fev1pred, fv
 Categorical variables: copdseverity, agequartiles, copd, smoking </br>
 Binary variables: gender, diabetes, muscular, hypertension, atrialfib, ihd
 
+### Assumptions of linear regression
+
+1. Linear relationship: There exists a linear relationship between the independent variable, x, and the dependent variable, y.
+
+2. Independence: The residuals are independent. In particular, there is no correlation between consecutive residuals in time series data.
+
+3. Homoscedasticity: The residuals have constant variance at every level of x.
+
+4. Normality: The residuals of the model are normally distributed.
+
+If one or more of these assumptions are violated, then the results of our linear regression may be unreliable or even misleading.
+
 ## Code
 First, the relevant libraries and dataset were loaded. The column names were changed to all lowercase letters for simplicity, 
 then we have a brief overview of the dataset.
