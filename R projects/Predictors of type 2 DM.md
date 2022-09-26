@@ -27,6 +27,14 @@ This analysis performed on a dataset obtained from the 3rd course of the Statist
 21. smoking <- 1(current), 2(never), 3(ex)
 22. dm <- yes or no
 
+## Assumptions of logistic regression
+
+1. The response variable is binary
+2. The observations are independent- the observations should not be related to each other in any way.
+3. There is No Multicollinearity Among Explanatory Variables
+4. There are No Extreme Outliers
+5. There is a Linear Relationship Between Explanatory Variables and the Logit of the Response Variable
+
 ## Code
 First, the relevant libraries and dataset were loaded. 
 The column names were changed to all lowercase letters for simplicity, then we have a brief overview of the dataset.
