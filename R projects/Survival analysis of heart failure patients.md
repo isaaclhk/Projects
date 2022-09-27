@@ -279,7 +279,7 @@ GLOBAL            14.169 15 0.5128
 
 In the kaplan-meier plot above, the lines between ihd and no ihd were crossed at some point, which shows that the hazard ratios between the two groups were not constant over time. </br></br>
 One way of dealing with this problem is to stratify the analysis by ihd. This allows us to estimate effects in different strata and then average them together. 
-Other methods for addressing non-proportional hazards can be [read here](https://cran.r-project.org/web/packages/Greg/vignettes/timeSplitter.html)
+Other methods for addressing non-proportional hazards can be [read here](https://cran.r-project.org/web/packages/Greg/vignettes/timeSplitter.html).
 
 ```
 #strata
@@ -331,5 +331,45 @@ In the plot of deviance residuals above, the pattern looks fairly symmetrical ar
 
 ## Model interpretation
 
+The results of the final model are printed below:
 
+```
+Call:
+coxph(formula = Surv(fu_time, death) ~ los + age + gender + strata(ihd) + 
+    metastatic_cancer + pneumonia + quintile, data = HF)
+
+  n= 990, number of events= 489 
+   (10 observations deleted due to missingness)
+
+                        coef exp(coef)  se(coef)      z Pr(>|z|)    
+los                 0.012507  1.012586  0.003166  3.950 7.81e-05 ***
+age                 0.060862  1.062752  0.005552 10.962  < 2e-16 ***
+gender2            -0.281254  0.754836  0.096075 -2.927  0.00342 ** 
+metastatic_cancer1  2.264963  9.630764  0.371369  6.099 1.07e-09 ***
+pneumonia1          0.394225  1.483234  0.138629  2.844  0.00446 ** 
+quintile2          -0.379564  0.684160  0.155654 -2.439  0.01475 *  
+quintile3           0.067889  1.070246  0.152331  0.446  0.65584    
+quintile4          -0.066156  0.935985  0.151918 -0.435  0.66322    
+quintile5           0.084749  1.088444  0.150957  0.561  0.57452    
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+                   exp(coef) exp(-coef) lower .95 upper .95
+los                   1.0126     0.9876    1.0063    1.0189
+age                   1.0628     0.9410    1.0513    1.0744
+gender2               0.7548     1.3248    0.6253    0.9112
+metastatic_cancer1    9.6308     0.1038    4.6510   19.9421
+pneumonia1            1.4832     0.6742    1.1303    1.9463
+quintile2             0.6842     1.4616    0.5043    0.9282
+quintile3             1.0702     0.9344    0.7940    1.4426
+quintile4             0.9360     1.0684    0.6950    1.2606
+quintile5             1.0884     0.9187    0.8097    1.4632
+
+Concordance= 0.697  (se = 0.012 )
+Likelihood ratio test= 205.8  on 9 df,   p=<2e-16
+Wald test            = 196.3  on 9 df,   p=<2e-16
+Score (logrank) test = 210.1  on 9 df,   p=<2e-16
+```
+
+The results of this analysis show that length of stay in the hospital, age, gender, having metstatic cancer, pneumonia, and socioeconomic status of a participants' neighbourhood are factors that influence survival rates of heart failure patients. patients typically have a 1.2% increase in hazard ratios for each additional day of staying at the hospital. Males generally have a 32.5% higher hazard ratios for mortality compared to females.
 
