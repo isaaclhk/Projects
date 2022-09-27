@@ -179,7 +179,9 @@ ggcoxfunctional(Surv(fu_time, death)~ los + age + prior_appts_attended + prior_d
 #linearity assumption not met for prior_appts_attended and prior_dnas. therefore categorize!
 
 ```
-[HF_martingales](https://user-images.githubusercontent.com/71438259/192420985-d2838377-1cd4-4c92-b607-9b18bd4ec809.jpeg)
+
+![HF_martingales](https://user-images.githubusercontent.com/71438259/192422466-9e161395-2933-4eb3-9c51-8e68585e76be.jpeg)
+
 As observed from the plot of martingale residuals above, "los" and "age" are somewhat linear, but "prior_appts_attended" and "prior_dnas" have failed to meet the linearity assumption. Therefore, their levels were grouped and analysed as categorical variables. "prior_appts_attended" was factored into 3 levels: <=10, >10 <= 20,
 and >20. "prior_dnas" was dichotomised to either 0(no) or 1(yes). The decision for this factorization was based on the distribution of these variables as examined earlier.
 
