@@ -176,18 +176,23 @@ The linearity assumption was verified for all continuous variables. Although pri
 ```
 #Checking linearity assumption
 ggcoxfunctional(Surv(fu_time, death)~ los + age + prior_appts_attended + prior_dnas, data = HF)
-#linearity assumption not met for prior_appts_attended and prior_dnas. therefore categorize![HF_martingales](https://user-images.githubusercontent.com/71438259/192420985-d2838377-1cd4-4c92-b607-9b18bd4ec809.jpeg)
+#linearity assumption not met for prior_appts_attended and prior_dnas. therefore categorize!
 
 ```
+[HF_martingales](https://user-images.githubusercontent.com/71438259/192420985-d2838377-1cd4-4c92-b607-9b18bd4ec809.jpeg)
+As observed from the plot of martingale residuals above, "los" and "age" are somewhat linear, but "prior_appts_attended" and "prior_dnas" have failed to meet the linearity assumption. Therefore, their levels were grouped and analysed as categorical variables. "prior_appts_attended" was factored into 3 levels: <=10, >10 <= 20,
+and >20. "prior_dnas" was dichotomised to either 0(no) or 1(yes). The decision for this factorization was based on the distribution of these variables as examined earlier.
 
-
+```
 HF <- HF %>% mutate(
   prior_appts_attended = factor(ifelse(prior_appts_attended <= 10, "<= 10",
-                                       ifelse(prior_appts_attended <= 20, "<= 20", "> 20"))),
+                                       ifelse(prior_appts_attended <= 20, "> 10 <= 20", "> 20"))),
   prior_dnas = factor(ifelse(prior_dnas == 0, "0", "1")))
 
 describe(HF$prior_appts_attended)
 describe(HF$prior_dnas)
+```
+
 
 #kaplan-meier plots
 ##no predictors
