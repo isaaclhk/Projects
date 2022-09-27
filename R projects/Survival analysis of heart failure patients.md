@@ -273,8 +273,9 @@ GLOBAL            14.169 15 0.5128
 ![HF_KM_ihd](https://user-images.githubusercontent.com/71438259/192427276-f9011e04-dfb2-486b-a2a0-46f55b5b43d1.jpeg)
 In the kaplan-meier plot above, the lines between ihd and no ihd were crossed at some point, which shows that the hazard ratios between the two groups were not constant over time. </br></br>
 One way of dealing with this problem is to stratify the analysis by ihd. This allows us to estimate effects in different strata and then average them together. 
+Other methods for addressing non-proportional hazards can be [read here](https://cran.r-project.org/web/packages/Greg/vignettes/timeSplitter.html)
 
-
+```
 #strata
 cox_reduced2 <- coxph(Surv(fu_time, death)~ 
                         los + age + gender + strata(ihd) + valvular_disease + metastatic_cancer + pneumonia + quintile + ethnicgroup,
@@ -285,7 +286,7 @@ test2 <- cox.zph(cox_reduced2)
 print(test2)
 plot(test2)
 ggcoxzph(test2)
-
+```
 
 #outliers
 ggcoxdiagnostics(cox_reduced2, type = "deviance",
