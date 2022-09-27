@@ -170,11 +170,16 @@ describe(HF$cardiac_device)
 describe(HF$quintile)
 ```
 
+The linearity assumption was verified for all continuous variables. Although prior_appts_attended and prior_dnas are ordinal variables, they were also checked for linearity because they have many levels. If they turn out to be linear, then they can be treated as continuous for this analysis. Otherwise, we'd have to combine their levels and analyse them as categorical variables.
 
 
+```
 #Checking linearity assumption
 ggcoxfunctional(Surv(fu_time, death)~ los + age + prior_appts_attended + prior_dnas, data = HF)
-#linearity assumption not met for prior_appts_attended and prior_dnas. therefore categorize
+#linearity assumption not met for prior_appts_attended and prior_dnas. therefore categorize![HF_martingales](https://user-images.githubusercontent.com/71438259/192420985-d2838377-1cd4-4c92-b607-9b18bd4ec809.jpeg)
+
+```
+
 
 HF <- HF %>% mutate(
   prior_appts_attended = factor(ifelse(prior_appts_attended <= 10, "<= 10",
