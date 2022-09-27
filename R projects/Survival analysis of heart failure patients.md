@@ -238,23 +238,26 @@ cox_reduced <- coxph(Surv(fu_time, death)~
             data = HF)
 summary(cox_reduced)
 ```
+After performing backward elimination,  ethnicgroup was no longer statistically significant. The variable will be removed in the next step of elimination according to the pre-determined p-value threshold. No unexpectedly large changes in coefficients were seen after the elimination. The largest difference seen was in metastatic cancer, but this was expected given the relatively high hazards ratio.
 
-After performing backward elimination, no unexpectedly large changes in coefficients were seen. The largest difference seen was in metastatic cancer, but expected given the relatively high hazards ratio. Before interpreting the results proper, the proportionality assumption was tested to ensure that the results are valid.
+```
+#remove ethnic group
+cox_reduced2 <- coxph(Surv(fu_time, death)~ 
+                        los + age + gender + ihd + valvular_disease + metastatic_cancer + pneumonia + quintile,
+                      data = HF)
+summary(cox_reduced2)
+```
+No unexpectedly large chnges in coefficents were seen after this step of elimination. before interpreting the results proper, the assumption of proportional hazards was tested.
 
 ```
 #testing proportionality assumption
-
-test <- cox.zph(cox_reduced)
+test <- cox.zph(cox_reduced2)
 print(test)
 plot(test)
 ggcoxzph(test)
-
-km_ihd <- survfit(Surv(fu_time, death)~ ihd, data = HF)
-plot(km_ihd, xlab = "overall survival probability", ylab = "time", main = "ihd",
-     col = c("red", "blue"))
 ```
 
-Based on the diagnostics given by schoenfeld residuals, "ihd" failed to meet the statistical assumption of proportional hazards (p= 0.0032). This is further confirmed by reviewing the kaplan-meier plot of the "ihd" variable.
+Based on the diagnostics given by schoenfeld residuals, "ihd" failed to meet the statistical assumption of proportional hazards (p= 0.0032). The results of this test is printed below. The failed assumption is further confirmed by reviewing the kaplan-meier plot of the "ihd" variable.
 
 ```
                    chisq df      p
@@ -268,6 +271,7 @@ pneumonia          1.289  1 0.2562
 quintile           1.937  4 0.7474
 ethnicgroup        0.302  4 0.9897
 GLOBAL            14.169 15 0.5128
+
 ```
 </br></br>
 ![HF_KM_ihd](https://user-images.githubusercontent.com/71438259/192427276-f9011e04-dfb2-486b-a2a0-46f55b5b43d1.jpeg)
@@ -277,17 +281,27 @@ Other methods for addressing non-proportional hazards can be [read here](https:/
 
 ```
 #strata
-cox_reduced2 <- coxph(Surv(fu_time, death)~ 
+cox_reduced3 <- coxph(Surv(fu_time, death)~ 
                         los + age + gender + strata(ihd) + valvular_disease + metastatic_cancer + pneumonia + quintile + ethnicgroup,
                       data = HF)
-summary(cox_reduced2)
+summary(cox_reduced3)
+```
 
+After stratifying ihd, valvular disease was no longer statistically significant. Therefore, it is eliminated according to the predetermined threshold of p<.05. The proportional hazards assumption was also rechecked.
+
+```
+cox_reduced4 <- coxph(Surv(fu_time, death)~ 
+                        los + age + gender + strata(ihd) + metastatic_cancer + pneumonia + quintile,
+                      data = HF)
+                      
 #rechecking proportionality assumption
-test2 <- cox.zph(cox_reduced2)
+test2 <- cox.zph(cox_reduced4)
 print(test2)
 plot(test2)
 ggcoxzph(test2)
 ```
+The proportional hazards assumption was met in this model.
+</br></br>
 To test influential observations or outliers, we can visualize either:
 1. the deviance residuals 
 2. the dfbeta values
@@ -303,13 +317,14 @@ In a normal distribution, 5% of observations are more than 1.96 standard deviati
 
 ```
 #outliers
-ggcoxdiagnostics(cox_reduced2, type = "deviance",
+ggcoxdiagnostics(cox_reduced4, type = "deviance",
                  linear.predictions = FALSE, ggtheme = theme_bw())
 
-ggcoxdiagnostics(cox_reduced2, type = "dfbeta",
+ggcoxdiagnostics(cox_reduced4, type = "dfbeta",
                  linear.predictions = FALSE, ggtheme = theme_bw())
 ```
-![HF_deviance](https://user-images.githubusercontent.com/71438259/192438755-c336e82c-6656-43ce-b2ba-7d1618f0956f.jpeg)
+
+![HF_devianceresiduals](https://user-images.githubusercontent.com/71438259/192492210-8f0f10ab-58d5-45d3-9f87-de35f3c5bde4.jpeg)
 
 In the plot of deviance residuals above, the pattern looks fairly symmetrical around 0 and the model fits the data reasonably well.
 
