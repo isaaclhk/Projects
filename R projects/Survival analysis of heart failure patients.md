@@ -269,7 +269,7 @@ quintile           1.937  4 0.7474
 ethnicgroup        0.302  4 0.9897
 GLOBAL            14.169 15 0.5128
 ```
-
+</br></br>
 ![HF_KM_ihd](https://user-images.githubusercontent.com/71438259/192427276-f9011e04-dfb2-486b-a2a0-46f55b5b43d1.jpeg)
 In the kaplan-meier plot above, the lines between ihd and no ihd were crossed at some point, which shows that the hazard ratios between the two groups were not constant over time. </br></br>
 One way of dealing with this problem is to stratify the analysis by ihd. This allows us to estimate effects in different strata and then average them together. 
@@ -282,12 +282,24 @@ cox_reduced2 <- coxph(Surv(fu_time, death)~
                       data = HF)
 summary(cox_reduced2)
 
+#rechecking proportionality assumption
 test2 <- cox.zph(cox_reduced2)
 print(test2)
 plot(test2)
 ggcoxzph(test2)
 ```
+To test influential observations or outliers, we can visualize either:
+1. the deviance residuals 
+2. the dfbeta values
 
+Specifying the argument type = “dfbeta”, plots the estimated changes in the regression coefficients upon deleting each observation in turn; likewise, type=“dfbetas” produces the estimated changes in the coefficients divided by their standard errors. </br>
+-Positive values correspond to individuals that “died too soon” compared with expected survival times.
+-Negative values correspond to individual that “lived too long” compared with expected survival times.
+-Very large or small values are outliers, which are poorly predicted by the model. 
+</br></br>
+Specifying the argument type = "deviance", generates a plot of the deviance residuals.
+
+```
 #outliers
 ggcoxdiagnostics(cox_reduced2, type = "deviance",
                  linear.predictions = FALSE, ggtheme = theme_bw())
