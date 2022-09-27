@@ -292,12 +292,14 @@ To test influential observations or outliers, we can visualize either:
 1. the deviance residuals 
 2. the dfbeta values
 
-Specifying the argument type = “dfbeta”, plots the estimated changes in the regression coefficients upon deleting each observation in turn; likewise, type=“dfbetas” produces the estimated changes in the coefficients divided by their standard errors. </br>
+Specifying the argument type = “dfbeta”, plots the estimated changes in the regression coefficients upon deleting each observation in turn; likewise, type=“dfbetas” produces the estimated changes in the coefficients divided by their standard errors. 
+</br></br>
+Specifying the argument type = "deviance", generates a plot of the deviance residuals.
+In a normal distribution, 5% of observations are more than 1.96 standard deviations from the mean. So if the SD is 1, then only 5% of observations should be bigger than 1.96 or more negative than -1.96. If more than that is proportion is present, then the model doesn’t fit the data as well as it should and some observations are a problem.
+</br>
 -Positive values correspond to individuals that “died too soon” compared with expected survival times.
 -Negative values correspond to individual that “lived too long” compared with expected survival times.
 -Very large or small values are outliers, which are poorly predicted by the model. 
-</br></br>
-Specifying the argument type = "deviance", generates a plot of the deviance residuals.
 
 ```
 #outliers
@@ -307,3 +309,11 @@ ggcoxdiagnostics(cox_reduced2, type = "deviance",
 ggcoxdiagnostics(cox_reduced2, type = "dfbeta",
                  linear.predictions = FALSE, ggtheme = theme_bw())
 ```
+![HF_deviance](https://user-images.githubusercontent.com/71438259/192438755-c336e82c-6656-43ce-b2ba-7d1618f0956f.jpeg)
+
+In the plot of deviance residuals above, the pattern looks fairly symmetrical around 0 and the model fits the data reasonably well.
+
+## Model interpretation
+
+
+
