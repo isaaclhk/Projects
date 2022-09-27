@@ -182,7 +182,7 @@ ggcoxfunctional(Surv(fu_time, death)~ los + age + prior_appts_attended + prior_d
 
 ![HF_martingales](https://user-images.githubusercontent.com/71438259/192422466-9e161395-2933-4eb3-9c51-8e68585e76be.jpeg)
 
-As observed from the plot of martingale residuals above, "los" and "age" are somewhat linear, but "prior_appts_attended" and "prior_dnas" have failed to meet the linearity assumption. Therefore, their levels were grouped and analysed as categorical variables. "prior_appts_attended" was factored into 3 levels: <=10, >10 <= 20,
+As observed from the plots of martingale residuals above, "los" and "age" are somewhat linear, but "prior_appts_attended" and "prior_dnas" have failed to meet the linearity assumption. Therefore, their levels were grouped and analysed as categorical variables. "prior_appts_attended" was factored into 3 levels: <=10, >10 <= 20,
 and >20. "prior_dnas" was dichotomised to either 0(no) or 1(yes). The decision for this factorization was based on the distribution of these variables as examined earlier.
 
 ```
@@ -195,7 +195,12 @@ describe(HF$prior_appts_attended)
 describe(HF$prior_dnas)
 ```
 
+The log-rank tests is a great way to perform survival analysis for a single categorical variable. </br>
+The advantage of using the log-rank test is that we don’t need to know anything about the shape of the survival curve or the distribution of survival times.
+It compares the observed numbers and expected number of events using a chi-square test to determine if there is a difference in probability of event between the groups. </br></br>
+kaplan-meier plots help us to visualize the survival probabilities of the variable being analysed over time.
 
+```
 #kaplan-meier plots
 ##no predictors
 km_fit <- survfit(Surv(fu_time, death) ~ 1, data = HF)
@@ -215,9 +220,10 @@ summary(prior_dnas_km, times = c(1:10, 30, 60, 90*(1:10)))
 plot(prior_dnas_km, xlab = "time", ylab = "overall survival probability", main = "outpatient appointments missed",
      col = c("red", "blue"))
 survdiff(Surv(fu_time, death)~ prior_dnas, data = HF)
+```
+Cox regression is more useful for analyzing multiple variables at once. First, all variables were included in the cox regression model. The variables that were statistically non-significant at the conventional p value of .05 were then removed by backward elimination, then the remaining variables were analysed in another model.
 
-str(HF)
-
+```
 #fitting cox regression
 cox <- coxph(Surv(fu_time, death)~ 
     los + age + gender + cancer + cabg + diabetes + hypertension + ihd + 
@@ -231,6 +237,7 @@ cox_reduced <- coxph(Surv(fu_time, death)~
             los + age + gender + ihd + valvular_disease + metastatic_cancer + pneumonia + quintile + ethnicgroup,
             data = HF)
 summary(cox_reduced)
+```
 
 #not unexpectedly large changes in coefficients seen, largest difference seen in metastatic cancer, but expected given the relatively high hazards ratio
 #high confidence intervals for metastatic cancer
