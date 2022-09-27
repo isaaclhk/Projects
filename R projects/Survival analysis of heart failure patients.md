@@ -239,20 +239,40 @@ cox_reduced <- coxph(Surv(fu_time, death)~
 summary(cox_reduced)
 ```
 
-#not unexpectedly large changes in coefficients seen, largest difference seen in metastatic cancer, but expected given the relatively high hazards ratio
-#high confidence intervals for metastatic cancer
+After performing backward elimination, no unexpectedly large changes in coefficients were seen. The largest difference seen was in metastatic cancer, but expected given the relatively high hazards ratio. Before interpreting the results proper, the proportionality assumption was tested to ensure that the results are valid.
 
+```
 #testing proportionality assumption
 
 test <- cox.zph(cox_reduced)
 print(test)
 plot(test)
 ggcoxzph(test)
-#ihd failed proportionality assumption
-#assumption failed for ihd, as confirmed with km plot
+
 km_ihd <- survfit(Surv(fu_time, death)~ ihd, data = HF)
 plot(km_ihd, xlab = "overall survival probability", ylab = "time", main = "ihd",
      col = c("red", "blue"))
+```
+
+Based on the diagnostics given by schoenfeld residuals, "ihd" failed to meet the statistical assumption of proportional hazards (p= 0.0032). This is further confirmed by reviewing the kaplan-meier plot of the "ihd" variable.
+
+```
+                   chisq df      p
+los                0.145  1 0.7031
+age                0.270  1 0.6031
+gender             0.702  1 0.4022
+ihd                8.694  1 0.0032
+valvular_disease   0.363  1 0.5468
+metastatic_cancer  0.190  1 0.6626
+pneumonia          1.289  1 0.2562
+quintile           1.937  4 0.7474
+ethnicgroup        0.302  4 0.9897
+GLOBAL            14.169 15 0.5128
+```
+
+![HF_KM_ihd](https://user-images.githubusercontent.com/71438259/192427276-f9011e04-dfb2-486b-a2a0-46f55b5b43d1.jpeg)
+
+
 
 #strata
 cox_reduced2 <- coxph(Surv(fu_time, death)~ 
