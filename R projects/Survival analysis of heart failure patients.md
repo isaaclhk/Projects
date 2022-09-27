@@ -274,7 +274,9 @@ GLOBAL            14.169 15 0.5128
 
 ```
 </br>
+
 ![HF_KM_ihd](https://user-images.githubusercontent.com/71438259/192427276-f9011e04-dfb2-486b-a2a0-46f55b5b43d1.jpeg)</br></br>
+
 In the kaplan-meier plot above, the lines between ihd and no ihd were crossed at some point, which shows that the hazard ratios between the two groups were not constant over time. </br></br>
 One way of dealing with this problem is to stratify the analysis by ihd. This allows us to estimate effects in different strata and then average them together. 
 Other methods for addressing non-proportional hazards can be [read here](https://cran.r-project.org/web/packages/Greg/vignettes/timeSplitter.html)
@@ -323,7 +325,6 @@ ggcoxdiagnostics(cox_reduced4, type = "deviance",
 ggcoxdiagnostics(cox_reduced4, type = "dfbeta",
                  linear.predictions = FALSE, ggtheme = theme_bw())
 ```
-
 ![HF_devianceresiduals](https://user-images.githubusercontent.com/71438259/192492210-8f0f10ab-58d5-45d3-9f87-de35f3c5bde4.jpeg)
 
 In the plot of deviance residuals above, the pattern looks fairly symmetrical around 0 and the model fits the data reasonably well.
