@@ -272,6 +272,11 @@ quintile           1.937  4 0.7474
 ethnicgroup        0.302  4 0.9897
 GLOBAL            14.169 15 0.5128
 
+#km plot for ihd
+km_ihd <- survfit(Surv(fu_time, death)~ ihd, data = HF)
+plot(km_ihd, xlab = "overall survival probability", ylab = "time", main = "ihd",
+     col = c("red", "blue"))
+
 ```
 </br>
 
