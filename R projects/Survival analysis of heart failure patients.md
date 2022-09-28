@@ -319,9 +319,9 @@ Specifying the argument type = "deviance", generates a plot of the deviance resi
 In a normal distribution, 5% of observations are more than 1.96 standard deviations from the mean. So if the SD is 1, then only 5% of observations should be bigger than 1.96 or more negative than -1.96. If more than that is proportion is present, then the model doesn’t fit the data as well as it should and some observations are a problem.
 </br>
 
--Positive values correspond to individuals that “died too soon” compared with expected survival times.
--Negative values correspond to individual that “lived too long” compared with expected survival times.
--Very large or small values are outliers, which are poorly predicted by the model. 
+- Positive values correspond to individuals that “died too soon” compared with expected survival times.
+- Negative values correspond to individual that “lived too long” compared with expected survival times.
+- Very large or small values are outliers, which are poorly predicted by the model. 
 
 ```
 #outliers
