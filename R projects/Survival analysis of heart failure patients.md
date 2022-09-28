@@ -283,7 +283,9 @@ plot(km_ihd, xlab = "overall survival probability", ylab = "time", main = "ihd",
 ![HF_KM_ihd](https://user-images.githubusercontent.com/71438259/192427276-f9011e04-dfb2-486b-a2a0-46f55b5b43d1.jpeg)</br></br>
 
 In the kaplan-meier plot above, the lines between ihd and no ihd were crossed at some point. This proved that the hazard ratios between the two groups were not constant over time. </br></br>
-One way of dealing with this problem is to stratify the analysis by ihd. This allows us to estimate effects in different strata and then average them together. 
+A possible explanation for this change in hazards in the "ihd" variable over time could be that the severity of ischemic heart disease ranges vastly from very mild to very severe. Those who had very severe ihd could have experienced death much earlier than those with milder disease, which would change the distribution of ihd severity in the sample population over time. To test this hypothesis, researchers may consider including patients' ejection factions, an indicator of heart function from 2D-echos in future models. 
+
+One way of dealing with the problem of non-proportional hazards is to stratify the analysis by the nonconforming variable. This allows us to estimate effects in different strata and then average them together. 
 Other methods for addressing non-proportional hazards can be [read here](https://cran.r-project.org/web/packages/Greg/vignettes/timeSplitter.html).
 
 ```
