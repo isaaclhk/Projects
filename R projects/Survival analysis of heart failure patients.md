@@ -1,4 +1,4 @@
-# Survival analysis of heart failure patients
+# Survival Analysis of Heart Failure Patients
 
 ## Background
 
