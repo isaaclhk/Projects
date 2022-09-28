@@ -247,7 +247,7 @@ cox_reduced2 <- coxph(Surv(fu_time, death)~
                       data = HF)
 summary(cox_reduced2)
 ```
-No unexpectedly large chnges in coefficents were seen after this step of elimination. before interpreting the results proper, the assumption of proportional hazards was tested.
+No unexpectedly large chnges in coefficents were seen after this step of elimination. Before interpreting the results proper, the assumption of proportional hazards was tested.
 
 ```
 #testing proportionality assumption
@@ -257,7 +257,7 @@ plot(test)
 ggcoxzph(test)
 ```
 
-Based on the diagnostics given by schoenfeld residuals, "ihd" failed to meet the statistical assumption of proportional hazards (p= 0.0032). The results of this test is printed below. The failed assumption is further confirmed by reviewing the kaplan-meier plot of the "ihd" variable.
+Based on the diagnostics given by schoenfeld residuals, "ihd" failed to meet the statistical assumption of proportional hazards (p= 0.0032). The result of this test is printed below. The failed assumption is further confirmed by reviewing the kaplan-meier plot of the "ihd" variable.
 
 ```
                    chisq df      p
@@ -277,7 +277,7 @@ GLOBAL            14.169 15 0.5128
 
 ![HF_KM_ihd](https://user-images.githubusercontent.com/71438259/192427276-f9011e04-dfb2-486b-a2a0-46f55b5b43d1.jpeg)</br></br>
 
-In the kaplan-meier plot above, the lines between ihd and no ihd were crossed at some point, which shows that the hazard ratios between the two groups were not constant over time. </br></br>
+In the kaplan-meier plot above, the lines between ihd and no ihd were crossed at some point. This proved that the hazard ratios between the two groups were not constant over time. </br></br>
 One way of dealing with this problem is to stratify the analysis by ihd. This allows us to estimate effects in different strata and then average them together. 
 Other methods for addressing non-proportional hazards can be [read here](https://cran.r-project.org/web/packages/Greg/vignettes/timeSplitter.html).
 
