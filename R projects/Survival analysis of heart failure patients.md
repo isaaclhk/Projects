@@ -148,7 +148,7 @@ hist(HF$fu_time, main = "follow up time")
 out of 1000 participants, only 3 had cardiac rechronization devices, and 6 had implanted defibrillators. As there were so few participants with these devices,
 "crt", "defib", and "pacemaker" variables were combined to form the "cardiac_device" variable. </br></br>
 Furthermore, there are 4 participants with unknown "quintile" values.</br>
-Whenever there is missing data, it is always important to try and understand why the data is missing, because the reason will tell us the best way to deal with the missing data. For this project, the participants with unknown quintiles were dropped as the proportion of participants in the group is small. Moreover, a cross table between quintile and death would show that there are no deaths among the 4 participants with unknown quantiles. 
+Whenever there is missing data, it is always important to try and understand why the data is missing, because the reason will tell us the best way to deal with the missing data. For this project, the participants with unknown quintiles were dropped as the proportion of participants in the group is small and its effect is likely negligible. Moreover, a cross table between quintile and death would show that there are no deaths among the 4 participants with unknown quantiles. 
 If this were to be included in a cox regression model, the model would fail to converge. </br></br>
 43 participants were found to have missing ethnicgroup values. As this proportion of participants is sizable, a new level of ethnicgroup, "unknown", was added to the variable.</br></br>
 More information on the various techniques for handling missing data can be found [in this paper](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3668100/).
