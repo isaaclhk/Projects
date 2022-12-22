@@ -315,6 +315,8 @@ def predict(X, w, b):
     
     return p
 ```
+
+## Prediction results
 Finally, we fit the model.
 
 ```
@@ -420,6 +422,8 @@ accuracy_score(y_pred, y_test)
 
 The model we built demonstrates a prediction accuracy of 95.906%, while the one generated from using the sklearn library has a prediction accuracy of 96.49%.
 </br>
+
+### Note for deployment of model in clinical settings
 For purposes of clinical deployment, it might sometimes be prudent to lower the threshold for prediction from 0.5 to a lower value to reduce the chance of having a false negative result or missed diagnosis. This can be achieved with the following code:
 
 ```
