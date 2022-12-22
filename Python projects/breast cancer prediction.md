@@ -189,5 +189,5 @@ y_test.shape
 Before we begin to train the model, it is often good practice to scale the features so that every feature falls within a finite, standard range. This process ensures that the steps for gradient descent are updated at a similar rate for all features. There are various methods of feature scaling. For this analysis, we will use z-score normalization which transforms each feature to have a mean of 0 and standard deviation of 1. The formula for z-score normalization is shown below:
 </br>
 
-![zscore](https://user-images.githubusercontent.com/71438259/209116432-7d31a9b9-95d4-480a-aaa2-0c3df42c1a05.jpg)
+![zscore](https://user-images.githubusercontent.com/71438259/209116595-a0a06d05-f859-4046-a8b6-89f19fc5a414.jpg)
 
