@@ -210,11 +210,7 @@ x_train_norm = norm(x_train)
 x_test_norm = norm(x_test)
 ```
 
-For logistic regression, the model is represented as </br>
-![logreg](https://user-images.githubusercontent.com/71438259/209117878-a85c1514-06d9-4302-9ce1-a4c0a49a31bc.jpg)
-</br>
-where g is the sigmoid function. The sigmoid function is defined as: </br>
-![sigmoid](https://user-images.githubusercontent.com/71438259/209118099-3af8988b-f58b-4cf7-a7b0-247206b2b87c.jpg)
+![sigmoid](https://user-images.githubusercontent.com/71438259/209120519-3fbdaa30-5a60-4038-b06e-65515585fbdf.jpg)
 </br>
 
 ```
@@ -224,9 +220,24 @@ def sigmoid(z):
     return g
 ```
 
-for logistic regression, the cost function is of the form </br>
-![costfunction](https://user-images.githubusercontent.com/71438259/209119203-e4e4b54f-8176-4476-85ad-0ff0b79e2a55.jpg)
+![costfunction](https://user-images.githubusercontent.com/71438259/209120704-13f7578a-0900-40ea-868a-b7c33d875b3a.jpg)
 </br>
+```
+#cost funciton
+def compute_cost(X, y, w, b):
+    
+    m, n = X.shape
+    total_cost = 0
+    
+    for i in range(m):
+        z_i = np.dot(X.iloc[i], w) + b
+        f_wb_i = sigmoid(z_i)
+        loss = (-y.iloc[i]*np.log(f_wb_i)) - (1 - y.iloc[i])*np.log(1 - f_wb_i)
+        total_cost += loss
+    total_cost = total_cost/m
+        
+    return total_cost
+```
 
 
 
