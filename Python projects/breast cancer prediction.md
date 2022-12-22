@@ -164,3 +164,26 @@ sns.heatmap(corr, annot = True, mask = mask, xticklabels = True, yticklabels = T
 
 ## Logistic Regression
 
+We begin by splitting the dataset into two parts: </br>
+1. A training set
+2. A testing set
+</br>
+The model will be fitted on the training set and executed on the testing set. This practice helps us to evaluate whether our model is truly able to predict unseen data, and tells us if the model could be over or underfit. For this analysis, 70% of the data will be used for training before the model is tested on the remaining 30%. Random state is set to 42 to obtain reproducible results.
+
+```
+#Assign x and y, split data
+x = df.drop('diagnosis', axis = 1)
+y = df['diagnosis']
+
+#Split dataset into training and testing sets
+from sklearn.model_selection import train_test_split
+x_train, x_test, y_train, y_test = train_test_split(x,y, test_size = 0.3, random_state = 42)
+
+#examine shapes
+x_train.shape
+x_test.shape
+y_train.shape
+y_test.shape
+```
+
+
