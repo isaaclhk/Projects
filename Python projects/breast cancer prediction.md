@@ -160,4 +160,5 @@ mask = np.triu(np.ones_like(corr, dtype = np.bool))
 sns.heatmap(corr, annot = True, mask = mask, xticklabels = True, yticklabels = True)
 ```
 
-![corrmat](https://user-images.githubusercontent.com/71438259/209107752-5f5a80d6-382d-4425-9bd9-9a96df47a83a.png)
+![corrmat2](https://user-images.githubusercontent.com/71438259/209107952-592189d4-0ced-4d16-9aea-0101d52e68bc.png)
+
