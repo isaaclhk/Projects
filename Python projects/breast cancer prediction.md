@@ -81,7 +81,7 @@ plt.title('Malignant vs Benign')
 plt.show()
 ```
 
-![Figure_1](https://user-images.githubusercontent.com/71438259/209077232-b3949ade-ea96-4f36-b984-177c57c403ea.png)
+![Figure_1](https://user-images.githubusercontent.com/71438259/209077374-0e57a3b4-efb1-4bd8-9755-0d06ed16297b.png)
 
 There are 357 benign tumors and 212 malignant tumors in the dataset. </br>
 Next, the remaining features are described and visualized using scatterplot matrices to identify patterns and trends. </br>
