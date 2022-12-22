@@ -80,6 +80,9 @@ sns.countplot(x = 'diagnosis', data = df)
 plt.title('Malignant vs Benign')
 plt.show()
 ```
+
+![Figure_1](https://user-images.githubusercontent.com/71438259/209077232-b3949ade-ea96-4f36-b984-177c57c403ea.png)
+
 There are 357 benign tumors and 212 malignant tumors in the dataset. </br>
 Next, the remaining features are described and visualized using scatterplot matrices to identify patterns and trends. </br>
 3 sets of scatterplot matrices are made to compare means, standard errors and worsts respectively.
