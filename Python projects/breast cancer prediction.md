@@ -113,10 +113,15 @@ print(cols3.head())
 
 sns.pairplot(data = cols3, hue = 'diagnosis')
 ```
+**Mean
 ![mean](https://user-images.githubusercontent.com/71438259/209077971-a90cf850-2154-4547-ab4b-373ad0cd24ab.png)
+</br>
+Standard Error
 ![se](https://user-images.githubusercontent.com/71438259/209077986-83ab0903-2186-4417-9e04-9149758900a4.png)
+</br>
+Worst**
 ![worst](https://user-images.githubusercontent.com/71438259/209077993-904b2827-1459-446a-be58-057c0101bc2c.png)
-
+</br>
 To ensure that there is no multicollinearity, correlations between the features are visualized using a correlation matrix.
 
 ```
