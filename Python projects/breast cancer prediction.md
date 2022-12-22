@@ -265,6 +265,35 @@ def compute_gradient(X, y, w, b):
     dj_dw = dj_dw/m
     
     return dj_db, dj_dw
+
+#gradient descent
+def gradient_descent(X, y, w_in, b_in, cost_function, gradient_function, alpha, num_iters): 
+
+    # An array to store cost J
+    J_history = []
+    i_history = []
+
+    for i in range(num_iters):
+    
+        # Calculate the gradient and update the parameters
+        dj_db, dj_dw = gradient_function(X, y, w_in, b_in)
+
+        # Update Parameters using w, b, alpha and gradient
+        w_in -= alpha*dj_dw
+        b_in -= alpha*dj_db
+        
+        # Save cost J at each iteration
+        if i<100000:      # prevent resource exhaustion 
+            cost =  cost_function(X, y, w_in, b_in)
+            J_history.append(cost)
+            i_history.append(i)
+            
+        # Print cost every at intervals 10 times or as many iterations if < 10
+        if i%100 == 0 or i == (num_iters-1):
+            print(f"Iteration {i}: Cost {float(J_history[i]):.6f}   ") 
+        
+            
+    return w_in, b_in, J_history, i_history #J and i history for graphing
 ```
 
 
