@@ -366,7 +366,7 @@ print(b)
 -0.7267547221193337
 ```
 
-The stepwise cost reduction process from gradient descent can be visualized in this plot
+The stepwise cost reduction process of gradient descent can be visualized in this plot
 
 ```
 #plot cost against interations
@@ -405,7 +405,7 @@ plt.ylabel('Predicted Diagnosis')
 ![confmat](https://user-images.githubusercontent.com/71438259/209153274-b8f7c81e-77d9-4fa3-9921-5f0607dc3017.jpg)
 
 </br>
-Next, we run logistic regression using the sklearn and see how it compares
+Next, we run logistic regression using the sklearn and see how it compares.
 
 ```
 #performing logistic regression using sklearn library
@@ -479,8 +479,8 @@ accuracy_score(y_pred2, y_test)
 
 ![confmat3](https://user-images.githubusercontent.com/71438259/209153648-4eaf69de-f055-447d-b3ff-c98141498d70.png)
 
-Compared to the predictions generated from y_pred, the predictions from y_pred2 are less accurate. An examination of the confusion matrix tells us that the number of false negatives has increased significantly, but the number of false positives is minimized to 0. </br>
-If deployed in a clinical setting, this model can potential reduce the doctor's workload by efficiently classifying patients' tumors. 
+Compared to the predictions generated from y_pred, the predictions from y_pred2 are less accurate. An examination of the confusion matrix tells us that the number of false negatives increased significantly, but the number of false positives is minimized to 0. </br>
+If deployed in a clinical setting, this model and others like this may potentially reduce the workload of healthcare staff by efficient classification.
 
 
 
