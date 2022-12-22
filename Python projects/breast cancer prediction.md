@@ -390,6 +390,33 @@ array([[106,   5],
        [  2,  58]], dtype=int64)
 ```
 
+The confusion matrix outputs the number of true positive, true negative, false positive and false negative results as follows:</br>
+![confmat](https://user-images.githubusercontent.com/71438259/209131116-01192798-480a-487b-af5c-6b95568d3533.jpg)
+</br>
+Next, we run logistic regression using the sklearn and see how it compares
+
+```
+#performing logistic regression using sklearn library
+from sklearn.linear_model import LogisticRegression
+logreg = LogisticRegression(random_state = 42)
+logreg.fit(x_train_norm, y_train)
+
+y_pred = logreg.predict(x_test_norm)
+confmat2 = confusion_matrix(y_pred, y_test)
+confmat2
+accuracy_score(y_pred, y_test)
+```
+
+output:
+
+```
+confmat2
+array([[105,   3],
+       [  3,  60]], dtype=int64)
+       
+accuracy_score(y_pred, y_test)       
+0.9649122807017544
+```
 
 
 
