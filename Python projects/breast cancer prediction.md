@@ -295,22 +295,13 @@ def gradient_descent(X, y, w_in, b_in, cost_function, gradient_function, alpha, 
             
     return w_in, b_in, J_history, i_history #J and i history for graphing
 ```
-The cost minimizing function of gradient descent can be visualized in this plot
-
-```
-#plot cost against interations
-sns.lineplot(x= i_history, y= J_history)
-```
-
-![gdplot](https://user-images.githubusercontent.com/71438259/209125375-466d40cf-3450-4883-a288-4f4d1cc5e415.png)
-</br>
-
 
 The gradient descent function that was created above outputs the weights and bias of the model after it has been fitted. </br>
 Based on the weights and bias of the fitted model, we can compute the probability of malignancy for each example by applying g(w.x + b) as described above. </br>
 </br>
 ![predict](https://user-images.githubusercontent.com/71438259/209127535-6abe1ed2-4e95-4018-81d9-76b95ed07b38.jpg)
 </br>
+
 ```
 #predict
 def predict(X, w, b):
@@ -324,7 +315,20 @@ def predict(X, w, b):
     
     return p
 ```
+Finally, we fit the model.
 
+```
+#fitting the model
+initial_w = np.zeros(x_train_norm.shape[1])
+initial_b = 0
+iterations = 1000
+alpha = 0.05
+
+
+w, b, J_history, i_history = gradient_descent(x_train_norm, y_train, initial_w, initial_b, compute_cost, compute_gradient, alpha, iterations)
+print(w)
+print(b)
+```
 
 
 
