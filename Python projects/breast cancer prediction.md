@@ -366,7 +366,7 @@ print(b)
 -0.7267547221193337
 ```
 
-The stepwise cost reduction progress from gradient descent can be visualized from this plot
+The stepwise cost reduction process from gradient descent can be visualized in this plot
 
 ```
 #plot cost against interations
