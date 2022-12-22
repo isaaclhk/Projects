@@ -60,7 +60,7 @@ print(df.head())
 df.info()
 ```
 
-id is dropped beacause it is not germane to the analysis, 'Unnamed: 32' is also dropped because it consists of only null values.
+id is dropped because it is not germane to the analysis, 'Unnamed: 32' is also dropped because it consists of only null values.
 
 ```
 #check that the null column was dropped, note that all are floats except diagnosis
@@ -86,7 +86,7 @@ plt.show()
 ![Figure_1](https://user-images.githubusercontent.com/71438259/209077374-0e57a3b4-efb1-4bd8-9755-0d06ed16297b.png)
 
 There are 357 benign tumors and 212 malignant tumors in the dataset. </br>
-Next, the remaining features are described and visualized using scatterplot matrices to identify patterns and trends. </br>
+Next, the remaining features are described and visualized using scatterplot matrices to identify patterns. </br>
 3 sets of scatterplot matrices are made to compare means, standard errors and worsts respectively.
 
 ```
@@ -137,7 +137,7 @@ sns.heatmap(corr, annot = True, mask = mask, xticklabels = True, yticklabels = T
 
 ![corrmat](https://user-images.githubusercontent.com/71438259/209079477-c24ca2f7-090e-49f4-a0d8-0f99db60d6c8.png)
 
-Based on the correlation values, the worsts and means are highly correlated. This is expected as the worsts are a subset of means. To avoid multicollinearity, attributes of the worsts columns will be dropped. In addition, radius, perimeter and area attributes are confirmed to be multicollinear. This is expected as these attributes are related measures of cell size. As the cell's area and perimeter can both be determined by its radius, the perimeter and radius attributes will be discarded from the analysis. Lastly, compactness, concavity and concave points is also highly correlated. This is also expected given that they are all indicators of cell shape. As compactness is a measure of overall shape that would account for both concavity and number of concave points, compactness will be retained while concavity  and concave points are dropped from the analysis.
+Based on the correlation coefficients, the worsts and means are highly correlated. This is expected as the worsts are a subset of means. To avoid multicollinearity, attributes of the worsts columns will be dropped. In addition, radius, perimeter and area attributes are confirmed to be multicollinear. This is expected as these attributes are related measures of cell size. As the cell's area and perimeter can both be determined by its radius, the perimeter and radius attributes will be discarded from the analysis. Lastly, compactness, concavity and concave points are also highly correlated. This is also expected given that they are all indicators of cell shape. As compactness is a measure of overall shape that would account for both concavity and number of concave points, compactness will be retained while concavity  and concave points are dropped from the analysis.
 
 ```
 #drop worst
