@@ -110,4 +110,12 @@ print(cols3.head())
 
 sns.pairplot(data = cols3, hue = 'diagnosis')
 ```
+To ensure that there is no multicollinearity, correlations between the features are visualized using a correlation matrix.
 
+```
+#checking for multicollinearity
+corr = df.corr().round(2)
+#creating triangular heatmap
+mask = np.triu(np.ones_like(corr, dtype = np.bool))
+sns.heatmap(corr, annot = True, mask = mask, xticklabels = True, yticklabels = True)
+```
