@@ -309,7 +309,7 @@ sns.lineplot(x= i_history, y= J_history)
 The gradient descent function that was created above outputs the weights and bias of the model after it has been fitted. </br>
 Based on the weights and bias of the fitted model, we can compute the probability of malignancy for each example by applying g(w.x + b) as described above. </br>
 </br>
-![predict](https://user-images.githubusercontent.com/71438259/209127385-e595a3e8-90ca-4bcc-8a53-66640af31951.jpg)
+![predict](https://user-images.githubusercontent.com/71438259/209127535-6abe1ed2-4e95-4018-81d9-76b95ed07b38.jpg)
 </br>
 ```
 #predict
