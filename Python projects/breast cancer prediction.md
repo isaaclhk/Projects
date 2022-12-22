@@ -241,7 +241,7 @@ def compute_cost(X, y, w, b):
 
 ![gradient1](https://user-images.githubusercontent.com/71438259/209121558-4900355b-81e2-4021-b354-d0281262b801.jpg)
 </br>
-![gradient2](https://user-images.githubusercontent.com/71438259/209122275-88a85fa0-66a7-4563-8372-0cd8e0ac87ad.jpg)
+![gradient2](https://user-images.githubusercontent.com/71438259/209122634-f25ed9d2-ced3-4f9e-88e8-6b548e71a2c7.jpg)
 </br>
 ```
 #compute gradient
