@@ -191,3 +191,20 @@ Before we begin to train the model, it is often good practice to scale the featu
 
 ![zscore](https://user-images.githubusercontent.com/71438259/209116595-a0a06d05-f859-4046-a8b6-89f19fc5a414.jpg)
 
+```
+#z-score normalization
+def norm(X):    
+    # find the mean value of each column/feature
+    mu     = np.mean(X, axis = 0)
+    # find the standard deviation of each column/feature
+    sigma  = np.std(X, axis = 0)                  # sigma will have shape (n,)
+    # element-wise, subtract mean for that column from each example, divide standard deviation
+    X_norm = (X - mu) / sigma   
+
+    return X_norm
+    
+#normalize independent variables
+x_train_norm = norm(x_train)
+x_test_norm = norm(x_test)
+```
+
