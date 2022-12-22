@@ -2,7 +2,7 @@
 ## Background
 The aim of this project is to build a logistic regression model that will accurately predict whether or not a breast tumor is benign or malignant based on cell nuclei characteristics. While there are powerful libraries available to help us perform logistic regression efficiently, the model in this project is built from scratch as an exercise to build intuition and understanding of how such libraries work under the hood. The results were then be verified against the model built using the sklearn library.  
 </br>
-Reference: The mathematical formulae written in this project was taken from [this online course](https://www.coursera.org/learn/machine-learning)
+Reference: The mathematical formulae written in this project were taken from [this online course](https://www.coursera.org/learn/machine-learning)
 
 ### [About Dataset](https://www.kaggle.com/datasets/uciml/breast-cancer-wisconsin-data)
 Features are computed from a digitized image of a fine needle aspirate (FNA) of a breast mass. They describe characteristics of the cell nuclei present in the image.
@@ -239,5 +239,32 @@ def compute_cost(X, y, w, b):
     return total_cost
 ```
 
+![gradient1](https://user-images.githubusercontent.com/71438259/209121558-4900355b-81e2-4021-b354-d0281262b801.jpg)
+</br>
+![gradient2](https://user-images.githubusercontent.com/71438259/209121568-fb96bee9-a374-4f87-9bd0-0b7c57ee83a5.jpg)
+</br>
+```
+#compute gradient
+def compute_gradient(X, y, w, b):
+    
+    m, n = X.shape
+    dj_dw = np.zeros(w.shape)
+    dj_db = 0
+    
+    for i in range(m):  
+        z_wb = np.dot(X.iloc[i], w) + b
+        f_wb = sigmoid(z_wb)
+
+        dj_db_i = f_wb - y.iloc[i]
+        dj_db += dj_db_i
+        
+        dj_dw_i = (f_wb - y.iloc[i])*X.iloc[i]
+        dj_dw += dj_dw_i
+    
+    dj_db = dj_db/m
+    dj_dw = dj_dw/m
+    
+    return dj_db, dj_dw
+```
 
 
