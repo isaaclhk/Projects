@@ -1,6 +1,6 @@
 # Breast Cancer Prediction
 ## Background
-The aim of this project is to build a logistic regression model that will accurately predict whether or not a breast tumor is benign or malignant based on cell nuclei characteristics. While there are powerful libraries available to help us perform logistic regression efficiently, the model in this project will be built from scratch as an exercise to build intuition and understanding of how such libraries work under the hood. The results will then be verified against the model built using the sklearn library.  
+The aim of this project is to build a logistic regression model that will accurately predict whether or not a breast tumor is benign or malignant based on cell nuclei characteristics. While there are powerful libraries available to help us perform logistic regression efficiently, the model in this project is built from scratch as an exercise to build intuition and understanding of how such libraries work under the hood. The results were then be verified against the model built using the sklearn library.  
 </br>
 ### [About Dataset](https://www.kaggle.com/datasets/uciml/breast-cancer-wisconsin-data)
 Features are computed from a digitized image of a fine needle aspirate (FNA) of a breast mass. They describe characteristics of the cell nuclei present in the image.
@@ -135,5 +135,28 @@ sns.heatmap(corr, annot = True, mask = mask, xticklabels = True, yticklabels = T
 
 ![corrmat](https://user-images.githubusercontent.com/71438259/209079477-c24ca2f7-090e-49f4-a0d8-0f99db60d6c8.png)
 
-Based on the correlation values, it is confirmed that 
+Based on the correlation values, the worsts and means are highly correlated. This is expected as the worsts are a subset of means. To avoid multicollinearity, attributes of the worsts columns will be dropped. In addition, radius, perimeter and area attributes are confirmed to be multicollinear. This is expected as these attributes are related measures of cell size. As the cell's area and perimeter can both be determined by its radius, the perimeter and radius attributes will be discarded from the analysis. Lastly, compactness, concavity and concave points is also highly correlated. This is also expected given that they are all indicators of cell shape. As compactness is a measure of overall shape that would account for both concavity and number of concave points, compactness will be retained while concavity  and concave points are dropped from the analysis.
 
+```
+#drop worst
+df.drop(df.loc[:,'radius_worst': 'fractal_dimension_worst'], axis = 1, inplace = True)
+df.columns
+
+#drop radius and perimeter
+df.drop(['area_mean', 'perimeter_mean', 'area_se', 'perimeter_se'], axis = 1, inplace = True)
+df.columns
+
+#drop concavity and concave points
+df.drop(['concavity_mean', 'concave points_mean', 'concavity_se', 'concave points_se'], axis = 1, inplace = True)
+df.columns
+```
+
+After the multicollinear features are removed, the correlation matrix is plotted once again.
+
+'''
+#replot correlation matrix
+corr = df.corr().round(2)
+mask = np.triu(np.ones_like(corr, dtype = np.bool))
+sns.heatmap(corr, annot = True, mask = mask, xticklabels = True, yticklabels = True)
+```
+![corrmat](https://user-images.githubusercontent.com/71438259/209107752-5f5a80d6-382d-4425-9bd9-9a96df47a83a.png)
