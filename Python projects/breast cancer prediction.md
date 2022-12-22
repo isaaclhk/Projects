@@ -335,35 +335,35 @@ Output:
 
 ```
 w, b, J_history, i_history = gradient_descent(x_train_norm, y_train, initial_w, initial_b, compute_cost, compute_gradient, alpha, iterations)
-Iteration 0: Cost 0.188628   
-Iteration 100: Cost 0.175537   
-Iteration 200: Cost 0.169519   
-Iteration 300: Cost 0.166321   
-Iteration 400: Cost 0.164379   
-Iteration 500: Cost 0.163058   
-Iteration 600: Cost 0.162078   
-Iteration 700: Cost 0.161307   
-Iteration 800: Cost 0.160674   
-Iteration 900: Cost 0.160140   
-Iteration 999: Cost 0.159685  
+Iteration 0: Cost 0.673488   
+Iteration 100: Cost 0.273472   
+Iteration 200: Cost 0.222438   
+Iteration 300: Cost 0.201726   
+Iteration 400: Cost 0.190342   
+Iteration 500: Cost 0.183099   
+Iteration 600: Cost 0.178078   
+Iteration 700: Cost 0.174395   
+Iteration 800: Cost 0.171582   
+Iteration 900: Cost 0.169369   
+Iteration 999: Cost 0.167604  
 
 print(w)
-radius_mean               2.406836
-texture_mean              1.366080
-smoothness_mean           0.793861
-compactness_mean          1.277232
-symmetry_mean             0.536747
-fractal_dimension_mean   -0.303141
-radius_se                 1.570828
-texture_se               -0.452817
-smoothness_se            -0.165410
-compactness_se            0.005177
-symmetry_se              -0.337414
-fractal_dimension_se     -0.473001
+radius_mean               1.991684
+texture_mean              1.150695
+smoothness_mean           0.723816
+compactness_mean          1.127666
+symmetry_mean             0.486357
+fractal_dimension_mean   -0.366151
+radius_se                 1.222679
+texture_se               -0.345691
+smoothness_se            -0.180040
+compactness_se            0.083862
+symmetry_se              -0.295591
+fractal_dimension_se     -0.361623
 Name: 149, dtype: float64
 
 print(b)
--0.7267547221193337
+-0.7453229758954971
 ```
 
 The stepwise cost reduction process of gradient descent can be visualized in this plot
@@ -372,7 +372,8 @@ The stepwise cost reduction process of gradient descent can be visualized in thi
 #plot cost against interations
 sns.lineplot(x= i_history, y= J_history)
 ```
-![gdplot](https://user-images.githubusercontent.com/71438259/209129011-bb3a5855-767a-4ffe-b142-dc46c8e9f55e.png)
+
+![gdplot](https://user-images.githubusercontent.com/71438259/209176902-97fd1768-4295-41aa-a9ca-29ee6f5cd06b.png)
 
 Finally, we run the predict function and produce a confusion matrix to evaluate our model's accuracy.
 
@@ -393,17 +394,16 @@ array([[106,   5],
        
 #visualizing confusion matrix
 sns.heatmap(confmat, annot = True, linewidths = 1, 
-            xticklabels = ['Malignant', 'Benign'], 
-            yticklabels = ['Malignant', 'Benign'],
+            xticklabels = ['Benign', 'Malignant'], 
+            yticklabels = ['Benign', 'Malignant'],
             fmt = 'g',
             cmap = 'Blues')
 plt.title('confmat')
-plt.xlabel('Predicted Diagnosis')
-plt.ylabel('True Diagnosis')
+plt.xlabel('True Diagnosis')
+plt.ylabel('Predicted Diagnosis')
 ```
 
-![confmat](https://user-images.githubusercontent.com/71438259/209153274-b8f7c81e-77d9-4fa3-9921-5f0607dc3017.jpg)
-
+![confmat](https://user-images.githubusercontent.com/71438259/209177146-584ff5ac-a625-473e-be75-4bc22dae006d.jpg)
 </br>
 Next, we run logistic regression using the sklearn and see how it compares.
 
@@ -420,13 +420,13 @@ accuracy_score(y_pred, y_test)
 
 #visualizing confusion matrix
 sns.heatmap(confmat2, annot = True, linewidths = 1, 
-            xticklabels = ['Malignant', 'Benign'], 
-            yticklabels = ['Malignant', 'Benign'],
+            xticklabels = ['Benign', 'Malignant'], 
+            yticklabels = ['Benign', 'Malignant'],
             fmt = 'g',
             cmap = 'Blues')
 plt.title('confmat2')
-plt.xlabel('Predicted Diagnosis')
-plt.ylabel('True Diagnosis')
+plt.xlabel('True Diagnosis')
+plt.ylabel('Predicted Diagnosis')
 ```
 output:
 
@@ -439,7 +439,8 @@ accuracy_score(y_pred, y_test)
 0.9649122807017544
 ```
 
-![confmat2](https://user-images.githubusercontent.com/71438259/209153469-36181fbd-c81a-4b1f-beb5-e943430420b4.png)
+![confmat2](https://user-images.githubusercontent.com/71438259/209177429-913aec35-72b3-4d85-9c7d-472c5449f612.png)
+
 
 The model we built demonstrates a prediction accuracy of 95.906%, while the one generated from using the sklearn library has a prediction accuracy of 96.49%.
 </br>
@@ -457,13 +458,13 @@ accuracy_score(y_pred2, y_test)
 
 #visualizing confusion matrix
 sns.heatmap(confmat3, annot = True, linewidths = 1, 
-            xticklabels = ['Malignant', 'Benign'], 
-            yticklabels = ['Malignant', 'Benign'],
+            xticklabels = ['Benign', 'Malignant'], 
+            yticklabels = ['Benign', 'Malignant'],
             fmt = 'g',
             cmap = 'Blues')
 plt.title('confmat3')
-plt.xlabel('Predicted Diagnosis')
-plt.ylabel('True Diagnosis')
+plt.xlabel('True Diagnosis')
+plt.ylabel('Predicted Diagnosis')
 ```
 
 output:
@@ -477,7 +478,7 @@ accuracy_score(y_pred2, y_test)
 0.8245614035087719
 ```
 
-![confmat3](https://user-images.githubusercontent.com/71438259/209153648-4eaf69de-f055-447d-b3ff-c98141498d70.png)
+![confmat3](https://user-images.githubusercontent.com/71438259/209177645-9a70d886-4627-4cb5-88b9-7f2cae33659e.png)
 
 Compared to the predictions generated from y_pred, the predictions from y_pred2 are less accurate. An examination of the confusion matrix tells us that the number of false negatives increased significantly, but the number of false positives is minimized to 0. </br>
 If deployed in a clinical setting, this model and others like this may potentially reduce the workload of healthcare staff by efficient classification.
