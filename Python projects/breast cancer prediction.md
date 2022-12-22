@@ -398,8 +398,8 @@ sns.heatmap(confmat, annot = True, linewidths = 1,
             fmt = 'g',
             cmap = 'Blues')
 plt.title('confmat')
-plt.xlabel('True Diagnosis')
-plt.ylabel('Predicted Diagnosis')
+plt.xlabel('Predicted Diagnosis')
+plt.ylabel('True Diagnosis')
 ```
 
 ![confmat](https://user-images.githubusercontent.com/71438259/209153274-b8f7c81e-77d9-4fa3-9921-5f0607dc3017.jpg)
@@ -425,8 +425,8 @@ sns.heatmap(confmat2, annot = True, linewidths = 1,
             fmt = 'g',
             cmap = 'Blues')
 plt.title('confmat2')
-plt.xlabel('True Diagnosis')
-plt.ylabel('Predicted Diagnosis')
+plt.xlabel('Predicted Diagnosis')
+plt.ylabel('True Diagnosis')
 ```
 output:
 
@@ -462,8 +462,8 @@ sns.heatmap(confmat3, annot = True, linewidths = 1,
             fmt = 'g',
             cmap = 'Blues')
 plt.title('confmat3')
-plt.xlabel('True Diagnosis')
-plt.ylabel('Predicted Diagnosis')
+plt.xlabel('Predicted Diagnosis')
+plt.ylabel('True Diagnosis')
 ```
 
 output:
