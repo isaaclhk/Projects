@@ -404,8 +404,6 @@ plt.ylabel('Predicted Diagnosis')
 
 ![confmat](https://user-images.githubusercontent.com/71438259/209153274-b8f7c81e-77d9-4fa3-9921-5f0607dc3017.jpg)
 
-The confusion matrix outputs the number of true positive, true negative, false positive and false negative results as follows:</br>
-![confmat](https://user-images.githubusercontent.com/71438259/209131116-01192798-480a-487b-af5c-6b95568d3533.jpg)
 </br>
 Next, we run logistic regression using the sklearn and see how it compares
 
