@@ -42,7 +42,7 @@ Missing attribute values: none
 
 Class distribution: 357 benign, 212 malignant
 
-### Exploratory data analysis
+## Exploratory data analysis
 
 We begin by importing relevant libraries and loading the dataset before describing and visualizing the data.
 
@@ -161,4 +161,6 @@ sns.heatmap(corr, annot = True, mask = mask, xticklabels = True, yticklabels = T
 ```
 
 ![corrmat2](https://user-images.githubusercontent.com/71438259/209107952-592189d4-0ced-4d16-9aea-0101d52e68bc.png)
+
+## Logistic Regression
 
