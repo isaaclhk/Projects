@@ -153,10 +153,11 @@ df.columns
 
 After the multicollinear features are removed, the correlation matrix is plotted once again.
 
-'''
+```
 #replot correlation matrix
 corr = df.corr().round(2)
 mask = np.triu(np.ones_like(corr, dtype = np.bool))
 sns.heatmap(corr, annot = True, mask = mask, xticklabels = True, yticklabels = True)
 ```
+
 ![corrmat](https://user-images.githubusercontent.com/71438259/209107752-5f5a80d6-382d-4425-9bd9-9a96df47a83a.png)
