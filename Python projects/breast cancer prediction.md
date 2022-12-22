@@ -390,7 +390,19 @@ output:
 Accuracy: 95.90643274853801
 array([[106,   5],
        [  2,  58]], dtype=int64)
+       
+#visualizing confusion matrix
+sns.heatmap(confmat, annot = True, linewidths = 1, 
+            xticklabels = ['Malignant', 'Benign'], 
+            yticklabels = ['Malignant', 'Benign'],
+            fmt = 'g',
+            cmap = 'Blues')
+plt.title('confmat')
+plt.xlabel('True Diagnosis')
+plt.ylabel('Predicted Diagnosis')
 ```
+
+![confmat](https://user-images.githubusercontent.com/71438259/209153274-b8f7c81e-77d9-4fa3-9921-5f0607dc3017.jpg)
 
 The confusion matrix outputs the number of true positive, true negative, false positive and false negative results as follows:</br>
 ![confmat](https://user-images.githubusercontent.com/71438259/209131116-01192798-480a-487b-af5c-6b95568d3533.jpg)
@@ -407,8 +419,17 @@ y_pred = logreg.predict(x_test_norm)
 confmat2 = confusion_matrix(y_pred, y_test)
 confmat2
 accuracy_score(y_pred, y_test)
-```
 
+#visualizing confusion matrix
+sns.heatmap(confmat2, annot = True, linewidths = 1, 
+            xticklabels = ['Malignant', 'Benign'], 
+            yticklabels = ['Malignant', 'Benign'],
+            fmt = 'g',
+            cmap = 'Blues')
+plt.title('confmat2')
+plt.xlabel('True Diagnosis')
+plt.ylabel('Predicted Diagnosis')
+```
 output:
 
 ```
@@ -419,6 +440,8 @@ array([[105,   3],
 accuracy_score(y_pred, y_test)       
 0.9649122807017544
 ```
+
+![confmat2](https://user-images.githubusercontent.com/71438259/209153469-36181fbd-c81a-4b1f-beb5-e943430420b4.png)
 
 The model we built demonstrates a prediction accuracy of 95.906%, while the one generated from using the sklearn library has a prediction accuracy of 96.49%.
 </br>
@@ -433,6 +456,16 @@ y_pred2
 confmat3 = confusion_matrix(y_pred2, y_test)
 confmat3
 accuracy_score(y_pred2, y_test)
+
+#visualizing confusion matrix
+sns.heatmap(confmat3, annot = True, linewidths = 1, 
+            xticklabels = ['Malignant', 'Benign'], 
+            yticklabels = ['Malignant', 'Benign'],
+            fmt = 'g',
+            cmap = 'Blues')
+plt.title('confmat3')
+plt.xlabel('True Diagnosis')
+plt.ylabel('Predicted Diagnosis')
 ```
 
 output:
@@ -445,6 +478,8 @@ array([[78,  0],
 accuracy_score(y_pred2, y_test)
 0.8245614035087719
 ```
+
+![confmat3](https://user-images.githubusercontent.com/71438259/209153648-4eaf69de-f055-447d-b3ff-c98141498d70.png)
 
 Compared to the predictions generated from y_pred, the predictions from y_pred2 are less accurate. An examination of the confusion matrix tells us that the number of false negatives has increased significantly, but the number of false positives is minimized to 0. </br>
 If deployed in a clinical setting, this model can potential reduce the doctor's workload by efficiently classifying patients' tumors. 
