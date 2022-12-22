@@ -374,7 +374,7 @@ sns.lineplot(x= i_history, y= J_history)
 ```
 ![gdplot](https://user-images.githubusercontent.com/71438259/209129011-bb3a5855-767a-4ffe-b142-dc46c8e9f55e.png)
 
-Finally, we run the predict function and evaluate our model's accuracy.
+Finally, we run the predict function and produce a confusion matrix to evaluate our model's accuracy.
 
 ```
 #evaluating accuracy
