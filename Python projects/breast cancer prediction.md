@@ -122,6 +122,7 @@ Standard Error
 Worst**
 ![worst](https://user-images.githubusercontent.com/71438259/209077993-904b2827-1459-446a-be58-057c0101bc2c.png)
 </br>
+From the above plots, we note that the relationships between radius, perimeter and area attributes appear to be strongly linear. Concavity, concave_points and compactness may also possibly be multicollinear. </br>
 To ensure that there is no multicollinearity, correlations between the features are visualized using a correlation matrix.
 
 ```
