@@ -46,9 +46,25 @@ Class distribution: 357 benign, 212 malignant
 
 Importing relevant libraries and loading the dataset.
 
-'''
+```
 import pandas as pd
 import numpy as np
 import seaborn as sns
 import matplotlib.pyplot as plt
+
+df = pd.read_csv('C:/Users/isaac/OneDrive/Documents/Projects/datasets/data.csv')
+print(df.head())
+
+df.info()
 ```
+
+id is dropped beacause it is not germane to the analysis, 'Unnamed: 32' is also dropped because it consists of only null values.
+
+```
+#check that the null column was dropped, note that all are floats except diagnosis
+df.info()
+df.shape
+```
+
+
+
