@@ -372,7 +372,18 @@ sns.lineplot(x= i_history, y= J_history)
 ```
 ![gdplot](https://user-images.githubusercontent.com/71438259/209129011-bb3a5855-767a-4ffe-b142-dc46c8e9f55e.png)
 
+Finally, we run the predict function and evaluate our model's accuracy.
 
+```
+#evaluating accuracy
+print(f'Accuracy: {np.mean(p == y_test) * 100}')
+
+
+from sklearn.metrics import confusion_matrix, accuracy_score
+confmat = confusion_matrix(p, y_test)
+confmat
+accuracy_score(p, y_test)
+```
 
 
 
