@@ -1,6 +1,6 @@
 # Breast Cancer Prediction
 ## Background
-The aim of this project is to build a logistic regression model that will predict whether or not a breast tumor is benign or malignant based on cell nuclei characteristics.
+The aim of this project is to build a logistic regression model that will accurately predict whether or not a breast tumor is benign or malignant based on cell nuclei characteristics. While there are powerful libraries available to help us perform logistic regression efficiently, the model in this project will be built from scratch as an exercise to build intuition and understanding of how such libraries work under the hood. The results will then be verified against the model built using the sklearn library.  
 </br>
 ### [About Dataset](https://www.kaggle.com/datasets/uciml/breast-cancer-wisconsin-data)
 Features are computed from a digitized image of a fine needle aspirate (FNA) of a breast mass. They describe characteristics of the cell nuclei present in the image.
@@ -66,5 +66,48 @@ df.info()
 df.shape
 ```
 
+The dependent variable is examined to understand the distribution between malignant and benign tumors in the dataset.
 
+```
+#examine diagnosis variable
+df['diagnosis'].unique()
+df['diagnosis'].value_counts()
+#M = malignant, B = benign, convert to 1 = malignant, 0 = benign
+df['diagnosis'] = df['diagnosis'].map({'M':1, 'B':0})
+
+#visualize malignant vs benign
+sns.countplot(x = 'diagnosis', data = df)
+plt.title('Malignant vs Benign')
+plt.show()
+```
+There are 357 benign tumors and 212 malignant tumors in the dataset. </br>
+Next, the remaining features are described and visualized using scatterplot matrices to identify patterns and trends. </br>
+3 sets of scatterplot matrices are made to compare means, standard errors and worsts respectively.
+
+```
+#describe the data
+pd.options.display.max_columns= df.shape[1]
+df.describe()
+
+#visualize mean
+df.columns
+cols1 = df.loc[:, 'diagnosis': 'fractal_dimension_mean']
+print(cols1.head())
+
+sns.pairplot(data = cols1, hue = 'diagnosis')
+
+#visualize standard error
+cols2 = df.loc[:, 'radius_se': 'fractal_dimension_se']
+cols2['diagnosis'] = df['diagnosis']
+print(cols2.head())
+
+sns.pairplot(data = cols2, hue = 'diagnosis')
+
+#visualize worst
+cols3 = df.loc[:, 'radius_worst': 'fractal_dimension_worst']
+cols3['diagnosis'] = df['diagnosis']
+print(cols3.head())
+
+sns.pairplot(data = cols3, hue = 'diagnosis')
+```
 
