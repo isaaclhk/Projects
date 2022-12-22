@@ -132,3 +132,8 @@ corr = df.corr().round(2)
 mask = np.triu(np.ones_like(corr, dtype = np.bool))
 sns.heatmap(corr, annot = True, mask = mask, xticklabels = True, yticklabels = True)
 ```
+
+![corrmat](https://user-images.githubusercontent.com/71438259/209079477-c24ca2f7-090e-49f4-a0d8-0f99db60d6c8.png)
+
+Based on the correlation values, it is confirmed that 
+
