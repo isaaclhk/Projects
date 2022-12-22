@@ -210,6 +210,15 @@ x_test_norm = norm(x_test)
 
 For logistic regression, the model is represented as </br>
 ![logreg](https://user-images.githubusercontent.com/71438259/209117878-a85c1514-06d9-4302-9ce1-a4c0a49a31bc.jpg)
+</br>
 where g is the sigmoid function. The sigmoid function is defined as: </br>
 ![sigmoid](https://user-images.githubusercontent.com/71438259/209118099-3af8988b-f58b-4cf7-a7b0-247206b2b87c.jpg)
+</br>
+
+```
+#sigmoid function
+def sigmoid(z):
+    g = 1/(1 + np.exp(-z))
+    return g
+```
 
