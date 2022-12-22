@@ -2,7 +2,7 @@
 ## Background
 The aim of this project is to build a logistic regression model that will accurately predict whether or not a breast tumor is benign or malignant based on cell nuclei characteristics. While there are powerful libraries available to help us perform logistic regression efficiently, the model in this project is built from scratch as an exercise to build intuition and understanding of how such libraries work under the hood. The results were then verified against the model built using the sklearn library.  
 </br>
-Reference: The mathematical formulae written in this project were taken from [this online course](https://www.coursera.org/learn/machine-learning)
+Reference: The mathematical formulae written on this post were taken from [this online course](https://www.coursera.org/learn/machine-learning)
 
 ### [About Dataset](https://www.kaggle.com/datasets/uciml/breast-cancer-wisconsin-data)
 Features are computed from a digitized image of a fine needle aspirate (FNA) of a breast mass. They describe characteristics of the cell nuclei present in the image.
