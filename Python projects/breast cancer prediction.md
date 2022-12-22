@@ -307,6 +307,7 @@ sns.lineplot(x= i_history, y= J_history)
 
 
 The gradient descent function that was created above outputs the weights and bias of the model after it has been fitted. </br>
+Based on the weights and bias of the fitted model, we can compute the prediction for every example.
 
 
 
