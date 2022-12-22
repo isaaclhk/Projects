@@ -418,5 +418,32 @@ accuracy_score(y_pred, y_test)
 0.9649122807017544
 ```
 
+The model we built demonstrates a prediction accuracy of 95.906%, while the one generated from using the sklearn library has a prediction accuracy of 96.49%.
+</br>
+For purposes of clinical deployment, it might sometimes be prudent to lower the threshold for prediction from 0.5 to a lower value to reduce the chance of having a false negative result or missed diagnosis. This can be achieved with the following code:
+
+```
+#changing default threshold for clinical deployment
+y_pred2 = np.where(logreg.predict_proba(x_test_norm)[:, 1] > 0.05, 1, 0)
+y_pred2
+confmat3 = confusion_matrix(y_pred2, y_test)
+confmat3
+accuracy_score(y_pred2, y_test)
+```
+
+output:
+
+```
+confmat3
+array([[78,  0],
+       [30, 63]], dtype=int64)
+       
+accuracy_score(y_pred2, y_test)
+0.8245614035087719
+```
+
+Compared to the predictions generated from y_pred, the predictions from y_pred2 are less accurate. An examination of the confusion matrix tells us that the number of false negatives has increased significantly, but the number of false positives is minimized to 0. </br>
+If deployed in a clinical setting, this model can potential reduce the doctor's workload by efficiently classifying patients' tumors. 
+
 
 
