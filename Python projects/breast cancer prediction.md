@@ -170,7 +170,7 @@ We begin by splitting the dataset into two parts: </br>
 1. A training set
 2. A testing set
 </br>
-The model will be fitted on the training set and executed on the testing set. This practice helps us to evaluate whether our model is truly able to predict unseen data, and tells us if the model could be over or underfit. For this analysis, 70% of the data will be used for training before the model is tested on the remaining 30%. Random state is set to 42 to obtain reproducible results.
+The model will be fitted on the training set and executed on the testing set. This practice helps us to evaluate whether the model is truly able to predict unseen data, and tells us if the model could be over or underfit. For this analysis, 70% of the data will be used for training before the model is tested on the remaining 30%. Random state is set to 42 to obtain reproducible results.
 
 ```
 #Assign x and y, split data
@@ -295,5 +295,6 @@ def gradient_descent(X, y, w_in, b_in, cost_function, gradient_function, alpha, 
             
     return w_in, b_in, J_history, i_history #J and i history for graphing
 ```
+
 
 
