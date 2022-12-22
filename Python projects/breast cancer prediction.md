@@ -1,8 +1,5 @@
 # Breast Cancer Prediction
 ## Background
-The dataset includes descriptions of cell nuclei characteristics obtained from a fine needle aspirations of breast masses. The dataset can be found [here](https://archive.ics.uci.edu/ml/datasets/Breast+Cancer+Wisconsin+%28Diagnostic%29).
-</br>
-</br>
 The aim of this project is to build a logistic regression model that will predict whether or not a breast tumor is benign or malignant based on cell nuclei characteristics.
 </br>
 ### [About Dataset](https://www.kaggle.com/datasets/uciml/breast-cancer-wisconsin-data)
@@ -44,3 +41,13 @@ All feature values are recoded with four significant digits.
 Missing attribute values: none
 
 Class distribution: 357 benign, 212 malignant
+
+### code
+
+Importing relevant libraries and loading the dataset.
+'''
+import pandas as pd
+import numpy as np
+import seaborn as sns
+import matplotlib.pyplot as plt
+```
