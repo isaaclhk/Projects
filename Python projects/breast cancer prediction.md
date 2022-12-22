@@ -329,6 +329,51 @@ w, b, J_history, i_history = gradient_descent(x_train_norm, y_train, initial_w, 
 print(w)
 print(b)
 ```
+Output:
+
+```
+w, b, J_history, i_history = gradient_descent(x_train_norm, y_train, initial_w, initial_b, compute_cost, compute_gradient, alpha, iterations)
+Iteration 0: Cost 0.188628   
+Iteration 100: Cost 0.175537   
+Iteration 200: Cost 0.169519   
+Iteration 300: Cost 0.166321   
+Iteration 400: Cost 0.164379   
+Iteration 500: Cost 0.163058   
+Iteration 600: Cost 0.162078   
+Iteration 700: Cost 0.161307   
+Iteration 800: Cost 0.160674   
+Iteration 900: Cost 0.160140   
+Iteration 999: Cost 0.159685  
+
+print(w)
+radius_mean               2.406836
+texture_mean              1.366080
+smoothness_mean           0.793861
+compactness_mean          1.277232
+symmetry_mean             0.536747
+fractal_dimension_mean   -0.303141
+radius_se                 1.570828
+texture_se               -0.452817
+smoothness_se            -0.165410
+compactness_se            0.005177
+symmetry_se              -0.337414
+fractal_dimension_se     -0.473001
+Name: 149, dtype: float64
+
+print(b)
+-0.7267547221193337
+```
+
+The stepwise cost reduction progress from gradient descent can be visualized from this plot
+
+```
+#plot cost against interations
+sns.lineplot(x= i_history, y= J_history)
+```
+![gdplot](https://user-images.githubusercontent.com/71438259/209129011-bb3a5855-767a-4ffe-b142-dc46c8e9f55e.png)
+
+
+
 
 
 
