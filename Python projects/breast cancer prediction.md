@@ -42,9 +42,9 @@ Missing attribute values: none
 
 Class distribution: 357 benign, 212 malignant
 
-### code
+### Exploratory data analysis
 
-Importing relevant libraries and loading the dataset.
+We begin by importing relevant libraries and loading the dataset before describing and visualizing the data.
 
 ```
 import pandas as pd
