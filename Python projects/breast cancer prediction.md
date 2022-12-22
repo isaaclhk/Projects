@@ -210,7 +210,7 @@ x_train_norm = norm(x_train)
 x_test_norm = norm(x_test)
 ```
 
-![sigmoid](https://user-images.githubusercontent.com/71438259/209120519-3fbdaa30-5a60-4038-b06e-65515585fbdf.jpg)
+![sigmoid](https://user-images.githubusercontent.com/71438259/209121022-399d130b-48a0-4009-be85-9ab73b72bd23.jpg)
 </br>
 
 ```
