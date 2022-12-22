@@ -222,3 +222,9 @@ def sigmoid(z):
     return g
 ```
 
+for logistic regression, the cost function is of the form </br>
+![costfunction](https://user-images.githubusercontent.com/71438259/209119203-e4e4b54f-8176-4476-85ad-0ff0b79e2a55.jpg)
+</br>
+
+
+
