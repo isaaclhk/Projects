@@ -377,12 +377,17 @@ Finally, we run the predict function and evaluate our model's accuracy.
 ```
 #evaluating accuracy
 print(f'Accuracy: {np.mean(p == y_test) * 100}')
-
-
 from sklearn.metrics import confusion_matrix, accuracy_score
 confmat = confusion_matrix(p, y_test)
 confmat
-accuracy_score(p, y_test)
+```
+
+output:
+
+```
+Accuracy: 95.90643274853801
+array([[106,   5],
+       [  2,  58]], dtype=int64)
 ```
 
 
