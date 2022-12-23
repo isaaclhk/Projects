@@ -480,8 +480,8 @@ accuracy_score(y_pred2, y_test)
 
 ![confmat3](https://user-images.githubusercontent.com/71438259/209177645-9a70d886-4627-4cb5-88b9-7f2cae33659e.png)
 
-Compared to the predictions generated from y_pred, the predictions from y_pred2 are less accurate. An examination of the confusion matrix tells us that the number of false positives increased significantly, but the number of false negatives is minimized to 0. </br>
-If deployed in a clinical setting, this model and others like this may potentially reduce the workload of healthcare staff by efficient classification.
+Compared to the predictions generated from y_pred, the predictions from y_pred2 are less accurate. An examination of the confusion matrix tells us that the number of false positives increased significantly, but the number of false negatives is minimized to 0. This will reduce the chance of having missed diagnoses and allow doctors to concentrate their time on reviewing tumors that are not likely benign. To further reduce the probability of type 2 errors, the prediction threshold can be further tightened from .05 to .01 or less. </br>
+If deployed in a clinical setting, this model and others like this may potentially reduce the workload of healthcare staff through efficient classification.
 
 
 
