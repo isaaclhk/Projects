@@ -288,7 +288,7 @@ def gradient_descent(X, y, w_in, b_in, cost_function, gradient_function, alpha, 
             J_history.append(cost)
             i_history.append(i)
             
-        # Print cost every at intervals 10 times or as many iterations if < 10
+        # Print cost at every 100 iterations and final iteration
         if i%100 == 0 or i == (num_iters-1):
             print(f"Iteration {i}: Cost {float(J_history[i]):.6f}   ") 
         
