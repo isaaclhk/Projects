@@ -450,7 +450,7 @@ The model we built demonstrates a prediction accuracy of 95.906%, while the one 
 </br>
 
 ### Note for deployment of model in clinical settings
-For purposes of clinical deployment, it might sometimes be prudent to lower the threshold for prediction from the default value of 0.5 to a lower value to reduce the chance of having false negative results or missed diagnoses. This can be achieved with the following code:
+For purposes of clinical deployment, it might sometimes be prudent to lower the threshold for prediction from the default value of 0.5 to a lower value to reduce the chance of having false negative results. The remaining potentially positive results can then be reviewed manually to avoid missed diagnoses. The prediction threshold can be modified with the following code:
 
 ```
 #changing default threshold for clinical deployment
