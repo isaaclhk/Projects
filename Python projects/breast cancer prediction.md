@@ -371,9 +371,13 @@ The stepwise cost reduction process of gradient descent can be visualized in thi
 ```
 #plot cost against interations
 sns.lineplot(x= i_history, y= J_history)
+plt.title('Gradient Descent')
+plt.xlabel('Iterations')
+plt.ylabel('Total cost')
 ```
 
-![gdplot](https://user-images.githubusercontent.com/71438259/209176902-97fd1768-4295-41aa-a9ca-29ee6f5cd06b.png)
+![gdplot](https://user-images.githubusercontent.com/71438259/209640805-2dda2717-a228-414e-9e3f-a9f106b0a5fd.png)
+
 
 Finally, we run the predict function and produce a confusion matrix to evaluate our model's accuracy.
 
