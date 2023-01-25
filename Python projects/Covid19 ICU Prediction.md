@@ -23,4 +23,12 @@ diff = max - min</br>
 relative diff = diff/median</br>
 
 ## Data cleaning and Exploratory Analysis
+'''
+import pandas as pd
+import numpy as np
 
+data = pd.read_excel("C:/Users/isaac/OneDrive/Documents/Projects/datasets/Kaggle_Sirio_Libanes_ICU_Prediction.xlsx")
+
+##getting to know the dataset
+data.info(verbose = True, show_counts = True)
+'''
