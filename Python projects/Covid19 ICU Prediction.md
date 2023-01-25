@@ -65,7 +65,7 @@ data.drop(index = data.index[995:1000], inplace = True)
 data.loc[data['PATIENT_VISIT_IDENTIFIER'] == 199]
 ```
 
-Next, we take a quick look at the remaining features' distributions.
+Next, we examine the remaining features' distributions.
 
 ```
 pd.set_option('display.max_rows', None)
@@ -74,6 +74,25 @@ pd.set_option('display.width', None)
 pd.set_option('display.max_colwidth', None)
 
 data.describe()
+
+#Distribution of paitents admitted to ICU
+ICU = (data.groupby(by = 'PATIENT_VISIT_IDENTIFIER').sum()['ICU'] > 0).reset_index()*1
+ICU.head()
+ICU['ICU'].value_counts()
+
+import seaborn as sns
+import matplotlib.pyplot as plt
+sns.set_theme(style = 'darkgrid')
+ax = sns.countplot(data = ICU, x = 'ICU')
+ax.bar_label(container=ax.containers[0])
+plt.title('ICU Admissions')
+plt.xticks(ticks = [0,1], labels = ['not admitted', 'admitted'])
+plt.close()
+
+ICU_plot = data.groupby(by = 'WINDOW').sum()['ICU']
+sns.lineplot(data = ICU_plot, marker = 'o')
+plt.title('ICU Admission Window')
+plt.close()
 ```
 
 
