@@ -30,5 +30,54 @@ import numpy as np
 data = pd.read_excel("C:/Users/isaac/OneDrive/Documents/Projects/datasets/Kaggle_Sirio_Libanes_ICU_Prediction.xlsx")
 
 ##getting to know the dataset
+data.shape
 data.info(verbose = True, show_counts = True)
 ```
+
+Based on the output from 'info', we see that majority of the features are floats. To better understand the distribution of data in this dataset, we start by examining the non-float features individually.
+
+```
+data['AGE_ABOVE65'].value_counts(dropna = False)
+data['AGE_PERCENTIL'].value_counts(dropna = False)
+data['GENDER'].value_counts(dropna = False)
+data['WINDOW'].value_counts(dropna = False)
+data['ICU'].value_counts(dropna = False)
+data['HTN'].value_counts(dropna = False)
+data['IMMUNOCOMPROMISED'].value_counts(dropna = False)
+data['OTHER'].value_counts(dropna = False)
+```
+
+By looking at the above features, we note that 'HTN', 'IMMUNOCOMPROMISED', and 'OTHER' consists of 5 NaN values. 
+we investigate further by finding where these NaN values originate.
+
+```
+#investigate NaN values
+data.loc[data['HTN'].isnull() == True]
+data.loc[data['HTN'].isnull() == True]
+data.loc[data['OTHER'].isnull() == True]
+```
+After investigation, we find that these 5 NaN values all come from the same patient: PATIENT_VISIT_IDENTIFIER 199. </br>
+The data from this particular patient looks suspiciously empty as it provided us with no data apart from age and gender. As there is only one patient with almost no data, this patient will be dropped from the dataset.
+
+```
+#drop patient 199 as it contains no data
+data.drop(index = data.index[995:1000], inplace = True)
+data.loc[data['PATIENT_VISIT_IDENTIFIER'] == 199]
+```
+
+Next, we take a quick look at the remaining features' distributions.
+
+```
+pd.set_option('display.max_rows', None)
+pd.set_option('display.max_columns', None)
+pd.set_option('display.width', None)
+pd.set_option('display.max_colwidth', None)
+
+data.describe()
+```
+
+
+
+
+
+
