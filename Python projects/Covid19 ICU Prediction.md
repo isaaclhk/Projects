@@ -8,7 +8,7 @@ To assist clinicians in making faster and more accurate decisions, Hospital Siri
 The aim of this project is to predict whether or not a patient is likely to eventually require ICU admission based on clinical data obtained from the patient while he or she is not in ICU.
 
 ### About the dataset
-The dataset used in this project and its descriptions are available on [kaggle]https://www.kaggle.com/code/afamos/covid-19-icu-admission-prediction-92-accuracy/data.</br>
+The dataset used in this project and its descriptions are available on [kaggle](https://www.kaggle.com/code/afamos/covid-19-icu-admission-prediction-92-accuracy/data).</br>
 It contains anonymized data from Hospital Sírio-Libanês, São Paulo and Brasilia. All data were anonymized following the best international practices and recommendations.
 Data has been cleaned and scaled by column according to Min Max Scaler to fit between -1 and 1.
 
