@@ -12,15 +12,15 @@ The dataset used in this project and its descriptions are available on [kaggle]h
 It contains anonymized data from Hospital Sírio-Libanês, São Paulo and Brasilia. All data were anonymized following the best international practices and recommendations.
 Data has been cleaned and scaled by column according to Min Max Scaler to fit between -1 and 1.
 
-**Available data**
-Patient demographic information (03)
-Patient previous grouped diseases (09)
-Blood results (36)
-Vital signs (06)
-In total there are 54 features, expanded when pertinent to the mean, median, max, min, diff and relative diff.
+**Available data**</br>
+Patient demographic information (03) </br>
+Patient previous grouped diseases (09)</br>
+Blood results (36)</br>
+Vital signs (06)</br>
+In total there are 54 features, expanded when pertinent to the mean, median, max, min, diff and relative diff.</br></br>
 
-diff = max - min
-relative diff = diff/median
+diff = max - min</br>
+relative diff = diff/median</br>
 
 ## Data cleaning and Exploratory Analysis
 
