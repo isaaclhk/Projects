@@ -95,6 +95,13 @@ plt.title('ICU Admission Window')
 plt.close()
 ```
 
+![icu_bar](https://user-images.githubusercontent.com/71438259/215051195-6ce24646-b82e-4c89-b5a9-4aec7c144f9e.png)
+
+![icu_line](https://user-images.githubusercontent.com/71438259/215051280-f59b50e9-c4c9-430d-8769-c90fe1522352.png)
+
+Based on the output, we can see that majority of the features have been scaled by min max normalization. The only features that havent been scaled yet are 'AGE_PERCENTIL' and 'WINDOW'. Hence, the 'AGE_PERCENTIL' feature will be min max scaled to match the other features in this dataset. However, we need not scale the window feature as it will not be included as a potential predictor of ICU admission. The reason for its exclusion is that admission of patients to ICU is contingent upon the patients' medical condition, of which window is not an element.
+
+
 
 
 
