@@ -156,7 +156,7 @@ from sklearn.metrics import accuracy_score
 import shap
 ```
 
-Next, we establish the CV scheme for the outer and inner loops and specify the hyperparameters to be tuned.
+Next, we establish the CV scheme for the outer and inner loops and specify the hyperparameters to be tuned. For this analysis we will have 5 folds in the outer loop and 3 folds in the inner loop.
 ```
 #Establish CV scheme
 CV = StratifiedKFold(n_splits=5, shuffle=True, random_state=42)
@@ -174,8 +174,64 @@ params['lambda'] = np.arange(0, 1, 0.05)
 params['gamma'] = np.arange(0, 0.2, 0.05)
 params['eta'] = [0.01, 0.05, 0.1, 0.2]
 ```
+Finally, we begin to train the model. As the data is split into 5 folds for cross validation, the test sets from every fold are concatenated to form a complete dataset of every example that is included in the analysis. The shap values obtained from each fold are likewise concatenated. This allows us to calculate the total prediction accuracy and visualize shap values of the cross-validated model.
+
+```
+#lists to append during loops
+ix_training, ix_test = [], []
+list_shap_values = []
+list_x_test_sets = []
+list_y_test_sets = []
+prediction_list = []
 
 
+# Loop through each fold and append the training & test indices to the empty lists above
+for fold in CV.split(X, Y):
+    ix_training.append(fold[0]), ix_test.append(fold[1])
+    
+
+for i, (train_outer_ix, test_outer_ix) in enumerate(zip(ix_training, ix_test)):
+    #Verbose
+    print('\n------ Fold Number:',i + 1)
+    x_train, x_test = X.iloc[train_outer_ix, :], X.iloc[test_outer_ix, :]
+    y_train, y_test = Y.iloc[train_outer_ix], Y.iloc[test_outer_ix]
+    
+    list_x_test_sets.append(x_test)
+    list_y_test_sets.append(y_test)
+    
+    estimator = XGBClassifier(objective = 'binary:logistic')
+    search = RandomizedSearchCV(estimator, params, cv = cv_inner, scoring = 'accuracy', n_iter = 100)
+    search.fit(x_train, y_train)
+    print(
+        'optimized hyperparameters for Fold Number {i} are: {params}'.format(
+            i = i, params = search.best_params_))
+
+    model = XGBClassifier(objective = 'binary:logistic',    
+                           early_stopping_rounds = 20,
+                           eval_metric = 'error',
+                           **search.best_params_)
+    model.fit(x_train, y_train,
+              eval_set = [(x_test, y_test)],
+              verbose = False)
+    train_prediction = model.predict(x_train)
+    prediction = model.predict(x_test)
+    prediction_list.append(prediction)
+    
+    #print accuracy score for each fold
+    train_accuracy = accuracy_score(y_train, train_prediction)
+    accuracy = accuracy_score(y_test, prediction)
+    print(
+        """Prediction accuracy of Fold Number {i} is: 
+            training accuracy: {train_accuracy:.2f}
+            testing accuracy: {accuracy:.2f}""".format(
+            i = i, train_accuracy = train_accuracy*100, accuracy = accuracy*100))
+ 
+    # Use SHAP to explain predictions using best estimator 
+    explainer = shap.TreeExplainer(model) 
+    shap_values = explainer.shap_values(x_test)
+    list_shap_values.append(shap_values)
+```
+ 
 
 ```
 ------ Fold Number: 1
