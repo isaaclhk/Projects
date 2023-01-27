@@ -143,7 +143,8 @@ list(df.columns)
 X = df.drop('ICU', axis = 1)
 Y = df['ICU']
 ```
-
+## The model
+xgboost is the chosen model to generate predictions for this project. The model will be cross validated to obtain a robust estimate of model prediction performance. In addition, the hyperparameters will be tuned with cross validated randomized grid search. Hence, each split of the outerloop is trained with optimal parameters identified from cross validating the inner loop. Finally, feature importance will be evaluated using SHAP.
 
 
 
