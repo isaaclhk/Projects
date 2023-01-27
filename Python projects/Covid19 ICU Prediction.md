@@ -99,7 +99,9 @@ plt.close()
 
 ![icu_line](https://user-images.githubusercontent.com/71438259/215051280-f59b50e9-c4c9-430d-8769-c90fe1522352.png)
 
-Based on the output, we can see that majority of the features have been scaled by min max normalization. The only features that havent been scaled yet are 'AGE_PERCENTIL' and 'WINDOW'. Hence, the 'AGE_PERCENTIL' feature will be min max scaled to match the other features in this dataset. However, we need not scale the window feature as it will not be included as a potential predictor of ICU admission. The reason for its exclusion is that admission of patients to ICU is contingent upon the patients' medical condition, of which window is not an element.
+From the charts above, we observe that 195 out of 384 patients who were included in this study were eventually admitted into ICU. The rate of ICU admission is relatively consistent from 0 to 12 hours, and almost a third of the patients were admitted into ICU after more than 12 hours.
+
+Based on the output of data.describe, we can see that majority of the features have been scaled by min max normalization. The only features that havent been scaled are 'AGE_PERCENTIL' and 'WINDOW'. Although tree based models like xgboost are invariant to monotonic transformation of features, the 'AGE_PERCENTIL' feature will be min max scaled to match the other features in the dataset. However, we will not scale the window feature as it will not be included as a potential predictor of ICU admission. The reason for its exclusion is that admission of patients to ICU is contingent upon the patients' medical condition, of which window is not an element.
 
 
 
