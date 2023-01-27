@@ -144,7 +144,7 @@ X = df.drop('ICU', axis = 1)
 Y = df['ICU']
 ```
 ## The Model
-[XGboost](https://xgboost.readthedocs.io/en/stable/), a decision-tree based ensemble machine learning algorithm that uses a gradient boosting framework is the chosen model to generate predictions for this project. The model will be cross validated to obtain a robust estimate of model prediction performance. In addition, the hyperparameters will be tuned with cross validated randomized grid search. Hence, each split of the outerloop is trained with optimal parameters identified from cross validating the inner loop. Finally, feature importance will be evaluated using shapley additive exaplanations (SHAP).
+[XGboost](https://xgboost.readthedocs.io/en/stable/), a decision-tree based ensemble machine learning algorithm that uses a gradient boosting framework is the chosen model to generate predictions for this project. The model will be cross validated to obtain a robust estimate of model prediction performance. In addition, the hyperparameters will be tuned with cross validated randomized grid search. Hence, each split of the outerloop is trained with optimal parameters identified from cross validating the inner loop. Finally, feature importance will be evaluated using [shapley additive exaplanations (SHAP)](https://shap.readthedocs.io/en/latest/).
 </br></br>
 We begin by importing the relevant libraries.
 
