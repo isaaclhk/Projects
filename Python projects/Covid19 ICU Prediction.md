@@ -145,6 +145,35 @@ Y = df['ICU']
 ```
 ## The model
 xgboost is the chosen model to generate predictions for this project. The model will be cross validated to obtain a robust estimate of model prediction performance. In addition, the hyperparameters will be tuned with cross validated randomized grid search. Hence, each split of the outerloop is trained with optimal parameters identified from cross validating the inner loop. Finally, feature importance will be evaluated using shapley additive exaplanations (SHAP).
+</br></br>
+We begin by importing the relevant libraries.
+
+```
+from xgboost import XGBClassifier
+from sklearn.model_selection import RandomizedSearchCV
+from sklearn.model_selection import StratifiedKFold
+from sklearn.metrics import accuracy_score
+import shap
+```
+
+Next, we establish the CV scheme for the outer and inner loops and specify the hyperparameters to be tuned.
+```
+#Establish CV scheme
+CV = StratifiedKFold(n_splits=5, shuffle=True, random_state=42)
+
+## Establish inner CV for parameter optimization
+cv_inner = StratifiedKFold(n_splits=3, shuffle= True, random_state = 42)
+
+#hyperparameters to be tuned
+params = {}
+params['max_depth'] = range(3, 10)
+params['subsample'] = np.arange(0.5, 1, 0.05)
+params['colsample_bytree'] = np.arange(0.5, 1, 0.05)
+params['n_estimators'] = np.arange(50, 300, 50)
+params['lambda'] = np.arange(0, 1, 0.05)
+params['gamma'] = np.arange(0, 0.2, 0.05)
+params['eta'] = [0.01, 0.05, 0.1, 0.2]
+```
 
 
 
