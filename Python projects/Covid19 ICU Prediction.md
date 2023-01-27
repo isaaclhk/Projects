@@ -103,6 +103,26 @@ From the charts above, we observe that 195 out of 384 patients who were included
 
 Based on the output of data.describe, we can see that majority of the features have been scaled by min max normalization. The only features that havent been scaled are 'AGE_PERCENTIL' and 'WINDOW'. Although tree based models like xgboost are invariant to monotonic transformation of features, the 'AGE_PERCENTIL' feature will be min max scaled to match the other features in the dataset. However, we will not scale the window feature as it will not be included as a potential predictor of ICU admission. The reason for its exclusion is that admission of patients to ICU is contingent upon the patients' medical condition, of which window is not an element.
 
+```
+#preprocessing and scaling
+data['AGE_PERCENTIL'] = pd.factorize(data['AGE_PERCENTIL'])[0]
+
+from sklearn.preprocessing import MinMaxScaler
+scaler = MinMaxScaler()
+data['AGE_PERCENTIL'] = scaler.fit_transform(data[['AGE_PERCENTIL']])
+data['AGE_PERCENTIL'].unique()
+```
+
+As the project aims to predict whether or not a patient will eventually require ICU admission based on his or her clinical parameters prior to admission, we will remove examples where the ICU status is positive. This will ensure that the machine learning model is trained on pre-ICU admission data. After which, the 'ICU' column will be updated to indicate whether or not the patient in each example is eventually admitted to ICU.
+
+```
+#update ICU column. If patient is eventually admitted into ICU, ICU = 1
+dataf.rename(columns = {'ICU': 'ICU_old'}, inplace = True)
+dataf.columns
+df = pd.merge(dataf, ICU, how = 'left', on = 'PATIENT_VISIT_IDENTIFIER')
+df.shape
+df['ICU'].value_counts() #945 is correct because 189 patients didnt admit into ICU. 189 x 5 windows = 945
+```
 
 
 
