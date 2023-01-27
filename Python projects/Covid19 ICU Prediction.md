@@ -148,4 +148,39 @@ xgboost is the chosen model to generate predictions for this project. The model 
 
 
 
+```
+------ Fold Number: 1
+optimized hyperparameters for Fold Number 0 are: {'subsample': 0.9000000000000004, 'n_estimators': 250, 'max_depth': 6, 'lambda': 0.4, 'gamma': 0.0, 'eta': 0.2, 'colsample_bytree': 0.8500000000000003}
+Prediction accuracy of Fold Number 0 is: 
+            training accuracy: 99.56
+            testing accuracy: 97.15
+ntree_limit is deprecated, use `iteration_range` or model slicing instead.
 
+------ Fold Number: 2
+optimized hyperparameters for Fold Number 1 are: {'subsample': 0.6500000000000001, 'n_estimators': 250, 'max_depth': 5, 'lambda': 0.2, 'gamma': 0.1, 'eta': 0.1, 'colsample_bytree': 0.7500000000000002}
+Prediction accuracy of Fold Number 1 is: 
+            training accuracy: 99.91
+            testing accuracy: 97.51
+
+------ Fold Number: 3
+ntree_limit is deprecated, use `iteration_range` or model slicing instead.
+optimized hyperparameters for Fold Number 2 are: {'subsample': 0.6000000000000001, 'n_estimators': 250, 'max_depth': 5, 'lambda': 0.6000000000000001, 'gamma': 0.1, 'eta': 0.1, 'colsample_bytree': 0.7000000000000002}
+Prediction accuracy of Fold Number 2 is: 
+            training accuracy: 99.91
+            testing accuracy: 98.22
+
+------ Fold Number: 4
+ntree_limit is deprecated, use `iteration_range` or model slicing instead.
+optimized hyperparameters for Fold Number 3 are: {'subsample': 0.6000000000000001, 'n_estimators': 150, 'max_depth': 6, 'lambda': 0.15000000000000002, 'gamma': 0.05, 'eta': 0.1, 'colsample_bytree': 0.7000000000000002}
+Prediction accuracy of Fold Number 3 is: 
+            training accuracy: 99.91
+            testing accuracy: 98.22
+
+------ Fold Number: 5
+ntree_limit is deprecated, use `iteration_range` or model slicing instead.
+optimized hyperparameters for Fold Number 4 are: {'subsample': 0.6500000000000001, 'n_estimators': 150, 'max_depth': 5, 'lambda': 0.8, 'gamma': 0.05, 'eta': 0.2, 'colsample_bytree': 0.9500000000000004}
+Prediction accuracy of Fold Number 4 is: 
+            training accuracy: 99.91
+            testing accuracy: 99.29
+ntree_limit is deprecated, use `iteration_range` or model slicing instead.
+```
