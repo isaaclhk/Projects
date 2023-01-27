@@ -232,40 +232,41 @@ for i, (train_outer_ix, test_outer_ix) in enumerate(zip(ix_training, ix_test)):
     list_shap_values.append(shap_values)
 ```
  
-
+### Output and Model Evaluation:
+Output:
 ```
 ------ Fold Number: 1
-optimized hyperparameters for Fold Number 0 are: {'subsample': 0.9000000000000004, 'n_estimators': 250, 'max_depth': 6, 'lambda': 0.4, 'gamma': 0.0, 'eta': 0.2, 'colsample_bytree': 0.8500000000000003}
+optimized hyperparameters for Fold Number 0 are: {'subsample': 0.55, 'n_estimators': 100, 'max_depth': 7, 'lambda': 0.75, 'gamma': 0.05, 'eta': 0.2, 'colsample_bytree': 0.8500000000000003}
 Prediction accuracy of Fold Number 0 is: 
-            training accuracy: 99.56
-            testing accuracy: 97.15
+            training accuracy: 99.11
+            testing accuracy: 97.86
 ntree_limit is deprecated, use `iteration_range` or model slicing instead.
 
 ------ Fold Number: 2
-optimized hyperparameters for Fold Number 1 are: {'subsample': 0.6500000000000001, 'n_estimators': 250, 'max_depth': 5, 'lambda': 0.2, 'gamma': 0.1, 'eta': 0.1, 'colsample_bytree': 0.7500000000000002}
+optimized hyperparameters for Fold Number 1 are: {'subsample': 0.9000000000000004, 'n_estimators': 150, 'max_depth': 6, 'lambda': 0.4, 'gamma': 0.15000000000000002, 'eta': 0.2, 'colsample_bytree': 0.9000000000000004}
 Prediction accuracy of Fold Number 1 is: 
-            training accuracy: 99.91
-            testing accuracy: 97.51
+            training accuracy: 99.73
+            testing accuracy: 96.80
+ntree_limit is deprecated, use `iteration_range` or model slicing instead.
 
 ------ Fold Number: 3
-ntree_limit is deprecated, use `iteration_range` or model slicing instead.
-optimized hyperparameters for Fold Number 2 are: {'subsample': 0.6000000000000001, 'n_estimators': 250, 'max_depth': 5, 'lambda': 0.6000000000000001, 'gamma': 0.1, 'eta': 0.1, 'colsample_bytree': 0.7000000000000002}
+optimized hyperparameters for Fold Number 2 are: {'subsample': 0.7000000000000002, 'n_estimators': 150, 'max_depth': 7, 'lambda': 0.1, 'gamma': 0.05, 'eta': 0.1, 'colsample_bytree': 0.9500000000000004}
 Prediction accuracy of Fold Number 2 is: 
-            training accuracy: 99.91
-            testing accuracy: 98.22
+            training accuracy: 100.00
+            testing accuracy: 97.86
 
 ------ Fold Number: 4
 ntree_limit is deprecated, use `iteration_range` or model slicing instead.
-optimized hyperparameters for Fold Number 3 are: {'subsample': 0.6000000000000001, 'n_estimators': 150, 'max_depth': 6, 'lambda': 0.15000000000000002, 'gamma': 0.05, 'eta': 0.1, 'colsample_bytree': 0.7000000000000002}
+optimized hyperparameters for Fold Number 3 are: {'subsample': 0.5, 'n_estimators': 150, 'max_depth': 6, 'lambda': 0.15000000000000002, 'gamma': 0.1, 'eta': 0.1, 'colsample_bytree': 0.6000000000000001}
 Prediction accuracy of Fold Number 3 is: 
-            training accuracy: 99.91
-            testing accuracy: 98.22
+            training accuracy: 99.64
+            testing accuracy: 97.86
 
 ------ Fold Number: 5
 ntree_limit is deprecated, use `iteration_range` or model slicing instead.
-optimized hyperparameters for Fold Number 4 are: {'subsample': 0.6500000000000001, 'n_estimators': 150, 'max_depth': 5, 'lambda': 0.8, 'gamma': 0.05, 'eta': 0.2, 'colsample_bytree': 0.9500000000000004}
+optimized hyperparameters for Fold Number 4 are: {'subsample': 0.6000000000000001, 'n_estimators': 200, 'max_depth': 6, 'lambda': 0.8500000000000001, 'gamma': 0.15000000000000002, 'eta': 0.2, 'colsample_bytree': 0.6000000000000001}
 Prediction accuracy of Fold Number 4 is: 
-            training accuracy: 99.91
-            testing accuracy: 99.29
+            training accuracy: 99.64
+            testing accuracy: 98.58
 ntree_limit is deprecated, use `iteration_range` or model slicing instead.
 ```
