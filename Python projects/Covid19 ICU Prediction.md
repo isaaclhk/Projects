@@ -34,7 +34,7 @@ data.shape
 data.info(verbose = True, show_counts = True)
 ```
 
-Based on the output from 'info', we see that majority of the features are floats. To better understand the distribution of data in this dataset, we start by examining the non-float features individually.
+Based on the output from 'info', we see that majority of the features are floats, and there is a significant proportion of null values. To better understand the distribution of data in this dataset, we start by examining the non-float features individually.
 
 ```
 data['AGE_ABOVE65'].value_counts(dropna = False)
@@ -122,8 +122,27 @@ dataf.columns
 df = pd.merge(dataf, ICU, how = 'left', on = 'PATIENT_VISIT_IDENTIFIER')
 df.shape
 df['ICU'].value_counts() #945 is correct because 189 patients didnt admit into ICU. 189 x 5 windows = 945
+df.info(verbose = True, show_counts = True)
 ```
 
+we note from the info ouput that there is a significant portion of null values in the labs and vital signs monitoring features. This is likely because labs and vital signs of these patients were not monitored at strict 2 hourly intervals. The missing data will first be imputed by forward filling. Forward filling is the appropriate method of imputation as it mimics the actual clinical scenario where the latest results are interpreted. The remaining null values will then be imputed by backward filling. Furthermore, examples will be grouped by 'PATIENT_VISIT_IDENTIFIER' to prevent the clinical parameters of one patient from spilling over to adjacent patients during imputation.
+
+```
+#impute missing data using forward and backward fill by patient
+df = df.groupby('PATIENT_VISIT_IDENTIFIER').apply(lambda x: x.ffill().bfill())
+df.info(verbose = True, show_counts = True)
+```
+
+Finally, features that are impertinent to the model are dropped, and the outcome variable separated.
+```
+#drop irrelevant columns
+df.drop(columns = ['ICU_old', 'WINDOW', 'PATIENT_VISIT_IDENTIFIER'], inplace = True)
+list(df.columns)
+
+#separating target and features
+X = df.drop('ICU', axis = 1)
+Y = df['ICU']
+```
 
 
 
