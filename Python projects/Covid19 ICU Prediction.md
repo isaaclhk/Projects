@@ -316,7 +316,7 @@ The model's total test accuracy is 97.94
 
 ![cm](https://user-images.githubusercontent.com/71438259/215240808-0e0b5a56-3698-46c0-8218-935c11506ea7.png)
 
-**SHAP(SHapley Additive exPlanations)**
+**SHAP(SHapley Additive exPlanations)** </br></br>
 [SHAP](https://www.researchgate.net/profile/Scott-Lundberg/publication/317062430_A_Unified_Approach_to_Interpreting_Model_Predictions/links/5a18eb21a6fdcc50ade7ed19/A-Unified-Approach-to-Interpreting-Model-Predictions.pdf) is an algorithm based on game theory that helps us to interpret and explain complex machine learning models. Shapley values are calculated by quantifying for each example, the contribution of each feature to the model's prediction. </br></br>
 With SHAP, we are able to create plots that allow us to interpret feature importances and understand the outputs of predictive models intuitively.
 
@@ -339,7 +339,7 @@ Like the bar plot, the summary plot above outputs the top 7 features sorted in d
 
 ![dependence_plot](https://user-images.githubusercontent.com/71438259/215242406-e04ae3fa-f61b-4516-8ed8-f2a4a5987ef1.png)
 
-In addition, dependence plots such as the one illustrated above allow us to focus on one particular feature and visualize interactions between features. In the plot above, we see the interaction between 'PCR_MEDIAN' and 'AGE_ABOVE65' and
+In addition, dependence plots such as the one illustrated above allow us to focus on a particular feature and visualize interactions between features. In the plot above, we see the interaction between 'PCR_MEDIAN' and 'AGE_ABOVE65' and their relationships with 'PCR_MEDIAN' shap values.
 
 
 
