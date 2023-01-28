@@ -245,7 +245,48 @@ for i in range(1,len(list_x_test_sets)):
 ### Output and Model Evaluation:
 Output:
 ```
+------ Fold Number: 1
+Optimized hyperparameters:
+ {'subsample': 0.6, 'n_estimators': 350, 'max_depth': 5, 'lambda': 0.15, 'gamma': 0.0, 'eta': 0.2, 'colsample_bytree': 0.85}
 
+training accuracy: 99.38
+testing accuracy: 97.51
+ntree_limit is deprecated, use `iteration_range` or model slicing instead.
+
+------ Fold Number: 2
+Optimized hyperparameters:
+ {'subsample': 0.9, 'n_estimators': 250, 'max_depth': 6, 'lambda': 0.2, 'gamma': 0.0, 'eta': 0.25, 'colsample_bytree': 0.5}
+
+training accuracy: 100.00
+testing accuracy: 97.15
+
+------ Fold Number: 3
+ntree_limit is deprecated, use `iteration_range` or model slicing instead.
+Optimized hyperparameters:
+ {'subsample': 0.6, 'n_estimators': 300, 'max_depth': 3, 'lambda': 0.05, 'gamma': 0.15, 'eta': 0.25, 'colsample_bytree': 0.8}
+
+training accuracy: 100.00
+testing accuracy: 98.58
+
+------ Fold Number: 4
+ntree_limit is deprecated, use `iteration_range` or model slicing instead.
+Optimized hyperparameters:
+ {'subsample': 0.65, 'n_estimators': 400, 'max_depth': 5, 'lambda': 0.7, 'gamma': 0.15, 'eta': 0.2, 'colsample_bytree': 0.6}
+
+training accuracy: 99.82
+testing accuracy: 98.22
+ntree_limit is deprecated, use `iteration_range` or model slicing instead.
+
+------ Fold Number: 5
+Optimized hyperparameters:
+ {'subsample': 0.8, 'n_estimators': 350, 'max_depth': 3, 'lambda': 0.9, 'gamma': 0.0, 'eta': 0.2, 'colsample_bytree': 0.65}
+
+training accuracy: 99.82
+testing accuracy: 98.22
+ntree_limit is deprecated, use `iteration_range` or model slicing instead.
 ```
 
-By comparing the training and testing accuracy, we can assess how much a model is over or underfitting the data.
+By comparing the training and testing accuracy, we can assess how much a model is over or underfitting the data. We can also determine whether the range of searched parameters should be adjusted by looking at the optimized parameters for each fold.
+
+
+## Model Interpretation
