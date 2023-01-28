@@ -325,9 +325,16 @@ With SHAP, we are able to create plots that allow us to interpret feature import
 x_test_set = pd.DataFrame(x_test_set, columns = X.columns)
 
 #shap plots
-shap.summary_plot(shap_values, x_test_set, plot_type = 'bar')
-shap.summary_plot(shap_values, x_test_set)
+shap.summary_plot(shap_values, x_test_set, plot_type = 'bar', max_display = 7)
+shap.summary_plot(shap_values, x_test_set, max_display = 7)
 shap.dependence_plot('PCR_MEDIAN', shap_values, x_test_set, interaction_index = 'AGE_ABOVE65')
 ```
+![bar_plot](https://user-images.githubusercontent.com/71438259/215241851-5522fa2d-fc01-4ed4-95fc-a0956c20b910.png)
+
+The above output is a SHAP bar plot. This plot illustrates the mean absolute shapley values for each feature, which indicates the magnitute of the feature's impact on the model's prediction. In this plot, the top 7 features are sorted and displayed in descending order.
+
+![summary_plot](https://user-images.githubusercontent.com/71438259/215242000-643e3a7e-4f3f-48fe-b06f-bba7648409c1.png)
+
+
 
 
