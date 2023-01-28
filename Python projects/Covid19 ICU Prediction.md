@@ -202,8 +202,7 @@ for i, (train_outer_ix, test_outer_ix) in enumerate(zip(ix_training, ix_test)):
     estimator = XGBClassifier(objective = 'binary:logistic')
     search = RandomizedSearchCV(estimator, params, cv = cv_inner, scoring = 'accuracy', n_iter = 100)
     search.fit(x_train, y_train)
-    print(
-        'Optimized hyperparameters: {}'.format(search.best_params_))
+    print('Optimized hyperparameters: {}'.format(search.best_params_))
 
     model = XGBClassifier(objective = 'binary:logistic',    
                            early_stopping_rounds = 20,
@@ -219,8 +218,7 @@ for i, (train_outer_ix, test_outer_ix) in enumerate(zip(ix_training, ix_test)):
     #print accuracy score for each fold
     train_accuracy = accuracy_score(y_train, train_prediction)
     accuracy = accuracy_score(y_test, prediction)
-    print(
-        """training accuracy: {train_accuracy:.2f}
+    print("""training accuracy: {train_accuracy:.2f}
             testing accuracy: {accuracy:.2f}""".format(
             train_accuracy = train_accuracy*100, accuracy = accuracy*100))
  
