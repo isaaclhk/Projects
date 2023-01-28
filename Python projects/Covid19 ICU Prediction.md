@@ -202,7 +202,7 @@ for i, (train_outer_ix, test_outer_ix) in enumerate(zip(ix_training, ix_test)):
     estimator = XGBClassifier(objective = 'binary:logistic')
     search = RandomizedSearchCV(estimator, params, cv = cv_inner, scoring = 'accuracy', n_iter = 100)
     search.fit(x_train, y_train)
-    print('Optimized hyperparameters:\n {}'.format(search.best_params_))
+    print('Optimized hyperparameters:\n {}\n'.format(search.best_params_))
 
     model = XGBClassifier(objective = 'binary:logistic',    
                            early_stopping_rounds = 20,
@@ -218,7 +218,7 @@ for i, (train_outer_ix, test_outer_ix) in enumerate(zip(ix_training, ix_test)):
     #print accuracy score for each fold
     train_accuracy = accuracy_score(y_train, train_prediction)
     accuracy = accuracy_score(y_test, prediction)
-    print('training accuracy: {train_accuracy:.2f}\n testing accuracy: {accuracy:.2f}'.format(
+    print('training accuracy: {train_accuracy:.2f}\ntesting accuracy: {accuracy:.2f}'.format(
           train_accuracy = train_accuracy*100, accuracy = accuracy*100))
  
     # Use SHAP to explain predictions using best estimator 
@@ -239,6 +239,7 @@ for i in range(1,len(list_x_test_sets)):
     y_test_set = np.concatenate((y_test_set,list_y_test_sets[i]),axis=0)
     shap_values = np.concatenate((shap_values,np.array(list_shap_values[i])),axis=0)
     total_prediction = np.concatenate((total_prediction, prediction_list[i]), axis=0)
+
 ```
  
 ### Output and Model Evaluation:
