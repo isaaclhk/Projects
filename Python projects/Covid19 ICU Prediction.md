@@ -318,7 +318,7 @@ The model's total test accuracy is 97.94
 
 **SHAP(SHapley Additive exPlanations)** </br></br>
 [SHAP](https://www.researchgate.net/profile/Scott-Lundberg/publication/317062430_A_Unified_Approach_to_Interpreting_Model_Predictions/links/5a18eb21a6fdcc50ade7ed19/A-Unified-Approach-to-Interpreting-Model-Predictions.pdf) is an algorithm based on game theory that helps us to interpret and explain complex machine learning models. Shapley values are calculated by quantifying for each example, the contribution of each feature to the model's prediction. </br></br>
-With SHAP, we are able to create plots that allow us to interpret feature importances and understand the outputs of predictive models intuitively.
+With SHAP, we are able to create plots that help us to interpret feature importances and understand the outputs of predictive models intuitively.
 
 ```
 #bringing back variable names    
