@@ -337,6 +337,9 @@ The above output is a SHAP bar plot. This plot illustrates the mean absolute sha
 
 Like the bar plot, the summary plot above outputs the top 7 features sorted in descending order. However, this plot provides greater detail. It allows us to see the distribution of shapley and feature values for each feature, and reflects the relationships between feature values and shapley values.
 
+![dependence_plot](https://user-images.githubusercontent.com/71438259/215242406-e04ae3fa-f61b-4516-8ed8-f2a4a5987ef1.png)
+
+In addition, dependence plots such as the one illustrated above allow us to focus on one particular feature and visualize interactions between features. In the plot above, we see the interaction between 'PCR_MEDIAN' and 'AGE_ABOVE65' and
 
 
 
