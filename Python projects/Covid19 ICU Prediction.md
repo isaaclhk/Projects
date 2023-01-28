@@ -133,7 +133,7 @@ df = df.groupby('PATIENT_VISIT_IDENTIFIER').apply(lambda x: x.ffill().bfill())
 df.info(verbose = True, show_counts = True)
 ```
 
-Finally, features that are impertinent to the model are dropped, and the outcome variable separated.
+Features that are impertinent to the model are dropped, and the outcome variable separated.
 ```
 #drop irrelevant columns
 df.drop(columns = ['ICU_old', 'WINDOW', 'PATIENT_VISIT_IDENTIFIER'], inplace = True)
@@ -174,7 +174,7 @@ params['lambda'] = np.round(np.arange(0, 1, 0.05), 2)
 params['gamma'] = np.round(np.arange(0, 0.2, 0.05), 2)
 params['eta'] = np.round(np.arange(0.1, 0.3, 0.05), 2)
 ```
-Finally, we begin to train the model. As the outer loop is split into 5 folds for cross validation, the test sets from every fold are concatenated to form a complete dataset of every example that is included in the analysis. The shap values obtained from each fold are likewise concatenated. This allows us to calculate the total prediction accuracy and visualize shap values of the cross validated model from every fold combined.
+Now we begin to train the model. As the outer loop is split into 5 folds for cross validation, the test sets from every fold are concatenated to form a complete dataset of every example that is included in the analysis. The shap values obtained from each fold are likewise concatenated. This allows us to calculate the total prediction accuracy and visualize shap values of the cross validated model from every fold combined.
 
 ```
 #lists to append during loops
