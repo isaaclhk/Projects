@@ -316,4 +316,18 @@ The model's total test accuracy is 97.94
 
 ![cm](https://user-images.githubusercontent.com/71438259/215240808-0e0b5a56-3698-46c0-8218-935c11506ea7.png)
 
+**SHAP(SHapley Additive exPlanations)**
+[SHAP](https://www.researchgate.net/profile/Scott-Lundberg/publication/317062430_A_Unified_Approach_to_Interpreting_Model_Predictions/links/5a18eb21a6fdcc50ade7ed19/A-Unified-Approach-to-Interpreting-Model-Predictions.pdf) is an algorithm based on game theory that helps us to interpret and explain complex machine learning models. Shapley values are calculated by quantifying for each example, the contribution of each feature to the model's prediction. </br></br>
+With SHAP, we are able to create plots that allow us to interpret feature importances and understand the outputs of predictive models intuitively.
+
+```
+#bringing back variable names    
+x_test_set = pd.DataFrame(x_test_set, columns = X.columns)
+
+#shap plots
+shap.summary_plot(shap_values, x_test_set, plot_type = 'bar')
+shap.summary_plot(shap_values, x_test_set)
+shap.dependence_plot('PCR_MEDIAN', shap_values, x_test_set, interaction_index = 'AGE_ABOVE65')
+```
+
 
