@@ -335,7 +335,7 @@ The above output is a SHAP bar plot. This plot illustrates the mean absolute sha
 
 ![summary_plot](https://user-images.githubusercontent.com/71438259/215242147-18c55637-6166-4ae3-b0a8-3506dd9df068.png)
 
-Like the bar plot, the summary plot above outputs the top 7 features sorted in descending order. However, this plot provides greater detail. It allows us to see the distribution of shapley and feature values for each feature, and reflects the relationships between feature values and shapley values. For example, based on the plot above, higher PCR medians positively impact ICU admission predictions and higher linfocitos medians negatively impact ICU admission predictions.
+Like the bar plot, the summary plot above outputs the top 7 features sorted in descending order. However, this plot provides greater detail. It allows us to see the distribution of shapley and feature values for each feature, and reflects the relationships between feature values and shapley values. For example, based on the plot above, higher PCR medians generally contribute to risk of admission into ICU while higher linfocitos medians are protective against ICU admission.
 
 ![dependence_plot](https://user-images.githubusercontent.com/71438259/215242406-e04ae3fa-f61b-4516-8ed8-f2a4a5987ef1.png)
 
