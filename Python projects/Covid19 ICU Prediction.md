@@ -329,11 +329,13 @@ shap.summary_plot(shap_values, x_test_set, plot_type = 'bar', max_display = 7)
 shap.summary_plot(shap_values, x_test_set, max_display = 7)
 shap.dependence_plot('PCR_MEDIAN', shap_values, x_test_set, interaction_index = 'AGE_ABOVE65')
 ```
-![bar_plot](https://user-images.githubusercontent.com/71438259/215241851-5522fa2d-fc01-4ed4-95fc-a0956c20b910.png)
+![bar_plot](https://user-images.githubusercontent.com/71438259/215242222-911acb5e-4763-4964-a62f-c79b5b75d0fe.png)
 
 The above output is a SHAP bar plot. This plot illustrates the mean absolute shapley values for each feature, which indicates the magnitute of the feature's impact on the model's prediction. In this plot, the top 7 features are sorted and displayed in descending order.
 
 ![summary_plot](https://user-images.githubusercontent.com/71438259/215242147-18c55637-6166-4ae3-b0a8-3506dd9df068.png)
+
+Like the bar plot, the summary plot above outputs the top 7 features sorted in descending order. However, this plot provides greater detail. It allows us to see the distribution of shapley and feature values for each feature, and reflects the relationships between feature values and shapley values.
 
 
 
