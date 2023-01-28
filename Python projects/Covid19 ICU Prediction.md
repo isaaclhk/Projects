@@ -341,6 +341,6 @@ Like the bar plot, the summary plot above outputs the top 7 features sorted in d
 
 In addition, dependence plots such as the one illustrated above allow us to focus on a particular feature and visualize interactions between features. In the plot above, we see the interaction between 'PCR_MEDIAN' and 'AGE_ABOVE65' and their relationships with 'PCR_MEDIAN' shap values.
 
-## Conclusion
+## Conclusions
 The results of this project have important clinical implications. By accurately forecasting whether or not a patient would require ICU admission hours in advance, hospitals can be better informed in making decisions for resource allocation. Furthermore, we have quantified the impact of each feature for predicting ICU admission using shap values. Clinicians can then identify the most important features to examine when evaluating the prognosis or status of each patient.
 
