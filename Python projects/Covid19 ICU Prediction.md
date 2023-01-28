@@ -133,8 +133,8 @@ df = df.groupby('PATIENT_VISIT_IDENTIFIER').apply(lambda x: x.ffill().bfill())
 df.info(verbose = True, show_counts = True)
 ```
 
-After imputing missing data with forward and backward fill, we note that there are still some null values present in the dataset. Fortunately, xgboost is able to handle missing data using a sparsity-aware split finding algorithm. This algorithm finds the optimal direction to split missing values by trying both directions in a split and choosing the one which proposes a maximum gain. </br>
-Next, Features that are impertinent to the model are dropped, and the outcome variable separated.
+After imputing missing data with forward and backward fill, we note that there are still some null values present in the dataset. Fortunately, xgboost is able to handle missing data using a sparsity-aware split finding algorithm. This algorithm finds the optimal direction to split missing values by trying both directions in a split and choosing the one which proposes a maximum gain. </br></br>
+Next, features that are impertinent to the model are dropped, and the outcome variable is separated.
 ```
 #drop irrelevant columns
 df.drop(columns = ['ICU_old', 'WINDOW', 'PATIENT_VISIT_IDENTIFIER'], inplace = True)
