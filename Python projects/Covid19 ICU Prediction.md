@@ -218,14 +218,28 @@ for i, (train_outer_ix, test_outer_ix) in enumerate(zip(ix_training, ix_test)):
     #print accuracy score for each fold
     train_accuracy = accuracy_score(y_train, train_prediction)
     accuracy = accuracy_score(y_test, prediction)
-    print("""training accuracy: {train_accuracy:.2f}
-            testing accuracy: {accuracy:.2f}""".format(
-            train_accuracy = train_accuracy*100, accuracy = accuracy*100))
+    print('''training accuracy: {train_accuracy:.2f}\n
+          testing accuracy: {accuracy:.2f}'''.format(
+          train_accuracy = train_accuracy*100, accuracy = accuracy*100))
  
     # Use SHAP to explain predictions using best estimator 
     explainer = shap.TreeExplainer(model) 
     shap_values = explainer.shap_values(x_test)
     list_shap_values.append(shap_values)
+    
+    
+#concatenating test sets and shapley values
+x_test_set = list_x_test_sets[0]
+y_test_set = list_y_test_sets[0]
+shap_values = np.array(list_shap_values[0])
+total_prediction = prediction_list[0]
+
+
+for i in range(1,len(list_x_test_sets)):
+    x_test_set = np.concatenate((x_test_set,list_x_test_sets[i]),axis=0)
+    y_test_set = np.concatenate((y_test_set,list_y_test_sets[i]),axis=0)
+    shap_values = np.concatenate((shap_values,np.array(list_shap_values[i])),axis=0)
+    total_prediction = np.concatenate((total_prediction, prediction_list[i]), axis=0)
 ```
  
 ### Output and Model Evaluation:
