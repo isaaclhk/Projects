@@ -290,3 +290,30 @@ By comparing the training and testing accuracy, we can assess how much a model i
 
 ### Model Evaluation
 
+Finally, we evaluate the model's test accuracy and plot a confusion matrix to visualize the model's sensitivity, specificity, precision and recall.
+```
+#total prediction accuracy after cross validation
+total_accuracy = accuracy_score(y_test_set, total_prediction)
+print('The model\'s total test accuracy is %.2f' %(total_accuracy*100))
+
+#visualizing confusion matrix
+from sklearn.metrics import confusion_matrix
+cm = confusion_matrix(y_test_set, total_prediction)
+sns.heatmap(cm, annot = True, linewidths = 1, 
+            xticklabels = ['not admitted', 'admitted'], 
+            yticklabels = ['not admitted', 'admitted'],
+            fmt = 'g',
+            cmap = 'Blues')
+plt.title('Confusion Matrix')
+plt.xlabel('Predicted ICU admission')
+plt.ylabel('True ICU admission')
+```
+
+output:
+```
+The model's total test accuracy is 97.94
+```
+
+![cm](https://user-images.githubusercontent.com/71438259/215240808-0e0b5a56-3698-46c0-8218-935c11506ea7.png)
+
+
