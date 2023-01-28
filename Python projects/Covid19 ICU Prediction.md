@@ -203,8 +203,7 @@ for i, (train_outer_ix, test_outer_ix) in enumerate(zip(ix_training, ix_test)):
     search = RandomizedSearchCV(estimator, params, cv = cv_inner, scoring = 'accuracy', n_iter = 100)
     search.fit(x_train, y_train)
     print(
-        'Optimized hyperparameters for Fold Number {} are: {}'.format(
-            i+1, search.best_params_))
+        'Optimized hyperparameters: {}'.format(search.best_params_))
 
     model = XGBClassifier(objective = 'binary:logistic',    
                            early_stopping_rounds = 20,
@@ -221,10 +220,9 @@ for i, (train_outer_ix, test_outer_ix) in enumerate(zip(ix_training, ix_test)):
     train_accuracy = accuracy_score(y_train, train_prediction)
     accuracy = accuracy_score(y_test, prediction)
     print(
-        """Prediction accuracy of Fold Number {i} is: 
-            training accuracy: {train_accuracy:.2f}
+        """training accuracy: {train_accuracy:.2f}
             testing accuracy: {accuracy:.2f}""".format(
-            i = i, train_accuracy = train_accuracy*100, accuracy = accuracy*100))
+            train_accuracy = train_accuracy*100, accuracy = accuracy*100))
  
     # Use SHAP to explain predictions using best estimator 
     explainer = shap.TreeExplainer(model) 
@@ -235,40 +233,7 @@ for i, (train_outer_ix, test_outer_ix) in enumerate(zip(ix_training, ix_test)):
 ### Output and Model Evaluation:
 Output:
 ```
------- Fold Number: 1
-Optimized hyperparameters for Fold Number 1 are: {'subsample': 0.95, 'n_estimators': 150, 'max_depth': 6, 'lambda': 0.05, 'gamma': 0.15, 'eta': 0.25, 'colsample_bytree': 0.9}
-Prediction accuracy of Fold Number 0 is: 
-            training accuracy: 100.00
-            testing accuracy: 98.22
 
------- Fold Number: 2
-ntree_limit is deprecated, use `iteration_range` or model slicing instead.
-Optimized hyperparameters for Fold Number 2 are: {'subsample': 0.85, 'n_estimators': 300, 'max_depth': 6, 'lambda': 0.8, 'gamma': 0.05, 'eta': 0.25, 'colsample_bytree': 0.9}
-Prediction accuracy of Fold Number 1 is: 
-            training accuracy: 99.82
-            testing accuracy: 97.15
-ntree_limit is deprecated, use `iteration_range` or model slicing instead.
-
------- Fold Number: 3
-Optimized hyperparameters for Fold Number 3 are: {'subsample': 0.75, 'n_estimators': 150, 'max_depth': 8, 'lambda': 0.1, 'gamma': 0.1, 'eta': 0.1, 'colsample_bytree': 0.95}
-Prediction accuracy of Fold Number 2 is: 
-            training accuracy: 100.00
-            testing accuracy: 98.58
-
------- Fold Number: 4
-ntree_limit is deprecated, use `iteration_range` or model slicing instead.
-Optimized hyperparameters for Fold Number 4 are: {'subsample': 0.9, 'n_estimators': 250, 'max_depth': 3, 'lambda': 0.05, 'gamma': 0.0, 'eta': 0.25, 'colsample_bytree': 0.6}
-Prediction accuracy of Fold Number 3 is: 
-            training accuracy: 100.00
-            testing accuracy: 97.86
-
------- Fold Number: 5
-ntree_limit is deprecated, use `iteration_range` or model slicing instead.
-Optimized hyperparameters for Fold Number 5 are: {'subsample': 0.55, 'n_estimators': 250, 'max_depth': 8, 'lambda': 0.75, 'gamma': 0.15, 'eta': 0.1, 'colsample_bytree': 0.55}
-Prediction accuracy of Fold Number 4 is: 
-            training accuracy: 99.11
-            testing accuracy: 97.15
-ntree_limit is deprecated, use `iteration_range` or model slicing instead.
 ```
 
 By comparing the training and testing accuracy, we can assess how much a model is over or underfitting the data.
