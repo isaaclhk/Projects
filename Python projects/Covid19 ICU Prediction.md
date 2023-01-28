@@ -242,8 +242,8 @@ for i in range(1,len(list_x_test_sets)):
 
 ```
  
-### Output and Model Evaluation:
-Output:
+### Model Output
+
 ```
 ------ Fold Number: 1
 Optimized hyperparameters:
@@ -288,5 +288,5 @@ ntree_limit is deprecated, use `iteration_range` or model slicing instead.
 
 By comparing the training and testing accuracy, we can assess how much a model is over or underfitting the data. We can also determine whether the range of searched parameters should be adjusted by looking at the optimized parameters for each fold.
 
+### Model Evaluation
 
-## Model Interpretation
