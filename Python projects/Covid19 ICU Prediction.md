@@ -174,7 +174,7 @@ params['lambda'] = np.round(np.arange(0, 1, 0.05), 2)
 params['gamma'] = np.round(np.arange(0, 0.2, 0.05), 2)
 params['eta'] = np.round(np.arange(0.1, 0.3, 0.05), 2)
 ```
-Now we begin to train the model. As the outer loop is split into 5 folds for cross validation, the test sets from every fold are concatenated to form a complete dataset of every example that is included in the analysis. The shap values obtained from each fold are likewise concatenated. This allows us to calculate the total prediction accuracy and visualize shap values of the cross validated model from every fold combined.
+Now we begin to train the model. As the outer loop is split into 5 folds for cross validation, the test sets from every fold are concatenated to form a complete dataset of every example that is included in the analysis. The shap values obtained from each fold are likewise concatenated. This will allow us to calculate the total prediction accuracy and visualize shap values of the cross validated model from every fold combined.
 
 ```
 #lists to append during loops
