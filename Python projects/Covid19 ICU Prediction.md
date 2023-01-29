@@ -334,7 +334,7 @@ shap.dependence_plot('PCR_MEDIAN', shap_values, x_test_set, interaction_index = 
 ```
 ![bar_plot](https://user-images.githubusercontent.com/71438259/215242222-911acb5e-4763-4964-a62f-c79b5b75d0fe.png)
 
-The above output is a SHAP bar plot. This plot illustrates the mean absolute shapley values for each feature, which indicates the magnitute of the feature's impact on the model's prediction. In this plot, the top 7 features are sorted and displayed in descending order.
+The above output is a SHAP bar plot. This plot illustrates the mean absolute shapley values for each feature, which indicates the magnitute of the feature's impact on the model's prediction. When using xgboost with the logistic objective function, these shap values are log-odds. In this plot, the top 7 features are sorted and displayed in descending order.
 
 ![summary_plot](https://user-images.githubusercontent.com/71438259/215242147-18c55637-6166-4ae3-b0a8-3506dd9df068.png)
 
