@@ -616,7 +616,7 @@ plot3
 ```
 ![DM_lrm_plot](https://user-images.githubusercontent.com/71438259/191163940-6410b658-cac8-4138-9bf6-4bf6aafc2490.jpeg)
 
-## Conclusion
+## Conclusions
 
 Out of the 3 models, model 1 has the best predictive power. This is expected because it has the most number of predictors. However, having too many predictors when the sample size is small can lead to overfitting which makes the model less robust. Between models 2 and 3, model 2 has slightly better fit and predictive power.
 </br> </br>
