@@ -623,8 +623,6 @@ Out of the 3 models, model 1 has the best predictive power. This is expected bec
 The results of this analysis show that older age, family history, higher bmi and higher cholesterol increase the risk of having DM. Although  systolic blood pressure was found to be a slightly better predictor of DM than diastolic blood pressure, both blood pressure variables were not significant in our models despite the strong evidence of its relationship with DM in the literature. This insignificance may reasonably be imputed to insufficient sample size and some collinearity between blood pressure and other variables in the model.
 
 
-
-
-
-
+## References
+1. Bottle, A., (n.d.) Logistic Regression in R for Public Health. Coursera. https://www.coursera.org/learn/logistic-regression-r-public-health?specialization=statistical-analysis-r-public-health.
 
