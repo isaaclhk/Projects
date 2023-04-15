@@ -486,5 +486,7 @@ accuracy_score(y_pred2, y_test)
 
 Compared to the predictions generated from y_pred, the predictions from y_pred2 are less accurate. An examination of the confusion matrix tells us that the number of false positives increased significantly, but the number of false negatives is minimized to 0. To further reduce the probability of type 2 errors, the prediction threshold can be further tightened from .05 to .01 or less.  This will reduce the chance of having missed diagnoses and allow doctors to concentrate their time on reviewing tumors that are not likely benign. The reviewing doctor may then manually go through the non-benign cases to mitigate type 1 errors. In this way, man and machine can work hand in hand to create an efficient healthcare system.</br>
 
-
+## References
+1. Wolberg, W H., Street, W N., Mangasarian, O L. (1995, November) Breast Cancer Winconsin (Diagnostic) Data set, Retrieved from https://www.kaggle.com/datasets/uciml/breast-cancer-wisconsin-data.
+2. Ng, A., Shyu, E., Bagul, A., & Ladwig, G.(2022) *Machine Learning Specialization* [MOOC]. Coursera.
 
