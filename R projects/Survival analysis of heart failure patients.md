@@ -384,3 +384,5 @@ The results of this analysis show that length of stay in the hospital, age, gend
 Concordance is the c-statistic that refers to the area under the curve of receiver operating characteristic curve.
 The concordance or c-statistic is a measure of the model's predictive power. A c-statistic of 0.5 indicates that the model is only as good as predicting outcomes as random chance, and a c-statistic of 1 indicates perfect prediction. In this project, the concordance of the final model is 0.697.
 
+## References
+1. Bottle, A. (n.d.) Survival Analysis in R for Public Health. Coursera. https://www.coursera.org/learn/survival-analysis-r-public-health?specialization=statistical-analysis-r-public-health.
