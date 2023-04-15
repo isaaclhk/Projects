@@ -348,7 +348,7 @@ Based on this plot, there is little difference in pcr median shap values between
 ## Conclusions
 The results of this project have important clinical implications. By accurately forecasting whether or not a patient would require ICU admission hours in advance, hospitals can be better informed in making decisions for resource allocation. Furthermore, we have quantified the impact of each feature for predicting ICU admission using shap values. Clinicians can then identify the most important features to examine when evaluating the prognosis or status of each patient.
 
-## References
-1. https://www.kaggle.com/datasets/S%C3%ADrio-Libanes/covid19
-2. https://xgboost.readthedocs.io/en/stable/parameter.html
-3. https://shap.readthedocs.io/en/latest/api_examples.html#explainers
+## References.
+1. Assunção, A N., Rodrigues, F V., Bezzera, R D L., Boldrini, C., Brandao, A., Castaldoni, R C. (2020). COVID-19-Clinical Data to assess diagnosis. Retrieved from https://www.kaggle.com/datasets/S%C3%ADrio-Libanes/covid19.
+2. Chen, T., & Guestrin, C. (2016). XGBoost: A Scalable Tree Boosting System. In Proceedings of the 22nd ACM SIGKDD International Conference on Knowledge Discovery and Data Mining (pp. 785–794). New York, NY, USA: ACM. https://doi.org/10.1145/2939672.2939785
+3. Lundberg, S. M., & Lee, S. I. (2017). A unified approach to interpreting model predictions. Advances in neural information processing systems, 30.
