@@ -161,7 +161,9 @@ AUGMENTED_DIR = generate_augmented_data(train_healthy, num_batches = num_needed,
 print('number of augmented images created: {}'.format(len(os.listdir(AUGMENTED_DIR))))
 ```
 
-In the above code, we first calculate the number of healthy CXR images needed to balance the training set. I've defined a function that creates an empty folder 'AUGMENTED', and saves the specified number of generated augmented images into that folder.</br>
+In the above code, I've defined a function that creates an empty folder 'AUGMENTED', and saves the specified number of generated augmented images into that folder.
+We've generated enough images to fill the imbalance in the original training set.
+</br>
 
 output:
 ```
