@@ -136,7 +136,56 @@ proportion of healthy cxr images in the testing set = 0.2696
 ```
 
 ### Data augmentation
-As explained earlier, imbalanced datasets can cause machine learning models to be biased towards the majority class, resulting in an inferior, less accurate model. To overcome this problem in this project, we will create augmented versions of healthy CXR images in the training set and add them to the original training set. We will then train our model on this combined training set with equal number of pneumonia and healthy CXR images. No augmented images will be added to the validation and testing sets as we want a reliable evaluation of the model's performance on authentic CXR images.
+As explained earlier, imbalanced datasets can cause machine learning models to be biased towards the majority class, resulting in an inferior, less accurate model. To overcome this problem in this project, we will create augmented versions of healthy CXR images in the training set and add them to the original training set. We will then train our model on this combined training set with equal number of pneumonia and healthy CXR images. No augmented images will be added to the validation and testing sets as we want a reliable evaluation of the model's performance on authentic CXR images. </br>
+
+To generate augmented images, we must first specify how we'd like to adjust the original image. Some ways in which we can augment images are listed in [this tensorflow documentation](https://www.tensorflow.org/api_docs/python/tf/keras/preprocessing/image/ImageDataGenerator).
+
+```
+#prepare for data augmentation
+datagen = tf.keras.preprocessing.image.ImageDataGenerator(
+    rotation_range = 0.3,
+    horizontal_flip = True,
+    brightness_range = [0.9, 1.1],
+    width_shift_range = 0.05,
+    height_shift_range = 0.05)
+```
+
+
+```
+#visualize augmented data
+aug_iter = datagen.flow(np.array(images), batch_size = 1)
+fig, ax = plt.subplots(1,5, figsize=(20,10))
+# generate batch of images
+for i in range(5):
+	# convert to unsigned integers
+	image = next(aug_iter)[0].astype('uint8')
+	# plot image
+	ax[i].imshow(image)
+	ax[i].axis('off')
+ ```
+ 
+ ```
+#separate healthy and pneumonia images in training set
+def sep_images_by_class(x_train, y_train):
+    train_healthy = []
+    train_pneumonia = []
+    temp = zip(x_train, y_train)
+    for x, y in temp:
+        if y == 0:
+            train_healthy.append(x)
+        else:
+            train_pneumonia.append(x)
+
+    train_healthy = np.array(train_healthy)
+    train_pneumonia = np.array(train_pneumonia)
+    
+    return train_healthy, train_pneumonia
+
+train_healthy, train_pneumonia = sep_images_by_class(x_train, y_train)
+
+```
+
+
 
 ```
 #calculate number of batches of augmented data to generate
@@ -233,3 +282,4 @@ Great! Now we have a balanced training set consisting of augmented and authentic
 2. Frija, G., Blažić, I., Frush, D. P., Hierath, M., Kawooya, M., Donoso-Bach, L., & Brkljačić, B. (2021). 
 3. How to improve access to medical imaging in low-and middle-income countries?. EClinicalMedicine, 38, 101034. </br>
 Kermany, Daniel; Zhang, Kang; Goldbaum, Michael (2018), “Labeled Optical Coherence Tomography (OCT) and Chest X-Ray Images for Classification”, Mendeley Data, V2, doi: 10.17632/rscbjbr9sj.2
+4. https://www.tensorflow.org/api_docs/python/tf/keras/preprocessing/image/ImageDataGenerator
