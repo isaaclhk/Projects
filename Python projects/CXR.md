@@ -49,7 +49,37 @@ print(f'number of healthy xray images:\
 \n{len(os.listdir(HEALTHY_DIR))}')
 ```
 
+output:
+```
+number of pneumonia xray images:
+4273
+number of healthy xray images:
+1583
+```
+We start by importing the relevant packages and and defining the working directory. </br>
+Counting the length of pneumonia and healthy directories, the output shows that we have an imbalanced dataset. 
 
+Next, we begin to form our dataset by converting these xray images into numpy arrays. Here, I've defined a function that helps us do that.
+```
+#create dataset
+categories = ['healthy', 'pneumonia']
+
+def create_dataset():
+    images = []
+    classes = []
+    for category in categories:
+        path = os.path.join(DIR, category)
+        class_num = categories.index(category)
+        for img in os.listdir(path):
+            img_array = cv2.imread(os.path.join(path, img))
+            new_array = cv2.resize(img_array, (299, 299))
+            images.append(new_array)
+            classes.append(class_num)
+    
+    return images, classes
+            
+images, classes = create_dataset()
+```
 
 
 ## References
