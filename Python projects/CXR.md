@@ -28,7 +28,7 @@ Originally, the dataset was divided into three folders (train, test, val) with s
 
 
 ## References
-https://www.who.int/news-room/fact-sheets/detail/pneumonia</br>
-Frija, G., Blažić, I., Frush, D. P., Hierath, M., Kawooya, M., Donoso-Bach, L., & Brkljačić, B. (2021). 
-How to improve access to medical imaging in low-and middle-income countries?. EClinicalMedicine, 38, 101034. </br>
+1. https://www.who.int/news-room/fact-sheets/detail/pneumonia</br>
+2. Frija, G., Blažić, I., Frush, D. P., Hierath, M., Kawooya, M., Donoso-Bach, L., & Brkljačić, B. (2021). 
+3. How to improve access to medical imaging in low-and middle-income countries?. EClinicalMedicine, 38, 101034. </br>
 Kermany, Daniel; Zhang, Kang; Goldbaum, Michael (2018), “Labeled Optical Coherence Tomography (OCT) and Chest X-Ray Images for Classification”, Mendeley Data, V2, doi: 10.17632/rscbjbr9sj.2
