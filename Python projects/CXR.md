@@ -161,8 +161,8 @@ AUGMENTED_DIR = generate_augmented_data(train_healthy, num_batches = num_needed,
 print('number of augmented images created: {}'.format(len(os.listdir(AUGMENTED_DIR))))
 ```
 
-In the above code, I've defined a function that creates an empty folder 'AUGMENTED', and saves the specified number of generated augmented images into that folder.
-We've generated enough images to fill the imbalance in the original training set.
+In the above code, I've defined a function that creates an empty folder 'AUGMENTED', then generates and saves the specified number of augmented images into that folder.
+We've created enough images to correct the imbalance in the original training set.
 </br>
 
 output:
