@@ -1,12 +1,12 @@
 # Chest X-ray Classification (Pneumonia)
 
 ## Background
-Classification of chest X-rays using artificial intelligence is a crucial and beneficial application of machine learning 
+Classification of chest X-rays (CXR) using artificial intelligence is a crucial and beneficial application of machine learning 
 in the field of medical diagnosis. Pneumonia is a respiratory infection that is caused by bacteria, viruses, or fungi and is a leading cause of mortality worldwide, 
 especially in young children (WHO, 2022). 
 Early and accurate detection of pneumonia is crucial to initiate timely and effective treatment, which can save lives and prevent further complications.
 
-Traditionally, pneumonia is diagnosed through chest X-rays that are interpreted by trained radiologists or physicians. However, this process can be time-consuming and expensive, which can lead to delayed treatment. 
+Traditionally, pneumonia is diagnosed through CXRs that are interpreted by trained radiologists or physicians. However, this process can be time-consuming and expensive, which can lead to delayed treatment. 
 Moreover, in developing countries, where access to trained radiologists and medical equipment are limited, there is a significant shortage of healthcare professionals who can accurately diagnose pneumonia (Frija et al., 2021).
 
 Artificial intelligence can be used to overcome these challenges and improve the accuracy and efficiency of pneumonia diagnosis. 
@@ -16,11 +16,11 @@ The benefits of using artificial intelligence in pneumonia diagnosis extend beyo
 It can also help reduce the workload of healthcare professionals, especially in resource-limited settings, allowing them to focus on more complex cases and providing better quality care to patients. 
 Moreover, it can help bridge the gap in healthcare access, making pneumonia diagnosis more widely available to people who live in underserved areas or have limited access to healthcare.
 
-In this project, we will create a convolutional neural network to classify chest x-ray images, predicting whether or not the the image
+In this project, we will create a convolutional neural network to classify CXRs images, predicting whether or not the the image
 belongs to a patient with pneumonia. 
 
 ### About the Dataset
-[This dataset](https://data.mendeley.com/datasets/rscbjbr9sj/2) comprises of anterior-posterior chest X-ray images taken from pediatric patients aged one to five years old who received medical care at Guangzhou Women and Children's Medical Center in Guangzhou. These images were acquired during the patients' routine clinical care. To ensure quality control, all chest radiographs were initially reviewed and low-quality or unreadable scans were removed. The images were then graded by two expert physicians, and a third expert checked the evaluation set to account for any grading errors (Kermany et al., 2018).
+[This dataset](https://data.mendeley.com/datasets/rscbjbr9sj/2) comprises of anterior-posterior CXR images taken from pediatric patients aged one to five years old who received medical care at Guangzhou Women and Children's Medical Center in Guangzhou. These images were acquired during the patients' routine clinical care. To ensure quality control, all chest radiographs were initially reviewed and low-quality or unreadable scans were removed. The images were then graded by two expert physicians, and a third expert checked the evaluation set to account for any grading errors (Kermany et al., 2018).
 
 Originally, the dataset was divided into three folders (train, test, val) with subfolders for each image category (Pneumonia/Normal). However, I've combined all three folders to create two main folders (Pneumonia/Healthy) in order to manually shuffle and split the images into training, validation, and test sets of custom proportions. The dataset comprises 5,863 X-ray images (JPEG) categorized into two categories (Pneumonia/Normal).
 
@@ -58,6 +58,8 @@ number of pneumonia xray images:
 number of healthy xray images:
 1583
 ```
+Having an imbalanced dataset is potentially problematic as it could lead the machine learning model we are training to be biased towards the majority class. In the context of this dataset, pneumonia xray images are overrepresented. If a model is trained on this dataset, it will see comparatively less healthy xray images. Consequently, the model may not perform as well in classifying healthy CXRs. This might cause the model we train to over specialize in recognizing pneumonia CXRs, resulting in more false positives. One method to overcome the problems that come with imbalanced datasets is data augmentation, which will be demonstrated later in this project.
+
 Next, we begin to form our dataset by converting these xray images into numpy arrays. Here, I've defined a function that helps us do that. We'll also visualize the images to check that they're are what we'd expected.
 ```
 #create dataset
