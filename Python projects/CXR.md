@@ -125,7 +125,7 @@ print(f'proportion of healthy cxr images in the training set = {y_train.count(0)
 print(f'proportion of healthy cxr images in the validation set = {y_validation.count(0)/ len(y_validation):.4f}')
 print(f'proportion of healthy cxr images in the testing set = {y_test.count(0)/ len(y_test):.4f}')
 ```
-~~
+
 output:
 ```
 proportion of healthy cxr images in the training set = 0.2703
@@ -138,3 +138,4 @@ proportion of healthy cxr images in the testing set = 0.2696
 2. Frija, G., Blažić, I., Frush, D. P., Hierath, M., Kawooya, M., Donoso-Bach, L., & Brkljačić, B. (2021). 
 3. How to improve access to medical imaging in low-and middle-income countries?. EClinicalMedicine, 38, 101034. </br>
 Kermany, Daniel; Zhang, Kang; Goldbaum, Michael (2018), “Labeled Optical Coherence Tomography (OCT) and Chest X-Ray Images for Classification”, Mendeley Data, V2, doi: 10.17632/rscbjbr9sj.2
+```
