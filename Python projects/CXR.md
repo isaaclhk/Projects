@@ -138,6 +138,36 @@ proportion of healthy cxr images in the testing set = 0.2696
 ### Data augmentation
 As explained earlier, imbalanced datasets can cause machine learning models to be biased towards the majority class, resulting in an inferior, less accurate model. To overcome this problem in this project, we will create augmented versions of healthy CXR images in the training set and add them to the original training set. We will then train our model on this combined training set with equal number of pneumonia and healthy CXR images. No augmented images will be added to the validation and testing sets as we want a reliable evaluation of the model's performance on authentic CXR images.
 
+```
+#calculate number of batches of augmented data to generate
+num_needed = len(train_pneumonia) - len(train_healthy) #total number of augmented images required
+num_needed
+
+#generate augmented images
+def generate_augmented_data(train_healthy, num_batches, batch_size):
+    os.mkdir(os.path.join(DIR, 'AUGMENTED')) #create new directory
+    AUGMENTED_DIR = os.path.join(DIR, 'AUGMENTED')
+    i = 0
+    for batch in datagen.flow(train_healthy, batch_size = batch_size,
+                              save_to_dir = AUGMENTED_DIR,
+                              save_format = 'jpeg'):
+        i+= 1
+        if i >= num_batches:
+            break
+        
+    return AUGMENTED_DIR # returns path where augmented images are saved
+
+AUGMENTED_DIR = generate_augmented_data(train_healthy, num_batches = num_needed, batch_size = 1)
+print('number of augmented images created: {}'.format(len(os.listdir(AUGMENTED_DIR))))
+```
+
+In the above code, we first calculate the number of healthy CXR images needed to balance the training set. I've defined a function that creates an empty folder 'AUGMENTED', and saves the specified number of generated augmented images into that folder.</br>
+
+output:
+```
+number of augmented images created: 2152
+```
+
 ## References
 1. https://www.who.int/news-room/fact-sheets/detail/pneumonia</br>
 2. Frija, G., Blažić, I., Frush, D. P., Hierath, M., Kawooya, M., Donoso-Bach, L., & Brkljačić, B. (2021). 
