@@ -19,11 +19,16 @@ Moreover, it can help bridge the gap in healthcare access, making pneumonia diag
 In this project, we will create a convolutional neural network to classify chest x-ray images, predicting whether or not the the image
 belongs to a patient with pneumonia. 
 
+### About the Dataset
+[The dataset](https://data.mendeley.com/datasets/rscbjbr9sj/2) comprises of anterior-posterior chest X-ray images taken from pediatric patients aged one to five years old who received medical care at Guangzhou Women and Children's Medical Center in Guangzhou. These images were acquired during the patients' routine clinical care. To ensure quality control, all chest radiographs were initially reviewed and low-quality or unreadable scans were removed. The images were then graded by two expert physicians, and a third expert checked the evaluation set to account for any grading errors (Kermany et al., 2018).
+
+Originally, the dataset was divided into three folders (train, test, val) with subfolders for each image category (Pneumonia/Normal). However, I've combined all three folders to create two main folders (Pneumonia/Healthy) in order to manually shuffle and split the images into training, validation, and test sets of custom proportions. The dataset comprises 5,863 X-ray images (JPEG) categorized into two categories (Pneumonia/Normal).
 
 
 
 
 ## References
-https://www.who.int/news-room/fact-sheets/detail/pneumonia
+https://www.who.int/news-room/fact-sheets/detail/pneumonia</br>
 Frija, G., Blažić, I., Frush, D. P., Hierath, M., Kawooya, M., Donoso-Bach, L., & Brkljačić, B. (2021). 
-How to improve access to medical imaging in low-and middle-income countries?. EClinicalMedicine, 38, 101034.
+How to improve access to medical imaging in low-and middle-income countries?. EClinicalMedicine, 38, 101034. </br>
+Kermany, Daniel; Zhang, Kang; Goldbaum, Michael (2018), “Labeled Optical Coherence Tomography (OCT) and Chest X-Ray Images for Classification”, Mendeley Data, V2, doi: 10.17632/rscbjbr9sj.2
