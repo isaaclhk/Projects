@@ -125,8 +125,6 @@ print(f'proportion of healthy cxr images in the training set = {y_train.count(0)
 print(f'proportion of healthy cxr images in the validation set = {y_validation.count(0)/ len(y_validation):.4f}')
 print(f'proportion of healthy cxr images in the testing set = {y_test.count(0)/ len(y_test):.4f}')
 ```
-
-
 output:
 ```
 proportion of healthy cxr images in the training set = 0.2703
