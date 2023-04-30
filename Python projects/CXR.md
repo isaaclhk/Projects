@@ -132,6 +132,7 @@ proportion of healthy cxr images in the training set = 0.2703
 proportion of healthy cxr images in the validation set = 0.2713
 proportion of healthy cxr images in the testing set = 0.2696
 ```
+
 ## References
 1. https://www.who.int/news-room/fact-sheets/detail/pneumonia</br>
 2. Frija, G., Blažić, I., Frush, D. P., Hierath, M., Kawooya, M., Donoso-Bach, L., & Brkljačić, B. (2021). 
