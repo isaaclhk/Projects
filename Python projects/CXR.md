@@ -24,7 +24,7 @@ belongs to a patient with pneumonia.
 
 Originally, the dataset was divided into three folders (train, test, val) with subfolders for each image category (Pneumonia/Normal). However, I've combined all three folders to create two main folders (Pneumonia/Healthy) in order to manually shuffle and split the images into training, validation, and test sets of custom proportions. The dataset comprises 5,863 X-ray images (JPEG) categorized into two categories (Pneumonia/Normal).
 
-### Code
+## Code
 
 ```
 #importing packages
