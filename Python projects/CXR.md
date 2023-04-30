@@ -25,7 +25,7 @@ belongs to a patient with pneumonia.
 Originally, the dataset was divided into three folders (train, test, val) with subfolders for each image category (Pneumonia/Normal). However, I've combined all three folders to create two main folders (Pneumonia/Healthy) in order to manually shuffle and split the images into training, validation, and test sets of custom proportions. The dataset comprises 5,863 X-ray images (JPEG) categorized into two categories (Pneumonia/Normal).
 
 ## Code
-
+### Preparation
 ```
 #importing packages
 import matplotlib.pyplot as plt
@@ -135,6 +135,7 @@ proportion of healthy cxr images in the validation set = 0.2713
 proportion of healthy cxr images in the testing set = 0.2696
 ```
 
+### Data augmentation
 As explained earlier, imbalanced datasets can cause machine learning models to be biased towards the majority class, resulting in an inferior, less accurate model. To overcome this problem in this project, we will create augmented versions of healthy CXR images in the training set and add them to the original training set. We will then train our model on this combined training set with equal number of pneumonia and healthy CXR images. No augmented images will be added to the validation and testing sets as we want a reliable evaluation of the model's performance on authentic CXR images.
 
 ## References
