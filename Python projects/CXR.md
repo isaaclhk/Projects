@@ -226,6 +226,8 @@ number of healthy chest xrays: 3418
 number of pneumonia chest xrays: 3418
 ```
 
+Great! Now we have a balanced training set consisting of augmented and authentic CXR images.
+
 ## References
 1. https://www.who.int/news-room/fact-sheets/detail/pneumonia</br>
 2. Frija, G., Blažić, I., Frush, D. P., Hierath, M., Kawooya, M., Donoso-Bach, L., & Brkljačić, B. (2021). 
