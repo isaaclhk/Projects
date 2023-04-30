@@ -95,11 +95,43 @@ for i in range(8):
     plt.title(categories[classes[i]])
     plt.axis('off')
 ```
+output:
 ![visualize_cxr](https://user-images.githubusercontent.com/71438259/235347171-604bad5f-0bed-4519-9415-d77e09f8b038.png)
 
 In general, healthy chest x-rays should appear clear and black, indicating that air is passing through the lung spaces freely without much resistance. On the contrary, pneumonia chest x-rays might show areas of patchy or diffused opacity, indicating inflammation or fluid build-up. Interpreting chest x-rays can be challenging. Physicians undergo years of training and rely on their extensive clinical experience to read these images. In addition, it is not always reliable to form a diagnosis based solely on xray images. clinicians rely on additional information such as laboratory tests, the patient's history and symptoms to form accurate diagnoses.
+</br>
 
+We split the dataset into training, validation, and testing sets in an 8-1-1 ratio. The split is stratified in a way that ensures that there are approximately equal proportions of healthy and pneumonia images in each set.
 
+````
+#split data
+from sklearn.model_selection import train_test_split
+x_train, x_val, y_train, y_val = train_test_split(
+    images, classes, 
+    test_size = 0.2, 
+    random_state = 123, 
+    shuffle = True,
+    stratify = classes)
+
+x_validation, x_test, y_validation, y_test = train_test_split(
+    x_val, y_val,
+    test_size = 0.5,
+    random_state = 123,
+    shuffle = True,
+    stratify = y_val)
+
+#check if stratified
+print(f'proportion of healthy cxr images in the training set = {y_train.count(0)/ len(y_train):.4f}')
+print(f'proportion of healthy cxr images in the validation set = {y_validation.count(0)/ len(y_validation):.4f}')
+print(f'proportion of healthy cxr images in the testing set = {y_test.count(0)/ len(y_test):.4f}')
+```
+
+output:
+```
+proportion of healthy cxr images in the training set = 0.2703
+proportion of healthy cxr images in the validation set = 0.2713
+proportion of healthy cxr images in the testing set = 0.2696
+```
 ## References
 1. https://www.who.int/news-room/fact-sheets/detail/pneumonia</br>
 2. Frija, G., Blažić, I., Frush, D. P., Hierath, M., Kawooya, M., Donoso-Bach, L., & Brkljačić, B. (2021). 
