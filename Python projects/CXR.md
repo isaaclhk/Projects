@@ -20,9 +20,34 @@ In this project, we will create a convolutional neural network to classify chest
 belongs to a patient with pneumonia. 
 
 ### About the Dataset
-[The dataset](https://data.mendeley.com/datasets/rscbjbr9sj/2) comprises of anterior-posterior chest X-ray images taken from pediatric patients aged one to five years old who received medical care at Guangzhou Women and Children's Medical Center in Guangzhou. These images were acquired during the patients' routine clinical care. To ensure quality control, all chest radiographs were initially reviewed and low-quality or unreadable scans were removed. The images were then graded by two expert physicians, and a third expert checked the evaluation set to account for any grading errors (Kermany et al., 2018).
+[This dataset](https://data.mendeley.com/datasets/rscbjbr9sj/2) comprises of anterior-posterior chest X-ray images taken from pediatric patients aged one to five years old who received medical care at Guangzhou Women and Children's Medical Center in Guangzhou. These images were acquired during the patients' routine clinical care. To ensure quality control, all chest radiographs were initially reviewed and low-quality or unreadable scans were removed. The images were then graded by two expert physicians, and a third expert checked the evaluation set to account for any grading errors (Kermany et al., 2018).
 
 Originally, the dataset was divided into three folders (train, test, val) with subfolders for each image category (Pneumonia/Normal). However, I've combined all three folders to create two main folders (Pneumonia/Healthy) in order to manually shuffle and split the images into training, validation, and test sets of custom proportions. The dataset comprises 5,863 X-ray images (JPEG) categorized into two categories (Pneumonia/Normal).
+
+### Code
+
+```
+#importing packages
+import matplotlib.pyplot as plt
+import numpy as np
+import os
+import cv2
+import tensorflow as tf
+import pickle
+
+##Setting directories
+DIR = r"C:\Users\isaac\OneDrive\Documents\Projects\datasets\CXR"
+os.listdir(DIR)
+
+PNEUMONIA_DIR = os.path.join(DIR, 'PNEUMONIA')
+HEALTHY_DIR = os.path.join(DIR, 'HEALTHY')
+
+##Checking number of samples
+print(f'number of pneumonia xray images:\
+\n{len(os.listdir(PNEUMONIA_DIR))}')
+print(f'number of healthy xray images:\
+\n{len(os.listdir(HEALTHY_DIR))}')
+```
 
 
 
