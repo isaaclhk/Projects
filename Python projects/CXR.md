@@ -48,6 +48,8 @@ print(f'number of pneumonia xray images:\
 print(f'number of healthy xray images:\
 \n{len(os.listdir(HEALTHY_DIR))}')
 ```
+We start by importing the relevant packages and and defining the working directory. </br>
+Counting the length of pneumonia and healthy directories, the output shows that we have an imbalanced dataset. 
 
 output:
 ```
@@ -56,10 +58,7 @@ number of pneumonia xray images:
 number of healthy xray images:
 1583
 ```
-We start by importing the relevant packages and and defining the working directory. </br>
-Counting the length of pneumonia and healthy directories, the output shows that we have an imbalanced dataset. 
-
-Next, we begin to form our dataset by converting these xray images into numpy arrays. Here, I've defined a function that helps us do that.
+Next, we begin to form our dataset by converting these xray images into numpy arrays. Here, I've defined a function that helps us do that. We'll also visualize the images to check if they are what we'd expected.
 ```
 #create dataset
 categories = ['healthy', 'pneumonia']
@@ -79,7 +78,24 @@ def create_dataset():
     return images, classes
             
 images, classes = create_dataset()
+
+#shuffle images
+import random
+random.seed(123)
+temp = list(zip(images, classes))
+random.shuffle(temp)
+images, classes = zip(*temp)
+images, classes = list(images), list(classes)
+
+#visualize images
+plt.figure(figsize = (20, 10))
+for i in range(8):
+    ax = plt.subplot(2,4, i+1)
+    plt.imshow(images[i])
+    plt.title(categories[classes[i]])
+    plt.axis('off')
 ```
+
 
 
 ## References
