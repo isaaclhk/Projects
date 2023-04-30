@@ -58,7 +58,7 @@ number of pneumonia xray images:
 number of healthy xray images:
 1583
 ```
-Next, we begin to form our dataset by converting these xray images into numpy arrays. Here, I've defined a function that helps us do that. We'll also visualize the images to check if they are what we'd expected.
+Next, we begin to form our dataset by converting these xray images into numpy arrays. Here, I've defined a function that helps us do that. We'll also visualize the images to check that they're are what we'd expected.
 ```
 #create dataset
 categories = ['healthy', 'pneumonia']
@@ -95,6 +95,7 @@ for i in range(8):
     plt.title(categories[classes[i]])
     plt.axis('off')
 ```
+![visualize_cxr](https://user-images.githubusercontent.com/71438259/235347171-604bad5f-0bed-4519-9415-d77e09f8b038.png)
 
 
 
