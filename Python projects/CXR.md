@@ -220,6 +220,12 @@ print('number of healthy chest xrays: {}'.format(list(combined_y_train).count(0)
 print('number of pneumonia chest xrays: {}'.format(list(combined_y_train).count(1)))
 ```
 
+output:
+```
+number of healthy chest xrays: 3418
+number of pneumonia chest xrays: 3418
+```
+
 ## References
 1. https://www.who.int/news-room/fact-sheets/detail/pneumonia</br>
 2. Frija, G., Blažić, I., Frush, D. P., Hierath, M., Kawooya, M., Donoso-Bach, L., & Brkljačić, B. (2021). 
