@@ -170,6 +170,32 @@ output:
 number of augmented images created: 2152
 ```
 
+Now that we have the augmented images, we'll add them to the original training set.
+
+```
+#combine augmented and authentic healthy cxr for balanced training set
+def combined_training_set(AUGMENTED_DIR, num_augmented, x_train, y_train):
+    augmented_imgs = []
+    for img in os.listdir(AUGMENTED_DIR):
+        img_array = cv2.imread(os.path.join(AUGMENTED_DIR, img))
+        augmented_imgs.append(img_array)
+    
+    combined_x_train = np.concatenate((np.array(augmented_imgs), x_train), axis = 0)
+    combined_y_train = np.array([0]*num_needed + y_train)
+    
+    return combined_x_train, combined_y_train
+    
+combined_x_train, combined_y_train = combined_training_set(
+    AUGMENTED_DIR, 
+    num_needed, 
+    x_train, 
+    y_train)
+
+#verify shape
+combined_x_train.shape #(6836, 299, 299, 3)
+combined_y_train.shape #(6836,)
+```
+
 ## References
 1. https://www.who.int/news-room/fact-sheets/detail/pneumonia</br>
 2. Frija, G., Blažić, I., Frush, D. P., Hierath, M., Kawooya, M., Donoso-Bach, L., & Brkljačić, B. (2021). 
