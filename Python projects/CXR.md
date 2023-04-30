@@ -196,6 +196,30 @@ combined_x_train.shape #(6836, 299, 299, 3)
 combined_y_train.shape #(6836,)
 ```
 
+Next, we shuffle the combined training set before saving it. It is crucial to save our data at this point so that we need not reproduce the augemented images. More importantly, saving allows us to work on a consistent set of splits everytime we resume the work on this model.
+
+```
+#shuffle training set
+from sklearn.utils import shuffle
+combined_x_train, combined_y_train = shuffle(combined_x_train, combined_y_train, random_state = 123)
+
+DIR = r"C:\Users\isaac\OneDrive\Documents\Projects\datasets\CXR"
+save_DIR = os.path.join(DIR, 'saved') #directory for saved files
+
+'''
+#save
+with open(os.path.join(save_DIR, 'cxr_dataset.pkl'), 'wb') as f:
+    pickle.dump([combined_x_train, combined_y_train, x_validation, y_validation, x_test, y_test], f)
+    
+with open(os.path.join(save_DIR, 'cxr_dataset.pkl'), 'rb') as f:
+    combined_x_train, combined_y_train, x_validation, y_validation, x_test, y_test = pickle.load(f)
+'''
+
+#check if dataset balanced
+print('number of healthy chest xrays: {}'.format(list(combined_y_train).count(0)))
+print('number of pneumonia chest xrays: {}'.format(list(combined_y_train).count(1)))
+```
+
 ## References
 1. https://www.who.int/news-room/fact-sheets/detail/pneumonia</br>
 2. Frija, G., Blažić, I., Frush, D. P., Hierath, M., Kawooya, M., Donoso-Bach, L., & Brkljačić, B. (2021). 
