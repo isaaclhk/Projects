@@ -58,7 +58,7 @@ number of pneumonia xray images:
 number of healthy xray images:
 1583
 ```
-Having an imbalanced dataset is potentially problematic as it could lead the machine learning model we are training to be biased towards the majority class. In the context of this dataset, pneumonia xray images are overrepresented. If a model is trained on this dataset, it will see comparatively less healthy xray images. Consequently, the model may not perform as well in classifying healthy CXRs. This might cause the model we train to over specialize in recognizing pneumonia CXRs, resulting in more false positives. One method to overcome the problems that come with imbalanced datasets is data augmentation, which will be demonstrated later in this project.
+Having an imbalanced dataset is potentially problematic as it could lead the machine learning model we are training to be biased towards the majority class. In this dataset, pneumonia xray images are overrepresented. If a model is trained on this dataset, it will see comparatively less healthy xray images. Consequently, it may not perform as well in classifying healthy CXRs. This might cause the model to over specialize in recognizing pneumonia CXRs, resulting in more false positives. One method to overcome the problems that come with imbalanced datasets is data augmentation, which will be demonstrated later in this project.
 
 Next, we begin to form our dataset by converting these xray images into numpy arrays. Here, I've defined a function that helps us do that. We'll also visualize the images to check that they're are what we'd expected.
 ```
