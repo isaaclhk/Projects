@@ -103,7 +103,7 @@ In general, healthy chest x-rays should appear clear and black, indicating that 
 
 We split the dataset into training, validation, and testing sets in an 8-1-1 ratio. The split is stratified in a way that ensures that there are approximately equal proportions of healthy and pneumonia images in each set.
 
-
+```
 #split data
 from sklearn.model_selection import train_test_split
 x_train, x_val, y_train, y_val = train_test_split(
