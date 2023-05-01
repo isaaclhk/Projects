@@ -99,8 +99,7 @@ for i in range(8):
 ```
 output:
 
-![visualize_cxr](https://user-images.githubusercontent.com/71438259/235392071-6fed25b7-fd98-481e-be3d-2bfbfaf46dde.png)![augmented_cxr](https://user-images.githubusercontent.com/71438259/235392074-71540344-a996-451a-b970-e94ebeecf403.png)
-
+![visualize_cxr](https://user-images.githubusercontent.com/71438259/235392071-6fed25b7-fd98-481e-be3d-2bfbfaf46dde.png)
 
 In general, healthy chest x-rays should appear clear and black, indicating that air is passing through the lung spaces freely without much resistance. On the contrary, pneumonia chest x-rays might show areas of patchy or diffused opacity, indicating inflammation or fluid build-up. Interpreting chest x-rays can be challenging. Physicians undergo years of training and rely on their extensive clinical experience to read these images. In addition, it is not always reliable to form a diagnosis based solely on xray images. clinicians rely on additional information such as laboratory tests, the patient's history and symptoms to form accurate diagnoses.
 </br>
