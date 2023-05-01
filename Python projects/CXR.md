@@ -279,7 +279,27 @@ number of healthy chest xrays: 3418
 number of pneumonia chest xrays: 3418
 ```
 
-Great! Now we have a balanced training set consisting of augmented and authentic CXR images.
+Great! Now we have a balanced training set consisting of augmented and authentic CXR images.</br>
+Before training the model, we can optimize it's performance using cache and prefetch.
+
+```
+# prefetch and cache for optimization
+def performance_optimizer(x,y,batch_size):
+    dataset = tf.data.Dataset.from_tensor_slices((x,y))
+    dataset = dataset.batch(batch_size = batch_size).prefetch(buffer_size = tf.data.AUTOTUNE)
+    dataset = dataset.cache()
+    return dataset
+
+training_tf = performance_optimizer(combined_x_train, combined_y_train, 32)
+validation_tf = performance_optimizer(x_validation, y_validation, 32)
+test_tf = performance_optimizer(x_test, y_test, 32)
+
+```
+Caching and prefetching are important techniques in deep learning that can improve the training time and overall performance of a model. Caching involves storing the data in memory to avoid the overhead of reading from disk repeatedly, while prefetching loads data in advance to minimize the waiting time during training. By using these techniques, the model can access the data more quickly and efficiently, which can lead to faster and more accurate training.
+
+Finally, we can begin building our model.
+```
+
 
 ## References
 1. https://www.who.int/news-room/fact-sheets/detail/pneumonia</br>
