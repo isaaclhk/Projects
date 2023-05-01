@@ -298,7 +298,7 @@ test_tf = performance_optimizer(x_test, y_test, 32)
 Caching and prefetching are important techniques in deep learning that can improve the training time and overall performance of a model. Caching involves storing the data in memory to avoid the overhead of reading from disk repeatedly, while prefetching loads data in advance to minimize the waiting time during training. By using these techniques, the model can access the data more quickly and efficiently, which can lead to faster and more accurate training.
 
 Finally, we can begin building our model.
-```
+
 
 
 ## References
