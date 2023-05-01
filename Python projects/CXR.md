@@ -98,7 +98,8 @@ for i in range(8):
     plt.axis('off')
 ```
 output:
-![visualize_cxr](https://user-images.githubusercontent.com/71438259/235347171-604bad5f-0bed-4519-9415-d77e09f8b038.png)
+
+![visualize_cxr](https://user-images.githubusercontent.com/71438259/235391873-6ed455ad-2000-41bb-b66a-8a6362534e2a.png)
 
 In general, healthy chest x-rays should appear clear and black, indicating that air is passing through the lung spaces freely without much resistance. On the contrary, pneumonia chest x-rays might show areas of patchy or diffused opacity, indicating inflammation or fluid build-up. Interpreting chest x-rays can be challenging. Physicians undergo years of training and rely on their extensive clinical experience to read these images. In addition, it is not always reliable to form a diagnosis based solely on xray images. clinicians rely on additional information such as laboratory tests, the patient's history and symptoms to form accurate diagnoses.
 </br>
@@ -161,7 +162,7 @@ for i in range(5):
 	ax[i].axis('off')
 ```    
 
-![augmented_cxr](https://user-images.githubusercontent.com/71438259/235391400-e1489b85-e793-4a6b-9ac7-762fc00aae32.png)
+![augmented_cxr](https://user-images.githubusercontent.com/71438259/235391804-c5a0ec31-e418-4d13-9c20-43a0bd71c3b4.png)
 
 A visual inspection of the augmented images show that our images are reasonably realistic, and look like what we might find in another set of samples.
 we observe that some images have been randomly flipped horizontally. In reality, dextrocardia, a congenital condition where one's heart is situated on the right side of his/her chest instead of the left, is rare. However, we've simulated this by flipping some of our CXR images.
