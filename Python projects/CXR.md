@@ -148,11 +148,8 @@ datagen = tf.keras.preprocessing.image.ImageDataGenerator(
     brightness_range = [0.9, 1.1],
     width_shift_range = 0.05,
     height_shift_range = 0.05)
-```
-
-
-```
-#visualize augmented data
+    
+#visualize augmented images
 aug_iter = datagen.flow(np.array(images), batch_size = 1)
 fig, ax = plt.subplots(1,5, figsize=(20,10))
 # generate batch of images
@@ -162,7 +159,13 @@ for i in range(5):
 	# plot image
 	ax[i].imshow(image)
 	ax[i].axis('off')
- ```
+```    
+
+![augmented_cxr](https://user-images.githubusercontent.com/71438259/235391400-e1489b85-e793-4a6b-9ac7-762fc00aae32.png)
+
+A visual inspection of the augmented images show that our images are reasonably realistic, and look like what we might find in another set of samples.
+we observe that some images have been randomly flipped horizontally. In reality, dextrocardia, a congenital condition where one's heart is situated on the right side of his/her chest instead of the left, is rare. However, we've simulated this by flipping some of our CXR images.
+
  
  ```
 #separate healthy and pneumonia images in training set
@@ -184,7 +187,7 @@ def sep_images_by_class(x_train, y_train):
 train_healthy, train_pneumonia = sep_images_by_class(x_train, y_train)
 
 ```
-
+Since we intend to add augmented images of only healthy CXRs, we must first separate the images by class as I've done above.
 
 
 ```
