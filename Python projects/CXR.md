@@ -24,8 +24,8 @@ belongs to a patient with pneumonia.
 
 Originally, the dataset was divided into three folders (train, test, val) with subfolders for each image category (Pneumonia/Normal). However, I've combined all three folders to create two main folders (Pneumonia/Healthy) in order to manually shuffle and split the images into training, validation, and test sets of custom proportions. The dataset comprises 5,863 X-ray images (JPEG) categorized into two categories (Pneumonia/Normal).
 
-## Code
-### Preparation
+## Data Preprocessing
+### Loading data
 ```
 #importing packages
 import matplotlib.pyplot as plt
@@ -282,7 +282,7 @@ number of pneumonia chest xrays: 3418
 Great! Now we have a balanced training set consisting of augmented and authentic CXR images.</br>
 Before training the model, we can optimize it's performance using cache and prefetch.
 
-### Cache and Prefetch
+### Configure the dataset for performance
 
 ```
 # prefetch and cache for optimization
@@ -299,10 +299,11 @@ test_tf = performance_optimizer(x_test, y_test, 32)
 ```
 Caching and prefetching are important techniques in deep learning that can improve the training time and overall performance of a model. Caching involves storing the data in memory to avoid the overhead of reading from disk repeatedly, while prefetching loads data in advance to minimize the waiting time during training. By using these techniques, the model can access the data more quickly and efficiently, which can lead to faster and more accurate training.
 
-### Transfer learning
+## Transfer learning
 
 In this project, we will use transfer learning to classify our CXRs. Transfer learning is a technique in machine learning where a pre-trained model is used as a starting point for a new task, rather than training a new model from scratch. The pre-trained model has already learned to recognize general features and patterns from a large dataset, and this knowledge can be transferred to the new task with some fine-tuning. Transfer learning can save time and resources, as well as improve the performance of the new model.</br>
 
+### Inception-v3
 For this project, we will use the inception-v3 model (Figure 1). The Inception-v3 model is a deep neural network architecture used for image classification tasks. It is an improved version of the original Inception model and was developed by Google researchers in 2015. The original inception model was designed to improve the efficiency of image classification tasks by reducing the number of parameters required in the network. The model achieves this by using a combination of convolutional layers with different kernel sizes, which allows it to capture features at different scales. The architecture also includes a module called "Inception module," which uses multiple filters of different sizes in parallel to capture features at different levels of abstraction (Szegedy et al., 2015). Inception-v3 has made several improvements to the original inception model. These changes include the use of depthwise-separable convolutions to improve efficiency and minimize computations, the use of batch normalization, better regularization techniques, and changes in it's auxillary classifiers to improve training and reduce overfitting (Szegedy et al., 2016).
 
 ![inceptionv3onc--oview](https://user-images.githubusercontent.com/71438259/235567839-f8ead8d4-c35e-4547-be64-f87396bc06af.png)
