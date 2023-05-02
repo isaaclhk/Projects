@@ -299,8 +299,14 @@ test_tf = performance_optimizer(x_test, y_test, 32)
 ```
 Caching and prefetching are important techniques in deep learning that can improve the training time and overall performance of a model. Caching involves storing the data in memory to avoid the overhead of reading from disk repeatedly, while prefetching loads data in advance to minimize the waiting time during training. By using these techniques, the model can access the data more quickly and efficiently, which can lead to faster and more accurate training.
 
-Finally, we can begin building our model.
+### Transfer learning
 
+In this project, we will use transfer learning to classify our CXRs. Transfer learning is a technique in machine learning where a pre-trained model is used as a starting point for a new task, rather than training a new model from scratch. The pre-trained model has already learned to recognize general features and patterns from a large dataset, and this knowledge can be transferred to the new task with some fine-tuning. Transfer learning can save time and resources, as well as improve the performance of the new model.</br>
+
+For this project, we will use the inception-v3 model. The Inception-v3 model is a deep neural network architecture used for image classification tasks. It is an improved version of the original Inception model and was developed by Google researchers in 2015. The original inception model was designed to improve the efficiency of image classification tasks by reducing the number of parameters required in the network. The model achieves this by using a combination of convolutional layers with different kernel sizes, which allows it to capture features at different scales. The architecture also includes a module called "Inception module," which uses multiple filters of different sizes in parallel to capture features at different levels of abstraction (Szegedy et al., 2015). Inception-v3 has made several improvements to the original inception model. These changes include the use of depthwise-separable convolutions to improve efficiency and minimize computations, the use of batch normalization, better regularization techniques, and changes in it's auxillary classifiers to improve training and reduce overfitting (Szegedy et al., 2016).
+
+![inceptionv3onc--oview](https://user-images.githubusercontent.com/71438259/235567839-f8ead8d4-c35e-4547-be64-f87396bc06af.png)
+*A High level diagram of the inception-v3 model*
 
 ## References
 1. https://www.who.int/news-room/fact-sheets/detail/pneumonia</br>
@@ -308,3 +314,5 @@ Finally, we can begin building our model.
 3. How to improve access to medical imaging in low-and middle-income countries?. EClinicalMedicine, 38, 101034. </br>
 Kermany, Daniel; Zhang, Kang; Goldbaum, Michael (2018), “Labeled Optical Coherence Tomography (OCT) and Chest X-Ray Images for Classification”, Mendeley Data, V2, doi: 10.17632/rscbjbr9sj.2
 4. https://www.tensorflow.org/api_docs/python/tf/keras/preprocessing/image/ImageDataGenerator
+5. Szegedy, C., Vanhoucke, V., Ioffe, S., Shlens, J., & Wojna, Z. (2016). Rethinking the inception architecture for computer vision. In Proceedings of the IEEE conference on computer vision and pattern recognition (pp. 2818-2826).
+6. Szegedy, C., Liu, W., Jia, Y., Sermanet, P., Reed, S., Anguelov, D., ... & Rabinovich, A. (2015). Going deeper with convolutions. In Proceedings of the IEEE conference on computer vision and pattern recognition (pp. 1-9).
