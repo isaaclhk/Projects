@@ -355,7 +355,7 @@ Next, we feed the preprocessed inputs into the model, setting training = False. 
 
 Then we create the classification head. To generate predictions from an 8 x 8 block of features, we take their average using a GlobalAveragePooling2D() layer to convert the features into a single 2048-element vector per image. This vector is then fed into a dropout layer for regularization before being converted to a single prediction per image in the dense layer.
 
-### Compile the model
+### Custom metric: F1 score
 Before compiling the model, we define a custom metric: F1 score. F1 score is the harmonic mean of precision and recall, combining the 2 into a single value. In this project, F1 score is a better metric than accuracy for assessing the model's predictive power because the dataset is imbalanced, and accuracy does not take into account the distribution of classes in the dataset. Unfortunately, at the time of writing this document, F1 score is still not yet available as a built-in metric in the stable version of tensorflow. tf.keras.metrics.F1Score is currently only available via tf-nightly, and I hope it will be brought into the stable version soon.
 
 <img src="https://user-images.githubusercontent.com/71438259/236127943-4325ae32-5d55-4337-bdc9-629838c34858.jpeg" width="30%" height="30%">
@@ -393,6 +393,8 @@ class f1_score(tf.keras.metrics.Metric):
         self.fp.assign(0)
         self.fn.assign(0)
 ```
+
+### Compile the model
 
 Now we compile the model. Since there are two classes, "pneumonia" and "healthy", we will use binary cross entropy as the loss function and Adam optimization as the gradient descent algorithm for this model. Given enough time and resources, we may also experiment with other types of gradient descent algorithms such as RMSprop and momentum. However, for the purposes of this project, we will stick with adam optimization.
 
