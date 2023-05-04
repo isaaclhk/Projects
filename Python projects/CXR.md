@@ -439,13 +439,31 @@ _________________________________________________________________
 ```
 From the model summary, we observe that there are now 2049 trainable parameters. These include the single value from the final dense layer, in addition to the 2048 parameters we've obtained after average pooling.</br>
 
-Finally, we train the model.
+### Train the model
 
 ```
 history = model.fit(training_tf,
           validation_data=validation_tf,
           epochs = 15)
 ```	
+
+Training a convolutional neural network can be computational expensive. Hence, I've saved the model during and after training so that the work can be divided into multiple sessions without retraining the model from the beginning every time. Another utility of saving the model is that it helps with hyperparameter tuning. By saving the weights and histories of our models, we are able to experiment with various hyperparameters and identify the ones that produce the best result. For this project, I've experimented with a few different learning rates and number of training epochs. However, for conciseness, I will only report the final model.
+
+```
+'''
+#save and load model
+model.save_weights(os.path.join(save_DIR, 'initial_weights'))
+model.load_weights(os.path.join(save_DIR, 'initial_weights'))
+model.evaluate(validation_tf)
+
+with open(os.path.join(save_DIR, 'initial_history'), 'wb') as f: #save
+    pickle.dump(history.history, f)
+with open(os.path.join(save_DIR, 'initial_history'), 'rb') as f: #load
+    history = pickle.load(f)
+
+'''
+```
+
 
 ## References
 1. https://www.who.int/news-room/fact-sheets/detail/pneumonia</br>
