@@ -470,7 +470,7 @@ model.evaluate(validation_tf)
 This is a plot of the initial model's learning curves
 ```
 #plot initial learning curves
-plt.figure(figsize = (12, 12))
+plt.figure(figsize = (10, 16))
 plt.style.use('ggplot')
 
 plt.subplot(4, 1, 1)
@@ -505,7 +505,7 @@ plt.legend(loc = 'lower right')
 
 output:
 
-![CXR_initial_curves](https://user-images.githubusercontent.com/71438259/236143174-3083904e-52b3-47c4-90d7-3280b1a54eb8.png)
+![CXR_initial_curves](https://user-images.githubusercontent.com/71438259/236144279-02427e4b-ca7a-4526-a359-c93ae6522ad0.png)
 
 ## References
 1. https://www.who.int/news-room/fact-sheets/detail/pneumonia</br>
