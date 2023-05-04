@@ -325,6 +325,11 @@ The input_shape is specified as (299, 299, 3). The first two numbers (299, 299) 
 base_model.trainable = False freezes the convolutional base which we will use as a feature extractor. We will add a classifier on top of it and train the top-level classifier.
 
 ```
+base_model.summary() # examine model architecture
+```
+We can examine the model architecture from the output of the summary. We notice that the output from our feature extractor is an 8 x 8 x 2048 block of features.
+
+```
 preprocess_input = tf.keras.applications.inception_v3.preprocess_input
 global_average_layer = tf.keras.layers.GlobalAveragePooling2D()
 prediction_layer = tf.keras.layers.Dense(1)
@@ -343,6 +348,8 @@ preprocess_input performs a series on operations on the input data to make it's 
 Next, we feed the preprocessed inputs into the model, setting training = False. Setting training to = False prevents the batch normalization layer from updating the mean and variance statistics, which will destroy will the model has learned during pre-training. </br>
 
 Then we create the classification head. To generate predictions from an 8 x 8 block of features, we take their average using a GlobalAveragePooling2D() layer to convert the features into a single 2048-element vector per image. This vector is then fed into a dropout layer for regularization before being converted to a single prediction per image in the dense layer.
+
+Before compiling the model, we define a custom metric: F1 score. F1 score is the harmonic mean of precision and recall, combining the 2 into a single value. In this project, F1 score is a better metric than accuracy for assessing the model's predictive power because the dataset is imbalanced, and accuracy does not take into account the distribution of classes in the dataset. 
 
 
 
