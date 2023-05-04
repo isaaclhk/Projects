@@ -502,6 +502,7 @@ plt.ylabel('Accuracy')
 plt.xlabel('Epoch')
 plt.legend(loc = 'lower right')
 ```
+
 output:
 ![CXR_initial_curves](https://user-images.githubusercontent.com/71438259/236143174-3083904e-52b3-47c4-90d7-3280b1a54eb8.png)
 
