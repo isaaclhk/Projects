@@ -387,7 +387,7 @@ class f1_score(tf.keras.metrics.Metric):
         self.fn.assign(0)
 ```
 
-Now we will compile and begin training the model. Since there are two classes, "pneumonia" and "healthy", we will use binary cross entropy as the loss function and Adam optimization as the gradient descent algorithm for this model. Given enough time and resources, we may also experiment with other types of gradient descent algorithms such as RMSprop and momentum. However, for the purposes of this project, we will stick with adam optimization.
+Now we compile the model. Since there are two classes, "pneumonia" and "healthy", we will use binary cross entropy as the loss function and Adam optimization as the gradient descent algorithm for this model. Given enough time and resources, we may also experiment with other types of gradient descent algorithms such as RMSprop and momentum. However, for the purposes of this project, we will stick with adam optimization.
 
 ```
 #compile model
@@ -395,7 +395,48 @@ optimizer = tf.keras.optimizers.Adam(learning_rate=5e-4)
 model.compile(optimizer=optimizer,
                         loss=tf.keras.losses.BinaryCrossentropy(from_logits=True),
                         metrics=['AUC', f1_score(), 'accuracy'])
+			
+model.summary() #examine model architecture #examine model architecture
 ```
+
+output:
+```
+Model: "model"
+_________________________________________________________________
+ Layer (type)                Output Shape              Param #   
+=================================================================
+ input_2 (InputLayer)        [(None, 299, 299, 3)]     0         
+                                                                 
+ tf.math.truediv (TFOpLambda  (None, 299, 299, 3)      0         
+ )                                                               
+                                                                 
+ tf.math.subtract (TFOpLambd  (None, 299, 299, 3)      0         
+ a)                                                              
+                                                                 
+ inception_v3 (Functional)   (None, 8, 8, 2048)        21802784  
+                                                                 
+ global_average_pooling2d (G  (None, 2048)             0         
+ lobalAveragePooling2D)                                          
+                                                                 
+ dropout (Dropout)           (None, 2048)              0         
+                                                                 
+ dense (Dense)               (None, 1)                 2049      
+                                                                 
+=================================================================
+Total params: 21,804,833
+Trainable params: 2,049
+Non-trainable params: 21,802,784
+_________________________________________________________________
+```
+From the model summary, we observe that there are now 2049 trainable parameters. These include the single value from the final dense layer, in addition to the 2048 parameters we've obtained after average pooling.</br>
+
+Finally, we train the model.
+
+```
+history = model.fit(training_tf,
+          validation_data=validation_tf,
+          epochs = 15)
+```	
 
 ## References
 1. https://www.who.int/news-room/fact-sheets/detail/pneumonia</br>
