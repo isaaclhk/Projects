@@ -319,7 +319,9 @@ base_model = tf.keras.applications.inception_v3.InceptionV3(
 base_model.trainable = False
 ```
 In the above code, we import the Inception-v3 model from keras and exclude the fully connected layer of the pre-trained model as this will be replaced by our own dense layer. We also specify that the pre-trained weights of the Inception-v3 model, trained on the ImageNet dataset, should be used as initial values for the model parameters.</br>
+
 The input_shape is specified as (299, 299, 3). The first two numbers (299, 299) refer to the number of pixels on the height and width of the image, respectively. The third dimension, '3', corresponds to the three primary colors (red, green, and blue) that make up each pixel of the image. It is recommended to use an input size of (299, 299, 3) because the model was pre-trained on input images preprocessed to that resolution. This allows the pre-trained weights of the model to be applied correctly to new input data, which can result in better performance compared to using a different input size or format. </br>
+
 base_model.trainable = False freezes the convolutional base which we will use as a feature extractor. We will add a classifier on top of it and train the top-level classifier.
 
 ```
@@ -337,8 +339,10 @@ model = tf.keras.Model(inputs, outputs)
 ```
 
 preprocess_input performs a series on operations on the input data to make it's distribution consistent with the input that it was previously pre-trained on. For example, the pixel values are scaled to be in the range of -1 to 1, and the means are zero-centred.</br>
+
 Next, we feed the preprocessed inputs into the model, setting training = False. Setting training to = False prevents the batch normalization layer from updating the mean and variance statistics, which will destroy will the model has learned during pre-training. </br>
-We also create our 
+
+Then we create the classification head. To generate predictions from an 8 x 8 block of features, we take their average using a GlobalAveragePooling2D() layer to convert the features into a single 2048-element vector per image. This vector is then fed into a dropout layer for regularization before being converted to a single prediction per image in the dense layer.
 
 
 
