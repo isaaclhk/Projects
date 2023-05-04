@@ -507,6 +507,10 @@ output:
 
 ![CXR_initial_curves](https://user-images.githubusercontent.com/71438259/236144279-02427e4b-ca7a-4526-a359-c93ae6522ad0.png)
 
+### Fine tuning
+
+Until now, we've only been training the layers of the classification head on top of the base model. There have been no adjustment to the pre-trained weights.
+
 ## References
 1. https://www.who.int/news-room/fact-sheets/detail/pneumonia</br>
 2. Frija, G., Blažić, I., Frush, D. P., Hierath, M., Kawooya, M., Donoso-Bach, L., & Brkljačić, B. (2021). 
