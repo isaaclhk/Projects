@@ -447,7 +447,7 @@ history = model.fit(training_tf,
           epochs = 15)
 ```	
 
-Training a convolutional neural network can be computational expensive. Hence, I've saved the model during and after training so that the work can be divided into multiple sessions without retraining the model from the beginning every time. Another utility of saving the model is that it helps with hyperparameter tuning. By saving the weights and histories of our models, we are able to experiment with various hyperparameters and identify the ones that produce the best result. For this project, I've experimented with a few different learning rates and number of training epochs. However, for conciseness, I will only report the final model.
+Training a convolutional neural network can be computational expensive. Hence, I've saved the model during and after training so that the work can be divided into multiple sessions without retraining the model from the beginning every time. Another utility of saving the model is that it helps with hyperparameter tuning. By saving the weights and histories of our models, we are able to experiment with various hyperparameters and identify the ones that produce the best result. For this project, I've experimented with a few different learning rates and number of training epochs. However, for conciseness, I will only report the chosen model.
 
 ```
 '''
@@ -460,10 +460,50 @@ with open(os.path.join(save_DIR, 'initial_history'), 'wb') as f: #save
     pickle.dump(history.history, f)
 with open(os.path.join(save_DIR, 'initial_history'), 'rb') as f: #load
     history = pickle.load(f)
-
 '''
 ```
+This is the result of the initial model:
+```
+model.evaluate(validation_tf)
+19/19 [==============================] - 20s 922ms/step - loss: 0.1777 - auc: 0.9478 - f1_score: 0.9474 - accuracy: 0.9249
+```
+This is a plot of the initial model's learning curves
+```
+#plot initial learning curves
+plt.figure(figsize = (12, 12))
+plt.style.use('ggplot')
 
+plt.subplot(4, 1, 1)
+plt.plot(history['loss'], label = 'Training Loss')
+plt.plot(history['val_loss'], label = 'Validation Loss')
+plt.ylabel('Cross Entropy')
+plt.xlabel('Epoch')
+plt.legend(loc = 'upper right')
+plt.title('Learning Curves', pad = 20, fontsize = 15, fontweight = 'bold')
+
+plt.subplot(4,1,2)
+plt.plot(history['auc'], label = 'AUC')
+plt.plot(history['val_auc'], label = 'Validation AUC')
+plt.ylabel('AUC')
+plt.xlabel('Epoch')
+plt.legend(loc = 'lower right')
+
+plt.subplot(4,1,3)
+plt.plot(history['f1_score'], label = 'F1 Score')
+plt.plot(history['val_f1_score'], label = 'Validation F1 Score')
+plt.ylabel('F1 Score')
+plt.xlabel('Epoch')
+plt.legend(loc = 'lower right')
+
+plt.subplot(4,1,4)
+plt.plot(history['accuracy'], label = 'Accuracy')
+plt.plot(history['val_accuracy'], label = 'Validation Accuracy')
+plt.ylabel('Accuracy')
+plt.xlabel('Epoch')
+plt.legend(loc = 'lower right')
+```
+output:
+![CXR_initial_curves](https://user-images.githubusercontent.com/71438259/236143174-3083904e-52b3-47c4-90d7-3280b1a54eb8.png)
 
 ## References
 1. https://www.who.int/news-room/fact-sheets/detail/pneumonia</br>
