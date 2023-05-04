@@ -354,6 +354,8 @@ Before compiling the model, we define a custom metric: F1 score. F1 score is the
 <img src = "https://user-images.githubusercontent.com/71438259/236127943-4325ae32-5d55-4337-bdc9-629838c34858.jpeg" width = "50", height = "50">
 ![f1_score](https://user-images.githubusercontent.com/71438259/236127891-fe5420cd-0cef-4229-aaa6-f90c5f011f8c.jpeg)
 
+<img src="https://user-images.githubusercontent.com/71438259/236127943-4325ae32-5d55-4337-bdc9-629838c34858.jpeg" width="50" height="50">
+
 
 ## References
 1. https://www.who.int/news-room/fact-sheets/detail/pneumonia</br>
