@@ -327,7 +327,7 @@ base_model.trainable = False freezes the convolutional base which we will use as
 ```
 base_model.summary() # examine model architecture
 ```
-We can examine the model architecture from the output of the summary. We notice that the output from our feature extractor is an 8 x 8 x 2048 block of features.
+We can examine the model architecture from the output of the summary. We notice that the output from our feature extractor is an 8 x 8 x 2048 block of features (figure 1).
 
 ```
 preprocess_input = tf.keras.applications.inception_v3.preprocess_input
@@ -349,8 +349,10 @@ Next, we feed the preprocessed inputs into the model, setting training = False. 
 
 Then we create the classification head. To generate predictions from an 8 x 8 block of features, we take their average using a GlobalAveragePooling2D() layer to convert the features into a single 2048-element vector per image. This vector is then fed into a dropout layer for regularization before being converted to a single prediction per image in the dense layer.
 
-Before compiling the model, we define a custom metric: F1 score. F1 score is the harmonic mean of precision and recall, combining the 2 into a single value. In this project, F1 score is a better metric than accuracy for assessing the model's predictive power because the dataset is imbalanced, and accuracy does not take into account the distribution of classes in the dataset. 
+Before compiling the model, we define a custom metric: F1 score. F1 score is the harmonic mean of precision and recall, combining the 2 into a single value. In this project, F1 score is a better metric than accuracy for assessing the model's predictive power because the dataset is imbalanced, and accuracy does not take into account the distribution of classes in the dataset. Unfortunately, at the time of writing this document, F1 score is still not yet available as a built-in metric in the stable version of tensorflow. tf.keras.metrics.F1Score is currently only available via tf-nightly, and I hope it will be brought into the stable version soon.
 
+![precision_recall](https://user-images.githubusercontent.com/71438259/236127943-4325ae32-5d55-4337-bdc9-629838c34858.jpeg)
+![f1_score](https://user-images.githubusercontent.com/71438259/236127891-fe5420cd-0cef-4229-aaa6-f90c5f011f8c.jpeg)
 
 
 ## References
