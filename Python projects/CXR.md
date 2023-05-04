@@ -354,6 +354,48 @@ Before compiling the model, we define a custom metric: F1 score. F1 score is the
 <img src="https://user-images.githubusercontent.com/71438259/236127943-4325ae32-5d55-4337-bdc9-629838c34858.jpeg" width="30%" height="30%">
 <img src="https://user-images.githubusercontent.com/71438259/236127891-fe5420cd-0cef-4229-aaa6-f90c5f011f8c.jpeg" width="37%" height="37%">
 
+```
+#define custom metric: f1_score
+import tensorflow.keras.backend as K
+
+class f1_score(tf.keras.metrics.Metric):
+    def __init__(self, name='f1_score', **kwargs):
+        super().__init__(name=name, **kwargs)
+        self.tp = self.add_weight(name='tp', initializer='zeros')
+        self.fp = self.add_weight(name='fp', initializer='zeros')
+        self.fn = self.add_weight(name='fn', initializer='zeros')
+
+    def update_state(self, y_true, y_pred, sample_weight=None):
+        y_pred = K.round(K.clip(y_pred, 0, 1))
+        y_true = tf.cast(y_true, tf.float32) #float to compute F1 score (continuous, 0 to 1)
+        tp = K.sum(y_true * y_pred)
+        fp = K.sum(K.clip(y_pred - y_true, 0, 1))
+        fn = K.sum(K.clip(y_true - y_pred, 0, 1))
+        self.tp.assign_add(tp)
+        self.fp.assign_add(fp)
+        self.fn.assign_add(fn)
+
+    def result(self):
+        precision = self.tp / (self.tp + self.fp + K.epsilon())
+        recall = self.tp / (self.tp + self.fn + K.epsilon())
+        f1_score = 2 * precision * recall / (precision + recall + K.epsilon())
+        return f1_score
+
+    def reset_state(self):
+        self.tp.assign(0)
+        self.fp.assign(0)
+        self.fn.assign(0)
+```
+
+Now we will compile and begin training the model. Since there are two classes, "pneumonia" and "healthy", we will use binary cross entropy as the loss function and Adam optimization as the gradient descent algorithm for this model. Given enough time and resources, we may also experiment with other types of gradient descent algorithms such as RMSprop and momentum. However, for the purposes of this project, we will stick with adam optimization.
+
+```
+#compile model
+optimizer = tf.keras.optimizers.Adam(learning_rate=5e-4)
+model.compile(optimizer=optimizer,
+                        loss=tf.keras.losses.BinaryCrossentropy(from_logits=True),
+                        metrics=['AUC', f1_score(), 'accuracy'])
+```
 
 ## References
 1. https://www.who.int/news-room/fact-sheets/detail/pneumonia</br>
