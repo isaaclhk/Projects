@@ -334,6 +334,10 @@ outputs = prediction_layer(x)
 model = tf.keras.Model(inputs, outputs)
 ```
 
+preprocess_input performs a series on operations on the input data to make it's distribution consistent with the input that it was previously pre-trained on. For example, the pixel values are scaled to be in the range of -1 to 1, and the means are zero-centred.</br>
+Next, we feed the preprocessed inputs into the model, setting training = False. Setting training to = False prevents the batch normalization layer from updating the mean and variance statistics, which will destroy will the model has learned during pre-training. </br>
+We also create our 
+
 
 
 ## References
