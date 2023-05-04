@@ -309,18 +309,23 @@ For this project, we will use the inception-v3 model (Figure 1). The Inception-v
 ![inceptionv3onc--oview](https://user-images.githubusercontent.com/71438259/235567839-f8ead8d4-c35e-4547-be64-f87396bc06af.png)
 *Fig.1. A High level diagram of the inception-v3 model*
 
+### Create the base model and initialize pre-trained weights
 ```
 #initial training
 base_model = tf.keras.applications.inception_v3.InceptionV3(
     include_top=False,
     weights='imagenet',
     input_shape=(299, 299, 3))
-
-base_model.trainable = False
 ```
 In the above code, we import the Inception-v3 model from keras and exclude the fully connected layer of the pre-trained model as this will be replaced by our own dense layer. We also specify that the pre-trained weights of the Inception-v3 model, trained on the ImageNet dataset, should be used as initial values for the model parameters.</br>
 
 The input_shape is specified as (299, 299, 3). The first two numbers (299, 299) refer to the number of pixels on the height and width of the image, respectively. The third dimension, '3', corresponds to the three primary colors (red, green, and blue) that make up each pixel of the image. It is recommended to use an input size of (299, 299, 3) because the model was pre-trained on input images preprocessed to that resolution. This allows the pre-trained weights of the model to be applied correctly to new input data, which can result in better performance compared to using a different input size or format. </br>
+
+### Feature extraction
+
+```
+base_model.trainable = False
+```
 
 base_model.trainable = False freezes the convolutional base which we will use as a feature extractor. We will add a classifier on top of it and train the top-level classifier.
 
@@ -329,6 +334,7 @@ base_model.summary() # examine model architecture
 ```
 We can examine the model architecture from the output of the summary. We notice that the output from our feature extractor is an 8 x 8 x 2048 block of features (figure 1).
 
+### Add a classification head
 ```
 preprocess_input = tf.keras.applications.inception_v3.preprocess_input
 global_average_layer = tf.keras.layers.GlobalAveragePooling2D()
@@ -349,6 +355,7 @@ Next, we feed the preprocessed inputs into the model, setting training = False. 
 
 Then we create the classification head. To generate predictions from an 8 x 8 block of features, we take their average using a GlobalAveragePooling2D() layer to convert the features into a single 2048-element vector per image. This vector is then fed into a dropout layer for regularization before being converted to a single prediction per image in the dense layer.
 
+### Compile the model
 Before compiling the model, we define a custom metric: F1 score. F1 score is the harmonic mean of precision and recall, combining the 2 into a single value. In this project, F1 score is a better metric than accuracy for assessing the model's predictive power because the dataset is imbalanced, and accuracy does not take into account the distribution of classes in the dataset. Unfortunately, at the time of writing this document, F1 score is still not yet available as a built-in metric in the stable version of tensorflow. tf.keras.metrics.F1Score is currently only available via tf-nightly, and I hope it will be brought into the stable version soon.
 
 <img src="https://user-images.githubusercontent.com/71438259/236127943-4325ae32-5d55-4337-bdc9-629838c34858.jpeg" width="30%" height="30%">
