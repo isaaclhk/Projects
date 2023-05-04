@@ -309,6 +309,33 @@ For this project, we will use the inception-v3 model (Figure 1). The Inception-v
 ![inceptionv3onc--oview](https://user-images.githubusercontent.com/71438259/235567839-f8ead8d4-c35e-4547-be64-f87396bc06af.png)
 *Fig.1. A High level diagram of the inception-v3 model*
 
+```
+#initial training
+base_model = tf.keras.applications.inception_v3.InceptionV3(
+    include_top=False,
+    weights='imagenet',
+    input_shape=(299, 299, 3))
+
+base_model.trainable = False
+```
+First, we import the Inception-v3 model from keras and exclude the fully connected layer of the pre-trained model as this will be replaced by our own dense layer. We also specify that the pre-trained weights of the Inception-v3 model, trained on the ImageNet dataset, should be used as initial values for the model parameters. The input_shape is specified as (299, 299, 3). The first two numbers (299, 299) refer to the number of pixels on the height and width of the image, respectively. The third dimension, '3', corresponds to the three primary colors (red, green, and blue) that make up each pixel of the image. It is recommended to use an input size of (299, 299, 3) because the model was pre-trained on input images preprocessed to that resolution. This allows the pre-trained weights of the model to be applied correctly to new input data, which can result in better performance compared to using a different input size or format.
+
+```
+preprocess_input = tf.keras.applications.inception_v3.preprocess_input
+global_average_layer = tf.keras.layers.GlobalAveragePooling2D()
+prediction_layer = tf.keras.layers.Dense(1)
+inputs = tf.keras.Input(shape=(299, 299, 3))
+
+x = preprocess_input(inputs)
+x = base_model(x, training = False) 
+x = global_average_layer(x)
+x = tf.keras.layers.Dropout(0.5)(x) # add dropout layer
+outputs = prediction_layer(x)
+model = tf.keras.Model(inputs, outputs)
+```
+
+
+
 ## References
 1. https://www.who.int/news-room/fact-sheets/detail/pneumonia</br>
 2. Frija, G., Blažić, I., Frush, D. P., Hierath, M., Kawooya, M., Donoso-Bach, L., & Brkljačić, B. (2021). 
