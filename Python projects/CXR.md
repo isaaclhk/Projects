@@ -509,7 +509,22 @@ output:
 
 ### Fine tuning
 
-Until now, we've only been training the layers of the classification head on top of the base model. There have been no adjustment to the pre-trained weights.
+Until now, we've only been training the layers of the classification head on top of the base model. There have been no adjustment to the pre-trained weights. To improve the model's performance further, we can fine-tune the weights of the pre-trained model's top layers while training the added classifier. This way, the weights will be adjusted from generic feature maps to dataset-specific features during the training process. </br>
+
+In general, the first few layers detect generic feature that are present in almost any type of image, while deeper layers of the neural network capture details that are increasingly specific to the dataset on which the model was trained. The aim of fine-tuning is to modify these specific features to function with the new dataset, without erasing the general knowledge.</br>
+
+The number of top layers to train during fine-tuning is a hyperparameter that can be tuned. When the amount of layers trained is too few, the performance of the model is not optimized as it has not fully adapted to detect specialized features in the dataset. However, when too many layers are trained, the model might overfit to the training dataset and lose generalizability. The choice of the number of layers to train is typically determined through experimentation on the validation dataset. 
+
+```
+#fine tuning
+base_model.trainable = True
+print(f'number of layers in the base model: {len(base_model.layers)}')
+
+# Freeze bottom layers
+for layer in base_model.layers[:250]:
+    layer.trainable = False
+```
+
 
 ## References
 1. https://www.who.int/news-room/fact-sheets/detail/pneumonia</br>
