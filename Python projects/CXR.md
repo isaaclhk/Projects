@@ -531,6 +531,8 @@ number of layers in the base model: 311
 
 To train additional layers, we unfreeze the base_model, then re-freeze the layers that we do not want to train. We have to recompile the model for these changes to take effect.</br>
 
+### Compile the model
+
 During fine-tuning, it is important to lower the learning rate to avoid overfitting. If the learning rate is too high, the gradient updates during fine-tuning can be too large, causing the weights to be updated too quickly and potentially diverge from the optimal weights learned during pre-training. This can cause the model's performance to deteriorate. For the same reason, we should divide our training into two phases: an initial training phase and fine-tuning. If the model has not converged during initial training, massive gradient updates from the huge losses may cause the pre-trained layers to change too much, potentially resulting in the loss of the previously learned general features. 
 
 ```
@@ -581,6 +583,47 @@ output:
 ```
 37
 ```
+### Continue training the model
+
+```
+history_fine = model.fit(training_tf,
+                         validation_data=validation_tf,
+                         initial_epoch = 15,
+                         epochs= 20)
+'''
+#save
+model.save_weights('weights_fine')
+model.load_weights('weights_fine')
+model.evaluate(validation_tf)
+'''
+```
+After training, we save our progress again and update the history of metrics.
+
+```
+#update metrics
+history_fine = history_fine.history 
+
+history['loss'] += history_fine['loss']
+history['auc'] += history_fine['auc']
+history['f1_score'] += history_fine['f1_score']
+history['accuracy'] += history_fine['accuracy']
+
+history['val_loss'] += history_fine['val_loss']
+history['val_auc'] += history_fine['val_auc']
+history['val_f1_score'] += history_fine['val_f1_score']
+history['val_accuracy'] += history_fine['val_accuracy']
+
+'''
+#save history
+with open('history_fine.pkl', 'wb') as f:
+    pickle.dump(history, f)
+
+with open('history_fine.pkl', 'rb') as f:
+    history = pickle.load(f)
+'''
+```
+
+
 
 
 
