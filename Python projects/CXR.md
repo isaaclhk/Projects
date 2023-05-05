@@ -675,7 +675,7 @@ plt.legend(loc = 'lower right')
 
 output:
 
-![CXR_fine1_curves](https://user-images.githubusercontent.com/71438259/236372421-fcb82be9-4d46-433f-936b-4e844c75bc9e.png)
+![CXR_fine1_curves](https://user-images.githubusercontent.com/71438259/236372606-d9a81969-1e59-4838-81c9-5a58cadea6fe.png)
 
 
 
