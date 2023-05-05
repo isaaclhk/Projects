@@ -594,7 +594,6 @@ history_fine = model.fit(training_tf,
 #save
 model.save_weights('weights_fine')
 model.load_weights('weights_fine')
-model.evaluate(validation_tf)
 '''
 ```
 After training, we save our progress again and update the history of metrics.
@@ -623,7 +622,56 @@ with open('history_fine.pkl', 'rb') as f:
 '''
 ```
 
+Let's see how the fine-tuned model performs.
+```
+model.evaluate(validation_tf)
+```
 
+output:
+```
+19/19 [==============================] - 21s 953ms/step - loss: 0.1262 - auc: 0.9657 - f1_score: 0.9704 - accuracy: 0.9573
+```
+
+This is the outcome of the fine-tuned model. From this output, we can already see an improvement in performance. Lets take a closer look by plotting the learning curves. 
+
+```
+#plot learning curves after fine tuning
+plt.figure(figsize = (12, 12))
+plt.style.use('ggplot')
+
+plt.subplot(4, 1, 1)
+plt.plot(history['loss'], label = 'Training Loss')
+plt.plot(history['val_loss'], label = 'Validation Loss')
+plt.ylabel('Cross Entropy')
+plt.xlabel('Epoch')
+plt.axvline(14, label = 'start fine tuning', color = 'm')
+plt.legend(loc = 'upper right')
+plt.title('Learning Curves', pad = 20, fontsize = 15, fontweight = 'bold')
+
+plt.subplot(4,1,2)
+plt.plot(history['auc'], label = 'AUC')
+plt.plot(history['val_auc'], label = 'Validation AUC')
+plt.ylabel('AUC')
+plt.xlabel('Epoch')
+plt.axvline(14, label = 'start fine tuning', color = 'm')
+plt.legend(loc = 'lower right')
+
+plt.subplot(4,1,3)
+plt.plot(history['f1_score'], label = 'F1 Score')
+plt.plot(history['val_f1_score'], label = 'Validation F1 Score')
+plt.ylabel('F1 Score')
+plt.xlabel('Epoch')
+plt.axvline(14, label = 'start fine tuning', color = 'm')
+plt.legend(loc = 'lower right')
+```
+plt.subplot(4,1,4)
+plt.plot(history['accuracy'], label = 'Accuracy')
+plt.plot(history['val_accuracy'], label = 'Validation Accuracy')
+plt.ylabel('Accuracy')
+plt.xlabel('Epoch')
+plt.axvline(14, label = 'start fine tuning', color = 'm')
+plt.legend(loc = 'lower right')
+```
 
 
 
