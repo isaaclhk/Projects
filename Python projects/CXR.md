@@ -677,6 +677,9 @@ output:
 
 ![CXR_fine1_curves](https://user-images.githubusercontent.com/71438259/236372606-d9a81969-1e59-4838-81c9-5a58cadea6fe.png)
 
+After this, I've attempted to fine-tune the model further by unfreezing more layers and lowering the learning rate. However, the model began to overfit and performance deteriorated. Therefore, this is taken as the final model.
+
+## Evaluation and Prediction
 
 
 ## References
