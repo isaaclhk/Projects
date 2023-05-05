@@ -727,7 +727,7 @@ output:
 
 ![CXR_confusion](https://user-images.githubusercontent.com/71438259/236376433-67bd5586-d131-44a9-84b2-1389167f71f0.png)
 
-On the same dataset of CXR images, a novel deep neural network architecture proposed by Szepesi and Szilágyi (2022) produced results with the following metrics: 97.2% accuracy, 97.3% recall, 97.4% precision and AUC = 0.982. These results would have obtained an F1 score of 97.35.</br>
+In comparison to our results, a novel deep neural network architecture proposed by Szepesi and Szilágyi (2022) produced results with 97.2% accuracy, 97.3% recall, 97.4% precision and AUC = 0.982 on the same dataset of CXR images. These results would have obtained an F1 score of 97.35.</br>
 
 The model architecture they've proposed resembles the vgg-16 architecture, but includes a unique integration of a dropout layer in the convolutional part of the network. In addition, their model was trained from scratch and not initialised with pre-trained weights. Instead of using data augmentation to generate additional images to balance the minority class, they have employed a generative adversarial network. The variations in our outcomes have arisen due to the differences in our methodologies. </br>
 
