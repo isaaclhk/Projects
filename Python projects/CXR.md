@@ -727,6 +727,27 @@ output:
 
 ![CXR_confusion](https://user-images.githubusercontent.com/71438259/236376433-67bd5586-d131-44a9-84b2-1389167f71f0.png)
 
+On the same dataset of CXR images, a novel deep neural network architecture proposed by Szepesi and Szilágyi (2022) produced results with the following metrics: 97.2% accuracy, 97.3% recall, 97.4% precision and AUC = 0.982. These results would have obtained an F1 score of 97.35.</br>
+
+The model architecture they've proposed resembles the vgg-16 architecture, but includes a unique integration of a dropout layer in the convolutional part of the network. In addition, their model was trained from scratch and not initialised with pre-trained weights. Instead of using data augmentation to generate additional images to balance the minority class, they have employed a generative adversarial network. The variations in our outcomes have arisen due to the differences in our methodologies. </br>
+
+In their research, Szepesi and Szilágyi (2022) have provided evidence to support the advantages of including a dropout layer in the convolutional part of a CNN architecture. They also demonstrated that smaller CNN models built from scratch can achieve better performance than larger models that are transferred from pre-trained models.
+
+### Plot of CXR images and their predicted labels
+
+```
+categories = ['healthy', 'pneumonia']
+plt.figure(figsize=(10, 10))
+for i in range(9):
+  ax = plt.subplot(3, 3, i + 1)
+  plt.imshow(x_test[i+10].astype("uint8"))
+  plt.title(categories[int(predictions[i+10])])
+  plt.axis("off")
+```
+
+output:
+
+![CXR_predictions](https://user-images.githubusercontent.com/71438259/236383818-abbfd72a-4601-402c-af09-89be072451ec.png)
 
 
 ## References
@@ -737,3 +758,4 @@ Kermany, Daniel; Zhang, Kang; Goldbaum, Michael (2018), “Labeled Optical Coher
 4. https://www.tensorflow.org/api_docs/python/tf/keras/preprocessing/image/ImageDataGenerator
 5. Szegedy, C., Vanhoucke, V., Ioffe, S., Shlens, J., & Wojna, Z. (2016). Rethinking the inception architecture for computer vision. In Proceedings of the IEEE conference on computer vision and pattern recognition (pp. 2818-2826).
 6. Szegedy, C., Liu, W., Jia, Y., Sermanet, P., Reed, S., Anguelov, D., ... & Rabinovich, A. (2015). Going deeper with convolutions. In Proceedings of the IEEE conference on computer vision and pattern recognition (pp. 1-9).
+7. Szepesi, P., & Szilágyi, L. (2022). Detection of pneumonia using convolutional neural networks and deep learning. Biocybernetics and Biomedical Engineering, 42(3), 1012-1022.
