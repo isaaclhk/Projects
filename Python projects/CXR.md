@@ -731,9 +731,9 @@ On the same dataset of CXR images, a novel deep neural network architecture prop
 
 The model architecture they've proposed resembles the vgg-16 architecture, but includes a unique integration of a dropout layer in the convolutional part of the network. In addition, their model was trained from scratch and not initialised with pre-trained weights. Instead of using data augmentation to generate additional images to balance the minority class, they have employed a generative adversarial network. The variations in our outcomes have arisen due to the differences in our methodologies. </br>
 
-In their research, Szepesi and Szilágyi (2022) have provided evidence to support the advantages of including a dropout layer in the convolutional part of a CNN architecture. They also demonstrated that smaller CNN models built from scratch can achieve better performance than larger models that are transferred from pre-trained models.
+In their research, Szepesi and Szilágyi (2022) have provided evidence to support the advantages of including a dropout layer in the convolutional part of a CNN architecture. They've also demonstrated that smaller CNN models built from scratch can achieve better performance than larger models that are transferred from pre-trained models.
 
-### Plot of CXR images and their predicted labels
+### CXR images and their predicted labels
 
 ```
 categories = ['healthy', 'pneumonia']
@@ -751,7 +751,7 @@ output:
 
 
 ## References
-1. https://www.who.int/news-room/fact-sheets/detail/pneumonia</br>
+1. World Health Organization. (2022, November, 11) *Pneumonia in children*. Retrieved from https://www.who.int/news-room/fact-sheets/detail/pneumonia
 2. Frija, G., Blažić, I., Frush, D. P., Hierath, M., Kawooya, M., Donoso-Bach, L., & Brkljačić, B. (2021). 
 3. How to improve access to medical imaging in low-and middle-income countries?. EClinicalMedicine, 38, 101034. </br>
 Kermany, Daniel; Zhang, Kang; Goldbaum, Michael (2018), “Labeled Optical Coherence Tomography (OCT) and Chest X-Ray Images for Classification”, Mendeley Data, V2, doi: 10.17632/rscbjbr9sj.2
