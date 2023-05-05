@@ -756,6 +756,6 @@ output:
 3. Szegedy, C., Liu, W., Jia, Y., Sermanet, P., Reed, S., Anguelov, D., ... & Rabinovich, A. (2015). Going deeper with convolutions. In Proceedings of the IEEE conference on computer vision and pattern recognition (pp. 1-9).
 4. Szegedy, C., Vanhoucke, V., Ioffe, S., Shlens, J., & Wojna, Z. (2016). Rethinking the inception architecture for computer vision. In Proceedings of the IEEE conference on computer vision and pattern recognition (pp. 2818-2826).
 5. Szepesi, P., & Szilágyi, L. (2022). Detection of pneumonia using convolutional neural networks and deep learning. Biocybernetics and Biomedical Engineering, 42(3), 1012-1022.
-6. Tensorflow v 2.12.0.(2023, March, 23) *tf.keras.preprocessing.image.ImageDataGenerator*. Retrieved from https://www.tensorflow.org/api_docs/python/tf/keras/preprocessing/image/ImageDataGenerator
+6. Tensorflow v 2.12.0. (2023, March, 23) *tf.keras.preprocessing.image.ImageDataGenerator*. Retrieved from https://www.tensorflow.org/api_docs/python/tf/keras/preprocessing/image/ImageDataGenerator
 7. World Health Organization. (2022, November, 11) *Pneumonia in children*. Retrieved from https://www.who.int/news-room/fact-sheets/detail/pneumonia
 
