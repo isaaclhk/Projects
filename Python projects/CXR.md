@@ -677,10 +677,65 @@ output:
 
 ![CXR_fine1_curves](https://user-images.githubusercontent.com/71438259/236372606-d9a81969-1e59-4838-81c9-5a58cadea6fe.png)
 
-After this, I've attempted to fine-tune the model further by unfreezing more layers and lowering the learning rate. However, the model began to overfit and performance deteriorated. Therefore, this is taken as the final model.
+After this, I've attempted to fine-tune the model further by unfreezing more layers and lowering the learning rate. However, the model began to overfit and it's performance deteriorated. Therefore, this is taken as the final model.
 
 ## Evaluation and Prediction
+Finally, we evaluate the performance of the model on unseen data.
 
+```
+#evaluation
+loss, auc, f1_score, accuracy = model.evaluate(test_tf)
+
+print(f'loss = {loss}\n\
+auc = {auc}\n\
+f1_score = {f1_score}\n\
+accuracy = {accuracy}')
+```
+
+output:
+```
+19/19 [==============================] - 18s 931ms/step - loss: 0.1091 - auc: 0.9659 - f1_score: 0.9789 - accuracy: 0.9693
+loss = 0.10907962173223495
+auc = 0.9659366607666016
+f1_score = 0.9789226651191711
+accuracy = 0.9692832827568054
+```
+
+### Confusion matrix
+```
+#confusion matrix
+predictions = model.predict(test_tf)
+predictions = tf.nn.sigmoid(predictions)
+predictions = tf.where(predictions <0.5, 0, 1)
+
+
+print('Predictions:\n', predictions)
+print('Labels:\n', y_test)
+
+categories = ['healthy', 'pneumonia']
+plt.figure(figsize=(10, 10))
+for i in range(9):
+  ax = plt.subplot(3, 3, i + 1)
+  plt.imshow(x_test[i].astype("uint8"))
+  plt.title(categories[int(predictions[i])])
+  plt.axis("off")
+
+from sklearn.metrics import confusion_matrix
+import seaborn as sns
+cm = confusion_matrix(y_test, predictions)
+sns.heatmap(cm, annot = True, linewidths = 1, 
+            xticklabels = ['healthy', 'pneumonia'], 
+            yticklabels = ['healthy', 'pneumonia'],
+            fmt = 'g',
+            cmap = 'Blues')
+plt.title('Confusion Matrix')
+plt.xlabel('Predicted label')
+plt.ylabel('True label')
+```
+
+output:
+
+![CXR_confusion](https://user-images.githubusercontent.com/71438259/236375403-bdf40637-b467-4f94-8b83-803a071d57cf.png)
 
 ## References
 1. https://www.who.int/news-room/fact-sheets/detail/pneumonia</br>
