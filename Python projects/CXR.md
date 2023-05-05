@@ -711,7 +711,7 @@ predictions = tf.where(predictions <0.5, 0, 1)
 from sklearn.metrics import confusion_matrix
 import seaborn as sns
 cm = confusion_matrix(y_test, predictions)
-plt.figure(figsize = (10, 7))
+plt.figure(figsize = (8, 6))
 sns.heatmap(cm, annot = True, linewidths = 2, 
             linecolor = 'black',
             xticklabels = ['healthy', 'pneumonia'], 
@@ -725,7 +725,8 @@ plt.ylabel('True label')
 
 output:
 
-![CXR_confusion](https://user-images.githubusercontent.com/71438259/236376308-11021eb0-9321-447c-a996-aafc815339c1.png)
+![CXR_confusion](https://user-images.githubusercontent.com/71438259/236376433-67bd5586-d131-44a9-84b2-1389167f71f0.png)
+
 
 ## References
 1. https://www.who.int/news-room/fact-sheets/detail/pneumonia</br>
