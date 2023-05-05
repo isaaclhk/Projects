@@ -733,7 +733,7 @@ The model architecture they've proposed resembles the vgg-16 architecture, but i
 
 In their research, Szepesi and Szilágyi (2022) have provided evidence to support the advantages of including a dropout layer in the convolutional part of a CNN architecture. They've also demonstrated that smaller CNN models built from scratch can achieve better performance than larger models that are transferred from pre-trained models.
 
-### CXR images and their predicted labels
+### Plot of CXR images and their predicted labels
 
 ```
 categories = ['healthy', 'pneumonia']
