@@ -520,11 +520,20 @@ The number of top layers to train during fine-tuning is a hyperparameter that ca
 base_model.trainable = True
 print(f'number of layers in the base model: {len(base_model.layers)}')
 
-# Freeze bottom layers
+#Freeze bottom layers
 for layer in base_model.layers[:250]:
     layer.trainable = False
 ```
+output:
+```
+number of layers in the base model: 311
+```
 
+To train additional layers, we unfreeze the base_model, then re-freeze the layers that we do not want to train. We have to recompile the model for these changes to take effect.</br>
+
+During fine-tuning, it is important to lower the learning rate to avoid overfitting. If the learning rate is too high, the gradient updates during fine-tuning can be too large, causing the weights to be updated too quickly and potentially diverge from the optimal weights learned during pre-training. This can cause the model's performance to deteriorate. For the same reason, we should divide our training into two phases: an initial training phase and fine-tuning. If the model has not converged during initial training, massive gradient updates from the huge losses may cause the pre-trained layers to change too much, potentially resulting in the loss of the previously learned general features. 
+
+```
 
 ## References
 1. https://www.who.int/news-room/fact-sheets/detail/pneumonia</br>
