@@ -749,7 +749,6 @@ output:
 
 ![CXR_predictions](https://user-images.githubusercontent.com/71438259/236383818-abbfd72a-4601-402c-af09-89be072451ec.png)
 
-
 ## References
 1. Frija, G., Blažić, I., Frush, D. P., Hierath, M., Kawooya, M., Donoso-Bach, L., & Brkljačić, B. (2021). How to improve access to medical imaging in low- and middle-income countries ?. EClinicalMedicine, 38, 101034. https://doi.org/10.1016/j.eclinm.2021.101034
 2.Kermany, Daniel; Zhang, Kang; Goldbaum, Michael (2018), “Labeled Optical Coherence Tomography (OCT) and Chest X-Ray Images for Classification”, Mendeley Data, V2, doi: 10.17632/rscbjbr9sj.2
