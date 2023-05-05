@@ -663,7 +663,7 @@ plt.ylabel('F1 Score')
 plt.xlabel('Epoch')
 plt.axvline(14, label = 'start fine tuning', color = 'm')
 plt.legend(loc = 'lower right')
-```
+
 plt.subplot(4,1,4)
 plt.plot(history['accuracy'], label = 'Accuracy')
 plt.plot(history['val_accuracy'], label = 'Validation Accuracy')
@@ -672,6 +672,10 @@ plt.xlabel('Epoch')
 plt.axvline(14, label = 'start fine tuning', color = 'm')
 plt.legend(loc = 'lower right')
 ```
+
+output:
+
+![CXR_fine1_curves](https://user-images.githubusercontent.com/71438259/236372421-fcb82be9-4d46-433f-936b-4e844c75bc9e.png)
 
 
 
