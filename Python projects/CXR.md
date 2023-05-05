@@ -708,18 +708,6 @@ predictions = model.predict(test_tf)
 predictions = tf.nn.sigmoid(predictions)
 predictions = tf.where(predictions <0.5, 0, 1)
 
-
-print('Predictions:\n', predictions)
-print('Labels:\n', y_test)
-
-categories = ['healthy', 'pneumonia']
-plt.figure(figsize=(10, 10))
-for i in range(9):
-  ax = plt.subplot(3, 3, i + 1)
-  plt.imshow(x_test[i].astype("uint8"))
-  plt.title(categories[int(predictions[i])])
-  plt.axis("off")
-
 from sklearn.metrics import confusion_matrix
 import seaborn as sns
 cm = confusion_matrix(y_test, predictions)
