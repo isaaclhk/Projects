@@ -534,6 +534,55 @@ To train additional layers, we unfreeze the base_model, then re-freeze the layer
 During fine-tuning, it is important to lower the learning rate to avoid overfitting. If the learning rate is too high, the gradient updates during fine-tuning can be too large, causing the weights to be updated too quickly and potentially diverge from the optimal weights learned during pre-training. This can cause the model's performance to deteriorate. For the same reason, we should divide our training into two phases: an initial training phase and fine-tuning. If the model has not converged during initial training, massive gradient updates from the huge losses may cause the pre-trained layers to change too much, potentially resulting in the loss of the previously learned general features. 
 
 ```
+#compile the model
+optimizer = tf.keras.optimizers.Adam(learning_rate=1e-5) #lower lr
+model.compile(optimizer=optimizer,
+                        loss=tf.keras.losses.BinaryCrossentropy(from_logits=True),
+                        metrics=['AUC', f1_score(), 'accuracy'])
+model.summary()
+```
+
+output:
+```
+number of layers in the base model: 311
+Model: "model_1"
+_________________________________________________________________
+ Layer (type)                Output Shape              Param #   
+=================================================================
+ input_4 (InputLayer)        [(None, 299, 299, 3)]     0         
+                                                                 
+ tf.math.truediv_1 (TFOpLamb  (None, 299, 299, 3)      0         
+ da)                                                             
+                                                                 
+ tf.math.subtract_1 (TFOpLam  (None, 299, 299, 3)      0         
+ bda)                                                            
+                                                                 
+ inception_v3 (Functional)   (None, 8, 8, 2048)        21802784  
+                                                                 
+ global_average_pooling2d_1   (None, 2048)             0         
+ (GlobalAveragePooling2D)                                        
+                                                                 
+ dropout_1 (Dropout)         (None, 2048)              0         
+                                                                 
+ dense_1 (Dense)             (None, 1)                 2049      
+                                                                 
+=================================================================
+Total params: 21,804,833
+Trainable params: 10,543,489
+Non-trainable params: 11,261,344
+_________________________________________________________________
+```
+
+```
+len(model.trainable_variables)
+```
+
+output:
+```
+37
+```
+
+
 
 ## References
 1. https://www.who.int/news-room/fact-sheets/detail/pneumonia</br>
