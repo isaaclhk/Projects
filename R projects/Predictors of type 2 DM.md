@@ -370,7 +370,7 @@ insurance1     3.494859e-01 1.6150672516
 insurance2     2.517428e-01 1.2267936673
 ```
 
-Age, family history, bmi, and cholesterol were significantly correlated with the log odds of DM diagnosis. It is surprising that blood pressure was not a significant result because the evidence of its relationship with DM is strong in the literature. The exponentiated coefficients show the odds of being diagnosed with DM for every unit change in the corresponding predictor variable. For example, every year increase in age was estimated to multiply the odds of being diagnosed by 1.03, and having family history of DM was estimated to multiply the odds by 1.51. the 95% confidence intervals were also printed.
+Age, family history, bmi, and cholesterol were significantly correlated with the log odds of DM diagnosis. It is surprising that blood pressure was not a significant result because the evidence of its relationship with DM is strong in the literature. The exponentiated coefficients show the odds of being diagnosed with DM for every unit change in the corresponding predictor variable. For example, every year increase in age was estimated to multiply the odds of being diagnosed by an average of 1.06, and having family history of DM was estimated to multiply the odds by an average of 3.11. the 95% confidence intervals were also printed.
 
 To understand why the relationship between blood pressure and DM was not significant in this model, the correlations between blood pressure amd other predictor variables in the model was checked for colinearity.
 
