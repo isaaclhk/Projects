@@ -383,7 +383,7 @@ Finally, we run the predict function and produce a confusion matrix to evaluate 
 
 ```
 #evaluating accuracy
-print(f'Accuracy: {np.mean(p == y_test) * 100}')
+print(f'Accuracy: {round(np.mean(p == y_test) * 100, 2)}')
 from sklearn.metrics import confusion_matrix, accuracy_score
 confmat = confusion_matrix(p, y_test)
 confmat
@@ -402,7 +402,7 @@ plt.ylabel('Predicted Diagnosis')
 output:
 
 ```
-Accuracy: 95.32163742690058
+Accuracy: 95.32
 array([[104,   4],
        [  4,  59]], dtype=int64)
 ```
@@ -420,7 +420,7 @@ logreg.fit(x_train_norm, y_train)
 y_pred = logreg.predict(x_test_norm)
 confmat2 = confusion_matrix(y_pred, y_test)
 confmat2
-accuracy_score(y_pred, y_test)
+print(f'Accuracy: {round(accuracy_score(y_pred, y_test)*100,2)}')
 
 #visualizing confusion matrix
 sns.heatmap(confmat2, annot = True, linewidths = 1, 
@@ -436,17 +436,16 @@ output:
 
 ```
 confmat2
-array([[105,   3],
-       [  3,  60]], dtype=int64)
+array([[104,   3],
+       [  4,  60]], dtype=int64)
        
-accuracy_score(y_pred, y_test)       
-0.9649122807017544
+Accuracy: 95.91
 ```
 
-![breast_cancer_confmat](https://github.com/isaaclhk/Projects/assets/71438259/5c07c3fd-3a02-45f2-acc8-289c0e8c52dc)
+![breast_cancer_confmat2](https://github.com/isaaclhk/Projects/assets/71438259/16c338d9-5663-4cb1-9232-2788b71bf2b2)
 
 
-The model we built demonstrates a prediction accuracy of 95.906%, while the one generated from using the sklearn library has a prediction accuracy of 96.49%.
+The model we built demonstrates a prediction accuracy of 95.32%, while the one generated from using the sklearn library has a prediction accuracy of 95.91%.
 </br>
 
 ### Note for deployment of model in clinical settings
@@ -458,7 +457,7 @@ y_pred2 = np.where(logreg.predict_proba(x_test_norm)[:, 1] > 0.05, 1, 0)
 y_pred2
 confmat3 = confusion_matrix(y_pred2, y_test)
 confmat3
-accuracy_score(y_pred2, y_test)
+print(f'Accuracy: {round(accuracy_score(y_pred2, y_test)*100,2)}')
 
 #visualizing confusion matrix
 sns.heatmap(confmat3, annot = True, linewidths = 1, 
@@ -475,14 +474,13 @@ output:
 
 ```
 confmat3
-array([[78,  0],
-       [30, 63]], dtype=int64)
+array([[74,  0],
+       [34, 63]], dtype=int64)
        
-accuracy_score(y_pred2, y_test)
-0.8245614035087719
+Accuracy: 80.12
 ```
 
-![confmat3](https://user-images.githubusercontent.com/71438259/209177645-9a70d886-4627-4cb5-88b9-7f2cae33659e.png)
+![breast_cancer_confmat3](https://github.com/isaaclhk/Projects/assets/71438259/15d258a9-1761-4c75-be69-6c0e6dad9844)
 
 Compared to the predictions generated from y_pred, the predictions from y_pred2 are less accurate. An examination of the confusion matrix tells us that the number of false positives increased significantly, but the number of false negatives is minimized to 0. To further reduce the probability of type 2 errors, the prediction threshold can be further tightened from .05 to .01 or less.  This will reduce the chance of having missed diagnoses and allow doctors to concentrate their time on reviewing tumors that are not likely benign. The reviewing doctor may then manually go through the non-benign cases to mitigate type 1 errors. In this way, man and machine can work hand in hand to create an efficient healthcare system.</br>
 
