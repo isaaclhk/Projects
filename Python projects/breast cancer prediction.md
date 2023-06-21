@@ -387,15 +387,7 @@ print(f'Accuracy: {np.mean(p == y_test) * 100}')
 from sklearn.metrics import confusion_matrix, accuracy_score
 confmat = confusion_matrix(p, y_test)
 confmat
-```
 
-output:
-
-```
-Accuracy: 95.32163742690058
-array([[104,   4],
-       [  4,  59]], dtype=int64)
-       
 #visualizing confusion matrix
 sns.heatmap(confmat, annot = True, linewidths = 1, 
             xticklabels = ['Benign', 'Malignant'], 
@@ -405,6 +397,14 @@ sns.heatmap(confmat, annot = True, linewidths = 1,
 plt.title('confmat')
 plt.xlabel('True Diagnosis')
 plt.ylabel('Predicted Diagnosis')
+```
+
+output:
+
+```
+Accuracy: 95.32163742690058
+array([[104,   4],
+       [  4,  59]], dtype=int64)
 ```
 
 ![breast_cancer_confmat](https://github.com/isaaclhk/Projects/assets/71438259/5c07c3fd-3a02-45f2-acc8-289c0e8c52dc)
