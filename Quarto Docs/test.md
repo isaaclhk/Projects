@@ -35,6 +35,7 @@ plt.title('kde plot of FillWeights by Group')
 plt.show()
 ```
 
-![](test_files/figure-commonmark/cell-3-output-1.png)
 
-![](test_files/figure-commonmark/cell-3-output-2.png)
+![cell-3-output-1](https://github.com/isaaclhk/Projects/assets/71438259/5b2414f1-55ed-4639-b3b6-c35c26516b99)
+![cell-3-output-2](https://github.com/isaaclhk/Projects/assets/71438259/9c72c7a7-8e59-42a5-9417-d6a2b9a3696e)
+
