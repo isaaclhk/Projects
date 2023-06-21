@@ -392,9 +392,9 @@ confmat
 output:
 
 ```
-Accuracy: 95.90643274853801
-array([[106,   5],
-       [  2,  58]], dtype=int64)
+Accuracy: 95.32163742690058
+array([[104,   4],
+       [  4,  59]], dtype=int64)
        
 #visualizing confusion matrix
 sns.heatmap(confmat, annot = True, linewidths = 1, 
@@ -407,7 +407,7 @@ plt.xlabel('True Diagnosis')
 plt.ylabel('Predicted Diagnosis')
 ```
 
-![confmat](https://user-images.githubusercontent.com/71438259/209177146-584ff5ac-a625-473e-be75-4bc22dae006d.jpg)
+![breast_cancer_confmat](https://github.com/isaaclhk/Projects/assets/71438259/5c07c3fd-3a02-45f2-acc8-289c0e8c52dc)
 </br>
 Next, we run logistic regression using the sklearn and see how it compares.
 
@@ -443,7 +443,7 @@ accuracy_score(y_pred, y_test)
 0.9649122807017544
 ```
 
-![confmat2](https://user-images.githubusercontent.com/71438259/209177429-913aec35-72b3-4d85-9c7d-472c5449f612.png)
+![breast_cancer_confmat](https://github.com/isaaclhk/Projects/assets/71438259/5c07c3fd-3a02-45f2-acc8-289c0e8c52dc)
 
 
 The model we built demonstrates a prediction accuracy of 95.906%, while the one generated from using the sklearn library has a prediction accuracy of 96.49%.
