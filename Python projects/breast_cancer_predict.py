@@ -104,11 +104,11 @@ y_test.shape
 
 
 #z-score normalization
-def norm(X):    
+def norm(x_train, X):    
     # find the mean value of each column/feature
-    mu     = np.mean(X, axis = 0)
+    mu     = np.mean(x_train, axis = 0)
     # find the standard deviation of each column/feature
-    sigma  = np.std(X, axis = 0)                  # sigma will have shape (n,)
+    sigma  = np.std(x_train, axis = 0)                  # sigma will have shape (n,)
     # element-wise, subtract mean for that column from each example, divide standard deviation
     X_norm = (X - mu) / sigma   
 
