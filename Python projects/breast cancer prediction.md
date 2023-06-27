@@ -63,6 +63,9 @@ df.info()
 id is dropped because it is not germane to the analysis, 'Unnamed: 32' is also dropped because it consists of only null values.
 
 ```
+#drop Unnamed 32 because all nulls
+df.drop(['Unnamed: 32', 'id'], axis = 1, inplace = True)
+
 #check that the null column was dropped, note that all are floats except diagnosis
 df.info()
 df.shape
