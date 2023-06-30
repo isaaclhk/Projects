@@ -168,7 +168,7 @@ describe(data$diagnosis)
 <summary>Code</summary>
 
 ``` r
-barplot(table(data$diagnosis), main = 'Diagnoses')
+barplot(table(data$diagnosis), main = 'Diagnoses' width = 50%)
 ```
 
 </details>
