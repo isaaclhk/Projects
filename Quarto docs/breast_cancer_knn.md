@@ -173,7 +173,7 @@ barplot(table(data$diagnosis), main = 'Diagnoses')
 
 </details>
 
-<img src = 'https://github.com/isaaclhk/Projects/assets/71438259/308833f4-aaed-4dbb-a0bf-8b59b4b3c52f' width = 600>
+<img src = 'https://github.com/isaaclhk/Projects/assets/71438259/308833f4-aaed-4dbb-a0bf-8b59b4b3c52f' width = 550>
 
 There are 357 benign tumors and 212 malignant tumors in the dataset.
 Next, the remaining features are described and visualized in a matrix of
@@ -627,7 +627,7 @@ plt.show()
 
 </details>
 
-<img src = 'https://github.com/isaaclhk/Projects/assets/71438259/0c507a15-607e-471b-a4da-2423eaf3fabe' width = 50%>
+<img src = 'https://github.com/isaaclhk/Projects/assets/71438259/0c507a15-607e-471b-a4da-2423eaf3fabe' width = 55%>
 
 
 ## References
