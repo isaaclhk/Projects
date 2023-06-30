@@ -300,7 +300,7 @@ $$
 the eigenvectors of the data covariance matrix with the corresponding n
 largest eigenvalues for a PCA of n components.**
 
-    This projection can be described as:
+This projection can be described as:
 
 $$
 {\LARGE \tilde x* = \pi_{u}(x*) = BB^Tx*}
