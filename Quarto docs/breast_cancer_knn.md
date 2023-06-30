@@ -21,6 +21,8 @@ Isaac Lam
     Preprocessing</a>
   - <a href="#knn-implementation" id="toc-knn-implementation">KNN
     Implementation</a>
+  - <a href="#evaluation-of-knn-model" id="toc-evaluation-of-knn-model">Evaluation of
+    KNN model</a>
 - <a href="#references" id="toc-references">References</a>
 
 ## Background
@@ -587,7 +589,7 @@ y_pred = knn.predict(x_test_norm)
 ```
 
 </details>
-
+### Evaluation of KNN model
 Finally, we evaluate the model by calculating the accuracy score and
 plotting a confusion matrix.
 
