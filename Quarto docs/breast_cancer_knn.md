@@ -80,7 +80,7 @@ Class distribution: 357 benign, 212 malignant
 ## Exploratory Data Analysis
 
 We begin by importing relevant libraries and loading the dataset before
-describing and visualizing the data.
+describing and visualizing the data. This is done using R.
 
 <details open>
 <summary>Code</summary>
