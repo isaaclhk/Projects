@@ -1,0 +1,287 @@
+---
+title: "Breast Cancer Prediction with K-Nearest Neighbours and Visualization with Principal Component Analysis"
+format: 
+  gfm:
+    toc: true
+    toc-title: Contents
+    toc-location: right
+    code-fold: show
+    code-tools: true
+execute:
+  warning: false
+author: Isaac Lam
+
+---
+
+## Background
+
+In this project, we will revisit the Wisconsin Breast Cancer dataset. 
+In a [previous project](https://github.com/isaaclhk/Projects/blob/main/Python%20projects/breast%20cancer%20prediction.md), we've built a logistic regression model to predict the malignancy of a breast tumor based on its cell nuclei characteristics. 
+
+This instance, we will take a second look at this dataset and visualize the data after applying principal component analysis (PCA). In addition, we will build a another prediction model using the K-Nearest Neighbours (KNN) algorithm.
+
+### About the Dataset
+
+Features are computed from a digitized image of a fine needle aspirate (FNA) of a breast mass. They describe characteristics of the cell nuclei present in the image. n the 3-dimensional space is that described in: \[K. P. Bennett and O. L. Mangasarian: "Robust Linear Programming Discrimination of Two Linearly Inseparable Sets", Optimization Methods and Software 1, 1992, 23-34\].
+
+This database is also available through the UW CS ftp server: ftp ftp.cs.wisc.edu cd math-prog/cpo-dataset/machine-learn/WDBC/
+
+Also can be found on the [UCI Machine Learning Repository](https://archive.ics.uci.edu/dataset/17/breast+cancer+wisconsin+diagnostic)
+
+Attribute Information:
+
+ID number Diagnosis (M = malignant, B = benign) 3-32) Ten real-valued features are computed for each cell nucleus:
+
+a)  radius (mean of distances from center to points on the perimeter) b) texture (standard deviation of gray-scale values) c) perimeter d) area e) smoothness (local variation in radius lengths) f) compactness (perimeter\^2 / area - 1.0) g) concavity (severity of concave portions of the contour) h) concave points (number of concave portions of the contour) i) symmetry j) fractal dimension ("coastline approximation" - 1)
+
+The mean, standard error and "worst" or largest (mean of the three largest values) of these features were computed for each image, resulting in 30 features. For instance, field 3 is Mean Radius, field 13 is Radius SE, field 23 is Worst Radius.
+
+All feature values are recoded with four significant digits.
+
+Missing attribute values: none
+
+Class distribution: 357 benign, 212 malignant
+
+## Exploratory Data Analysis
+
+We begin by importing relevant libraries and loading the dataset before describing and visualizing the data. This is done using R.
+
+```{R}
+#| output: false
+#load libraries and dataset
+library(tidyverse)
+library(Hmisc)
+
+data <- read.csv('C:/Users/isaac/OneDrive/Documents/Projects/datasets/data.csv') %>% rename_all(tolower)
+
+#exploratory analysis
+head(data)
+str(data)
+```
+
+id is dropped because it is not germane to the analysis, 'x' is also dropped because it consists of only null values.
+
+```{R}
+data = select(data, -c('id', 'x'))
+str(data)
+```
+
+We observe the distribution of malignant and benign tumors in this dataset.
+
+```{R}
+#exploratory data analysis
+describe(data$diagnosis)
+barplot(table(data$diagnosis), main = 'Diagnoses')
+```
+
+There are 357 benign tumors and 212 malignant tumors in the dataset. Next, the remaining features are described and visualized in a matrix of histograms. This allows us to inspect the general distribution of each feature and potentially detect outliers.
+
+```{R}
+#| output: false
+describe(data)
+```
+```{R}
+library(ggplot2)
+data %>%
+  keep(is.numeric) %>%
+  gather() %>%
+  ggplot(aes(value)) + facet_wrap(~key, scales = 'free') + geom_histogram(bins = 15) + labs(title = 'Summmary of Feature Distributions')
+```
+
+Here we separate the features and outcome variable for analysis later.
+
+```{R}
+#seperate features and outcome variable
+x <- select(data, -diagnosis)
+y <- select(data, diagnosis)
+```
+```{R}
+#check features
+names(x)
+#check outcome
+names(y)
+
+#Change B and M to 0 and 1
+y <- unclass(factor(y$diagnosis)) -1
+table(y)
+```
+
+## Principal Component Analysis (PCA)
+
+Principal Component Analysis (PCA) is a dimensionality reduction technique used to transform a high-dimensional dataset into a lower-dimensional representation while preserving as much variation of the feature set as possible. This enables us to visualize or explore the classification power of a high-dimensional dataset.
+
+The PCA can generally be computed in the following 3 steps:
+
+**1. Normalize the data**
+
+For this analysis, we will use z-score normalization which transforms each feature to have a mean of 0 and standard deviation of 1. The formula for z-score normalization is shown below:
+
+$$
+{\LARGE z = \frac{x-u}{\sigma}}
+$$ **2. Compute the data covariance matrix**
+
+$$
+{\LARGE Cov(x,y) = \frac{\sum(x_{i}- \bar{x})*(y_{i}-\bar{y})}{N}}
+$$
+
+**3. Project the normalized data onto the principal subspace spanned by the eigenvectors of the data covariance matrix with the corresponding n largest eigenvalues for a PCA of n components.**
+
+    This projection can be described as:
+
+$$
+{\LARGE \tilde x* = \pi_{u}(x*) = BB^Tx*}
+$$
+
+Where $x*$ refers to $x$ normalized, $pi_{u}$ refers to the projection of $x*$ onto the principal subspace $u$, and B is the matrix that contains the eigenvectors that belong to the largest eigenvalues as columns, then $B^Tx*$ are the coordinates of the projection with respect to the basis of the principal subspace.
+
+Further details on the derivation of PCA are covered in [this course](https://www.coursera.org/learn/pca-machine-learning) (Deisenroth., n.d.).
+
+Now, we will implement PCA in python code.
+
+### Pre-PCA Normalization
+
+```{python}
+#normalize data
+x = r.x
+y = r.y
+
+from sklearn.preprocessing import StandardScaler
+pca_scaler = StandardScaler()
+pca_x = pca_scaler.fit_transform(x)
+```
+
+### PCA Implementation
+```{python}
+from sklearn.decomposition import PCA
+pca = PCA(n_components = 2)
+pca_transformed = pca.fit_transform(pca_x)
+
+pca_x.shape
+pca_transformed.shape
+```
+
+```{python}
+import seaborn as sns
+import matplotlib.pyplot as plt
+plt.close()
+
+sns.set_style('darkgrid')
+pca_plot = sns.scatterplot(x = pca_transformed[:, 0], y = pca_transformed[:, 1], hue = y)
+plt.legend(title = 'Tumor Classification', labels = ['Malignant', 'Benign'])
+plt.title('Dimensional Reduction of Breast Cancer Dataset to 2 Components')
+plt.xlabel('Principal Component 1')
+plt.ylabel('Principal Component 2')
+
+plt.show(pca_plot)
+```
+
+PCA projects data points onto the lower-dimensional space spanned by the principal components. By visualizing the projected data, we gain a better understanding of the relationships and patterns within the dataset. For example, in the figure above, we see a distinct separation between malignant and benign tumors. This segregation indicates that the data has high predictive strength. It should be noted, however, that the employed PCA technique captures the maximum variance realizable within two dimensions, thus leaving some unaccounted variance from additional dimensions. Consequently, certain benign tumor data points appear within the cluster of malignant tumor data points and vice versa. But this does not necessarily mean that they will be inaccurately predicted,as a predictive model trained on the complete set of features might yield more precise predictions.
+
+## K-Nearest Neighbours (KNN)
+
+KNN is a non-parametric supervised machine learning algorithm. The basic idea behind the KNN algorithm is to classify a new data point or predict its value based on its proximity to its neighboring data points in the feature space. In other words, it assumes that data points with similar features tend to belong to the same class or have similar output values.
+
+The default method used by sklearn to calculate distance is the Minkowski Distance, which is a generalization of the euclidean distance in 'c' dimensions. The formula for Minkowski distance is:
+
+$$
+{\LARGE d(x,y) = (\sum_{i=1}^n \vert xi - yi\vert^c)^\frac{1}{c}}
+$$
+
+Once the pre-specified 'k' number of nearest neighbouring data points are identified, a voting mechanism is used to determine the class label for the new data point. Each neighbor gets to vote, and the majority class among the K neighbors is assigned as the predicted class for the new data point. For example, if K = 5 and K nearest neighbours of a new data point are labelled 'M', 'B', 'M', 'M', 'B', the KNN algorithm assigns the class with the majority votes, which is 'M', to the new data point.
+
+### Data Preprocessing
+
+We begin by separating the dataset into training and testing sets. For this analysis, 70% of the data will be used for training before the model is tested on the remaining 30%. Random state is set to 42 to obtain reproducible results.
+
+```{python}
+from sklearn.model_selection import train_test_split
+x_train, x_test, y_train, y_test = train_test_split(x, y, test_size = 0.3, stratify = y, random_state = 42)
+
+x_train.shape
+x_test.shape
+len(y_train)
+len(y_test)
+
+```
+
+Since the algorithm makes predictions by calculating distances between data points, we need to scale the data such that all features are brought to a similar range. This ensures that each feature contributes proportionally to the distance calculation and avoids bias that may arise from features having inherently different values or ranges. Normalizing the data can also mitigate the impact of outliers by bringing the data within a similar range and reducing the influence of extreme values.
+
+```{python}
+from sklearn.preprocessing import StandardScaler
+scaler = StandardScaler()
+scaler.fit(x_train)
+x_train_norm = scaler.transform(x_train)
+x_test_norm = scaler.transform(x_test)
+```
+
+### KNN Implementation
+
+We perform 10 fold cross validation to determine the optimal number of neighbors for this model.
+
+```{python}
+from sklearn.neighbors import KNeighborsClassifier
+import numpy as np
+
+neighbors = []
+cv_scores = []
+
+from sklearn.model_selection import cross_val_score
+# Perform 10 fold cross validation
+for k in range(1, 32, 2):
+  neighbors.append(k)
+  knn = KNeighborsClassifier(n_neighbors = k)
+  scores = cross_val_score(knn, x_train_norm, y_train, cv = 10, scoring = 'accuracy')
+  cv_scores.append(np.mean(scores))
+```
+
+We plot the average accuracy obtained from each set of 10 cross validations for every 'k' against the number of neighbors.
+
+```{python}
+#plotting cv_scores vs K
+plt.close()
+sns.lineplot(x = neighbors, y = cv_scores)
+plt.title('Average Accuracy Scores vs Neighbors')
+plt.show()
+
+#calculating optimal number of neighbors
+optimal_k = neighbors[cv_scores.index(max(cv_scores))]
+print(f'Optimal K =  {optimal_k}')
+```
+
+Based on the above calculation, the optimal number of neighbors is 9. We shall use this value to fit the final KNN model.
+
+```{python}
+#fit model
+knn = KNeighborsClassifier(n_neighbors = optimal_k)
+knn.fit(x_train_norm, y_train)
+y_pred = knn.predict(x_test_norm)
+```
+
+### Evaluation of KNN model
+Finally, we evaluate the model by calculating the accuracy score and plotting a confusion matrix.
+```{python}
+from sklearn.metrics import accuracy_score
+from sklearn.metrics import confusion_matrix
+
+print(f'Our model has an accuracy score of: {round(accuracy_score(y_pred, y_test)*100,2)}')
+
+#visualizing confusion matrix
+confmat = confusion_matrix(y_pred, y_test)
+plt.close()
+import matplotlib.pyplot as plt
+import seaborn as sns
+sns.heatmap(confmat, annot = True, linewidths = 1, 
+            xticklabels = ['Benign', 'Malignant'], 
+            yticklabels = ['Benign', 'Malignant'],
+            fmt = 'g',
+            cmap = 'Blues')
+plt.title('confmat')
+plt.xlabel('True Diagnosis')
+plt.ylabel('Predicted Diagnosis')
+plt.show()
+```
+
+## References
+
+1.  Deisenroth, M. P. (n.d.) *Mathematics for Machine Learning: PCA* \[MOOC\]. Coursera. https://www.coursera.org/learn/pca-machine-learning
+2. Wolberg, W H., Street, W N., Mangasarian, O L. (1995, November) Breast Cancer Winconsin (Diagnostic) Data set, Retrieved from https://www.kaggle.com/datasets/uciml/breast-cancer-wisconsin-data.
