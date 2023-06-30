@@ -201,6 +201,7 @@ data %>%
 
 </details>
 
+<img src= https://github.com/isaaclhk/Projects/assets/71438259/7a09ca67-cfbb-4ed5-a6b1-f761cd32d959 width = 50%>
 ![unnamed-chunk-5-1](https://github.com/isaaclhk/Projects/assets/71438259/7a09ca67-cfbb-4ed5-a6b1-f761cd32d959)
 
 Here we separate the features and outcome variable for analysis later.
