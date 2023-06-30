@@ -19,7 +19,7 @@ Isaac Lam
   id="toc-k-nearest-neighbours-knn">K-Nearest Neighbours (KNN)</a>
   - <a href="#data-preprocessing" id="toc-data-preprocessing">Data
     Preprocessing</a>
-  - <a href="#knn-implementation" id="toc-knn-implementation">KNN
+  - <a href="#knn-implementation" id="toc-data-preprocessing">KNN
     Implementation</a>
   - <a href="#evaluation-of-knn-model" id="toc-evaluation-of-knn-model">Evaluation of
     KNN model</a>
