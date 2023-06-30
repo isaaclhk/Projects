@@ -2,7 +2,7 @@ Breast Cancer Prediction with K-Nearest Neighbours and Visualization
 with Principal Component Analysis
 ================
 Isaac Lam
-
+### Contents
 - <a href="#background" id="toc-background">Background</a>
   - <a href="#about-the-dataset" id="toc-about-the-dataset">About the
     Dataset</a>
