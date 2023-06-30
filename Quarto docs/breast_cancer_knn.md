@@ -201,7 +201,7 @@ data %>%
 
 </details>
 
-<img src= https://github.com/isaaclhk/Projects/assets/71438259/7a09ca67-cfbb-4ed5-a6b1-f761cd32d959>
+<img src= https://github.com/isaaclhk/Projects/assets/71438259/7a09ca67-cfbb-4ed5-a6b1-f761cd32d959 width = 70%>
 
 Here we separate the features and outcome variable for analysis later.
 
@@ -379,7 +379,7 @@ plt.show(pca_plot)
 
 </details>
 
-<img src = "https://github.com/isaaclhk/Projects/assets/71438259/61bfb36d-542c-4c0d-a147-09207c4dad6f" width = 60%>
+<img src = "https://github.com/isaaclhk/Projects/assets/71438259/61bfb36d-542c-4c0d-a147-09207c4dad6f" width = 70%>
 
 PCA projects data points onto the lower-dimensional space spanned by the
 principal components. By visualizing the projected data, we gain a
@@ -627,7 +627,7 @@ plt.show()
 
 </details>
 
-<img src = 'https://github.com/isaaclhk/Projects/assets/71438259/0c507a15-607e-471b-a4da-2423eaf3fabe' width = 60%>
+<img src = 'https://github.com/isaaclhk/Projects/assets/71438259/0c507a15-607e-471b-a4da-2423eaf3fabe' width = 50%>
 
 
 ## References
