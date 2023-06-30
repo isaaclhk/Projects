@@ -67,7 +67,7 @@ data <- read.csv('C:/Users/isaac/OneDrive/Documents/Projects/datasets/data.csv')
 #exploratory analysis
 head(data)
 ```
-
+output:
             id diagnosis radius_mean texture_mean perimeter_mean area_mean
     1   842302         M       17.99        10.38         122.80    1001.0
     2   842517         M       20.57        17.77         132.90    1326.0
