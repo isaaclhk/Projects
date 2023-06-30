@@ -21,7 +21,7 @@ Isaac Lam
     Preprocessing</a>
   - <a href="#knn-implementation" id="toc-knn-implementation">KNN
     Implementation</a>
-  - <a href="#knn-implementation" id="toc-evaluation-of-knn-model">Evaluation of
+  - <a href="#evaluation-of-knn-model" id="toc-evaluation-of-knn-model">Evaluation of
     KNN model</a>
 - <a href="#references" id="toc-references">References</a>
 
