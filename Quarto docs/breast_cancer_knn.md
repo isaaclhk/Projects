@@ -379,7 +379,7 @@ plt.show(pca_plot)
 
 </details>
 
-<img src = "https://github.com/isaaclhk/Projects/assets/71438259/61bfb36d-542c-4c0d-a147-09207c4dad6f" width = 25%>
+<img src = "https://github.com/isaaclhk/Projects/assets/71438259/61bfb36d-542c-4c0d-a147-09207c4dad6f" width = 60%>
 
 PCA projects data points onto the lower-dimensional space spanned by the
 principal components. By visualizing the projected data, we gain a
@@ -548,7 +548,7 @@ plt.show()
 
 </details>
 
-![unnamed-chunk-14-3](https://github.com/isaaclhk/Projects/assets/71438259/9a4cf34b-ed85-44ba-ac50-eda4843fb084)
+<img src = 'https://github.com/isaaclhk/Projects/assets/71438259/9a4cf34b-ed85-44ba-ac50-eda4843fb084' width = 60%>
 
 <details open>
 <summary>Code</summary>
@@ -627,7 +627,7 @@ plt.show()
 
 </details>
 
-![unnamed-chunk-16-5](https://github.com/isaaclhk/Projects/assets/71438259/0c507a15-607e-471b-a4da-2423eaf3fabe)
+<img src = 'https://github.com/isaaclhk/Projects/assets/71438259/0c507a15-607e-471b-a4da-2423eaf3fabe' width = 60%>
 
 
 ## References
