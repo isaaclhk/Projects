@@ -288,7 +288,9 @@ formula for z-score normalization is shown below:
 
 $$
 {\LARGE z = \frac{x-u}{\sigma}}
-$$ **2. Compute the data covariance matrix**
+$$ 
+
+**2. Compute the data covariance matrix**
 
 $$
 {\LARGE Cov(x,y) = \frac{\sum(x_{i}- \bar{x})*(y_{i}-\bar{y})}{N}}
