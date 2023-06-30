@@ -173,7 +173,7 @@ barplot(table(data$diagnosis), main = 'Diagnoses')
 
 </details>
 
-![](breast_cancer_knn_files/figure-commonmark/unnamed-chunk-3-1.png)
+![unnamed-chunk-3-1](https://github.com/isaaclhk/Projects/assets/71438259/308833f4-aaed-4dbb-a0bf-8b59b4b3c52f)
 
 There are 357 benign tumors and 212 malignant tumors in the dataset.
 Next, the remaining features are described and visualized in a matrix of
@@ -201,7 +201,7 @@ data %>%
 
 </details>
 
-![](breast_cancer_knn_files/figure-commonmark/unnamed-chunk-5-1.png)
+![unnamed-chunk-5-1](https://github.com/isaaclhk/Projects/assets/71438259/7a09ca67-cfbb-4ed5-a6b1-f761cd32d959)
 
 Here we separate the features and outcome variable for analysis later.
 
@@ -379,7 +379,7 @@ plt.show(pca_plot)
 
 </details>
 
-![](breast_cancer_knn_files/figure-commonmark/unnamed-chunk-10-1.png)
+![unnamed-chunk-10-1](https://github.com/isaaclhk/Projects/assets/71438259/61bfb36d-542c-4c0d-a147-09207c4dad6f)
 
 PCA projects data points onto the lower-dimensional space spanned by the
 principal components. By visualizing the projected data, we gain a
@@ -548,7 +548,7 @@ plt.show()
 
 </details>
 
-![](breast_cancer_knn_files/figure-commonmark/unnamed-chunk-14-3.png)
+![unnamed-chunk-14-3](https://github.com/isaaclhk/Projects/assets/71438259/9a4cf34b-ed85-44ba-ac50-eda4843fb084)
 
 <details open>
 <summary>Code</summary>
@@ -627,7 +627,8 @@ plt.show()
 
 </details>
 
-![](breast_cancer_knn_files/figure-commonmark/unnamed-chunk-16-5.png)
+![unnamed-chunk-16-5](https://github.com/isaaclhk/Projects/assets/71438259/0c507a15-607e-471b-a4da-2423eaf3fabe)
+
 
 ## References
 
