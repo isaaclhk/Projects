@@ -39,7 +39,7 @@ This analysis was performed on a dataset obtained from the 3rd course of the Sta
 First, the relevant libraries and dataset were loaded. 
 The column names were changed to all lowercase letters for simplicity, then we have a brief overview of the dataset.
 
-```
+```r
 #loading libraries and dataset
 library(tidyverse)
 library(Hmisc)
