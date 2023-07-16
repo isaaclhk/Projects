@@ -54,7 +54,7 @@ A typical diagnosis criteria for type 2 DM is random blood glucose of >= 200mg/d
 The dataset includes data of each patient's stabilized glucose and hba1c levels.
 The data from these variables can be checked against the patient's diagnosis of diabetes to verify the data's accuracy. 
 
-```
+```r
 #check for patients that meet conventional dm diagnosis criteria but are undiagnosed
 diabetes %>% filter(stab.glu >= 200 & dm == "no" | glyhb >= 6.5 & dm == "no")
 ```
@@ -69,7 +69,7 @@ For this analysis, age, BMI and cholesterol were categorised.
 stab.glu and glyhb were removed because they are used as diagnostic criteria for diabetes, hence not appropriate as predictors of DM.
 time.ppn was also removed as it is not a candidate predictor.
 
-```
+```r
 #categorizing
 diabetes <- diabetes %>% mutate(
   age_group = ifelse(age < 45, "under 45",
@@ -102,7 +102,7 @@ str(diabetes)
 ```
 Each variable was examined individually to observe the data's distribution and identify outliers.
 
-```
+```r
 #examining individual variables
 summary(diabetes$chol, exclude = NULL)
 hist(diabetes$chol, main = "chol", breaks = 15)
@@ -159,7 +159,7 @@ An outlier was seen on the histogram of the ratio variable. When in doubt, alway
 There were also large amounts of missing data in bp.2s and bp.2d.
 Also note that there were only 9 underweight participants. As the distribution of patients in this category was too narrow, the underweight and normal BMI categories were combined to form a single category.
 
-```
+```r
 #combining BMI categories
 levels(diabetes$bmi_cat)
 diabetes <- diabetes %>% mutate(bmi_cat = fct_recode(bmi_cat, 
@@ -172,7 +172,7 @@ describe(diabetes$bmi_cat, exclude.missing = FALSE)
 The relationships between each candidate predictor variable and the outcome variable (DM diagnosis) is analysed. The data is visualized on tables for categorical predictors and plots for continunous predictors. Inspecting the data visually helps to determine whether a linear relationship exists and whether it makes sense to include any particular variable in the final logistic regression model. </br> </br>
 Unlike linear regressions, the outcome variable in logistic regressions are binomial and consists of only two values. It doesnt make sense to plot the two values of the outcome variable on the y axis, so we plot the log of their odds instead (also known as logit), which can take on any value from negative to positive infinity. 
 
-```
+```r
 #examining relationships between individual categorical variables and dm
 crosstable(diabetes, location, by = dm) %>% as_flextable()
 crosstable(diabetes, gender, by = dm) %>% as_flextable()
@@ -276,7 +276,7 @@ bp.2s and bp.2d were not included in the model as they had large proportions of 
 
 To verify that predictor variables are not collinear, the continuous variables were screened for correlation by forming a correlation matrix. Nominal variables can also be tested for correlation with chi-square test.
 
-```
+```r
 continuous <-diabetes[, c("chol", "hdl", "ratio", "age", "height", "weight", "bp.1s", "bp.1d", "waist", "hip", "bmi")]
 cor(continuous, method = "spearman", use = "complete.obs")
 pairs(~chol + hdl + ratio + age + height + weight + bp.1s + bp.1d + waist + hip + bmi, data = diabetes)
@@ -287,7 +287,7 @@ chol and ratio were moderately correlated, while hdl and ratio were strongly cor
 </br> </br>
 Between bmi, waist, hip and weight, bmi was chosen as a predictor as the evidence for it is strong in the literature. Between chol and ratio, chol will be chosen as there was an outlying value in ratio. Models that include bp.1s and bp.1d will be tested to identify the better predictor.
 
-```
+```r
 null_model<- glm(data = diabetes, dm~1, family = binomial(link = "logit"))
 
 model <- glm(data= diabetes, dm~ age + gender + height +location + smoking + fh + bp.1s + bmi + chol + insurance, family = binomial(link = "logit"))
@@ -300,7 +300,7 @@ anova(model, test = "Chisq")
 ```
 The results of the initial model are shown below:
 
-```
+```r
 Call:
 glm(formula = dm ~ age + gender + height + location + smoking + 
     fh + bp.1s + bmi + chol + insurance, family = binomial(link = "logit"), 
@@ -374,7 +374,7 @@ Age, family history, bmi, and cholesterol were significantly correlated with the
 
 To understand why the relationship between blood pressure and DM was not significant in this model, the correlations between blood pressure amd other predictor variables in the model was checked for colinearity.
 
-```
+```r
 #colinearity check
 cor.test(diabetes$bp.1s, diabetes$age)
 cor.test(diabetes$bp.1s, diabetes$height)
@@ -395,7 +395,7 @@ bp.1d is also mildly but significantly correlated with bmi and cholesterol. Howe
 
 Due to the small sample size and relatively small proportion of participants who are diagnosed with diabetes (n = 60), the number of predictors we can expect to have is few.  A general rule of thumb to avoid over fitting is to have at least 10 events or participants per variable. Therefore, continuous cholesterol and bmi were selected as predictors instead of their categorical counterparts, whose levels are each considered a parameter. Furthermore, backward elimination was applied, retaining variables that have demonstrated a significant relationship with the outcome. A chi-square test helps to inform us which variables to eliminate. Although systolic blood pressure was insignificant, it was retained because of its known relationship with DM.
 
-```
+```r
 model2 <- glm(data= diabetes, dm~ age + bp.1s + fh + bmi + chol, family = binomial(link = "logit"))
 sum_model2 <- summary(model2)
 sum_model2
@@ -437,7 +437,7 @@ The standard errors of every variable were reduced, but no unexpectedly large di
 The relationship between bp.1s and DM remained insignificant. </br> </br>
 In the third model, bp.1s was replaced with bp.1d.
 
-```
+```r
 model3 <- glm(data = diabetes, dm~age + bp.1d + fh + bmi + chol, family = binomial(link = "logit"))
 sum_model3 <- summary(model3)
 sum_model3
@@ -490,7 +490,7 @@ R squared is also used for assessing linear regression models. in logistic regre
 The c statistic is a measure of discrimination- it measures how well a model can distinguish between those who have and do not have the outcome of interest.
 The receiver operating characteristic (ROC) curve is a plot of sensitivity/ 1 - specificity, and the concordonce statistic is the area under the ROC curve. A c statistic of 0.5 indicates that a model is only as good at predicting the outcome as random chance, and a c statistic of 1 indicates perfect prediction.
 
-```
+```r
 #Calculating McFadden's Pseudo R^2
 R2 <-1 - logLik(model)/logLik(null_model)
 R2
@@ -532,7 +532,7 @@ The cstat values also suggest that model 1 had the best predictive power (cstat 
 **Goodness of fit** </br>
 The goodness of fit of a model can be measured by examining the residual deviance. The residual deviance is provided in the model summary and is a measure of the difference between the log odds of outcomes in the saturated and the proposed models. To test whether a parameter in the model decreases the deviance by a significant amount for the degrees of freedom taken by the parameter, we can use a chi-square test which generates a p-value. The variables that were eliminated from model 1 were chosen based on the result of the chi-square test.
 
-```
+```r
 anova(model, test = "Chisq")
 anova(model2, test = "Chisq")
 anova(model3, test = "Chisq")
@@ -545,7 +545,7 @@ A third method to measure goodness of fit is the hosmer-lemeshow statistic and t
 Using this method, participants are grouped into typically 10 groups, according to their predicted values. The observed number of outcomes are compared with the predicted number of outcomes using pearson's chi-square test. A large p value indicates that the model is a good fit.
 The hosmer lemeshow method has limitations when sample sizes are too small or too large, and there is no good way of deciding on the number of groups to split the participants into. However, a useful plot of the observed against the expected can be generated from the hosmer-lemeshow test in R.
 
-```
+```r
 library(ResourceSelection)
 HL <- hoslem.test(x = model$y, y = fitted(model), g = 10)
 HL
@@ -575,7 +575,7 @@ The hosmer-lemeshow tests indicate that all the 3 models' predicted values are a
 </br> </br>
 Finally, the models are plotted to visualize the predicted probability of having DM and the observed cases.
 
-```
+```r
 #plot of logistic regression model
 plot_data <- data.frame(probability = predicted, dm = diabetes$dm)
 plot_data <- plot_data %>% 
