@@ -26,7 +26,7 @@ Originally, the dataset was divided into three folders (train, test, val) with s
 
 ## Data Preprocessing
 ### Loading data
-```
+```python
 #importing packages
 import matplotlib.pyplot as plt
 import numpy as np
@@ -61,7 +61,7 @@ number of healthy xray images:
 Having an imbalanced dataset is potentially problematic as it could lead the machine learning model we are training to be biased towards the majority class. In this dataset, pneumonia xray images are overrepresented. If a model is trained on this dataset, it will see comparatively fewer healthy xray images. Consequently, it may not perform as well in classifying healthy CXRs. This might cause the model to over specialize in recognizing pneumonia CXRs, resulting in more false positives. One method to overcome the problems that come with imbalanced datasets is data augmentation, which will be demonstrated later in this project.
 
 Next, we begin to form our dataset by converting these xray images into numpy arrays. Here, I've defined a function that helps us do that. We'll also visualize the images to check that they're are what we'd expected.
-```
+```python
 #create dataset
 categories = ['healthy', 'pneumonia']
 
@@ -106,7 +106,7 @@ In general, healthy chest x-rays should appear clear and black, indicating that 
 
 We split the dataset into training, validation, and testing sets in an 8-1-1 ratio. The split is stratified in a way that ensures that there are approximately equal proportions of healthy and pneumonia images in each set.
 
-```
+```python
 #split data
 from sklearn.model_selection import train_test_split
 x_train, x_val, y_train, y_val = train_test_split(
@@ -141,7 +141,7 @@ As explained earlier, imbalanced datasets can cause machine learning models to b
 
 To generate augmented images, we must first specify how we'd like to adjust the original image. Some ways in which we can augment images are listed in [this tensorflow documentation](https://www.tensorflow.org/api_docs/python/tf/keras/preprocessing/image/ImageDataGenerator).
 
-```
+```python
 #prepare for data augmentation
 datagen = tf.keras.preprocessing.image.ImageDataGenerator(
     rotation_range = 0.3,
@@ -168,7 +168,7 @@ A visual inspection of the augmented images show that our images are reasonably 
 we observe that some images have been randomly flipped horizontally. In reality, dextrocardia, a congenital condition where one's heart is situated on the right side of his/her chest instead of the left, is rare. However, we've simulated this by flipping some of our CXR images.
 
  
- ```
+ ```python
 #separate healthy and pneumonia images in training set
 def sep_images_by_class(x_train, y_train):
     train_healthy = []
@@ -191,7 +191,7 @@ train_healthy, train_pneumonia = sep_images_by_class(x_train, y_train)
 Since we intend to add augmented images of only healthy CXRs, we must first separate the images by class as I've done above.
 
 
-```
+```python
 #calculate number of batches of augmented data to generate
 num_needed = len(train_pneumonia) - len(train_healthy) #total number of augmented images required
 num_needed
@@ -225,7 +225,7 @@ number of augmented images created: 2152
 
 Now that we have the augmented images, we'll add them to the original training set.
 
-```
+```python
 #combine augmented and authentic healthy cxr for balanced training set
 def combined_training_set(AUGMENTED_DIR, num_augmented, x_train, y_train):
     augmented_imgs = []
@@ -251,7 +251,7 @@ combined_y_train.shape #(6836,)
 
 Next, we shuffle the combined training set before saving it. It is crucial to save our data at this point so that we need not reproduce the augemented images. More importantly, saving allows us to work on a consistent set of splits everytime we resume the work on this model.
 
-```
+```python
 #shuffle training set
 from sklearn.utils import shuffle
 combined_x_train, combined_y_train = shuffle(combined_x_train, combined_y_train, random_state = 123)
@@ -284,7 +284,7 @@ Before training the model, we can optimize it's performance using cache and pref
 
 ### Configure the dataset for performance
 
-```
+```python
 # prefetch and cache for optimization
 def performance_optimizer(x,y,batch_size):
     dataset = tf.data.Dataset.from_tensor_slices((x,y))
@@ -310,7 +310,7 @@ For this project, we will use the inception-v3 model (Figure 1). The Inception-v
 *Fig.1. A High level diagram of the inception-v3 model*
 
 ### Create the base model and initialize pre-trained weights
-```
+```python
 #initial training
 base_model = tf.keras.applications.inception_v3.InceptionV3(
     include_top=False,
@@ -323,19 +323,19 @@ The input_shape is specified as (299, 299, 3). The first two numbers (299, 299) 
 
 ### Feature extraction
 
-```
+```python
 base_model.trainable = False
 ```
 
 base_model.trainable = False freezes the convolutional base which we will use as a feature extractor. We will add a classifier on top of it and train the top-level classifier.
 
-```
+```python
 base_model.summary() # examine model architecture
 ```
 We can examine the model architecture from the output of the summary. We notice that the output from our feature extractor is an 8 x 8 x 2048 block of features (figure 1).
 
 ### Add a classification head
-```
+```python
 preprocess_input = tf.keras.applications.inception_v3.preprocess_input
 global_average_layer = tf.keras.layers.GlobalAveragePooling2D()
 prediction_layer = tf.keras.layers.Dense(1)
@@ -361,7 +361,7 @@ Before compiling the model, we define a custom metric: F1 score. F1 score is the
 <img src="https://user-images.githubusercontent.com/71438259/236127943-4325ae32-5d55-4337-bdc9-629838c34858.jpeg" width="30%" height="30%">
 <img src="https://user-images.githubusercontent.com/71438259/236127891-fe5420cd-0cef-4229-aaa6-f90c5f011f8c.jpeg" width="37%" height="37%">
 
-```
+```python
 #define custom metric: f1_score
 import tensorflow.keras.backend as K
 
@@ -398,7 +398,7 @@ class f1_score(tf.keras.metrics.Metric):
 
 Now we compile the model. Since there are two classes, "pneumonia" and "healthy", we will use binary cross entropy as the loss function and Adam optimization as the gradient descent algorithm for this model. Given enough time and resources, we may also experiment with other types of gradient descent algorithms such as RMSprop and momentum. However, for the purposes of this project, we will stick with adam optimization.
 
-```
+```python
 #compile model
 optimizer = tf.keras.optimizers.Adam(learning_rate=5e-4)
 model.compile(optimizer=optimizer,
@@ -441,7 +441,7 @@ From the model summary, we observe that there are now 2049 trainable parameters.
 
 ### Train the model
 
-```
+```python
 history = model.fit(training_tf,
           validation_data=validation_tf,
           epochs = 15)
@@ -449,7 +449,7 @@ history = model.fit(training_tf,
 
 Training a convolutional neural network can be computational expensive. Hence, I've saved the model during and after training so that the work can be divided into multiple sessions without retraining the model from the beginning every time. Another utility of saving the model is that it helps with hyperparameter tuning. By saving the weights and histories of our models, we are able to experiment with various hyperparameters and identify the ones that produce the best result. For this project, I've experimented with a few different learning rates and number of training epochs. However, for conciseness, I will only report the chosen model.
 
-```
+```python
 '''
 #save and load model
 model.save_weights(os.path.join(save_DIR, 'initial_weights'))
@@ -468,7 +468,7 @@ model.evaluate(validation_tf)
 19/19 [==============================] - 20s 922ms/step - loss: 0.1777 - auc: 0.9478 - f1_score: 0.9474 - accuracy: 0.9249
 ```
 This is a plot of the initial model's learning curves
-```
+```python
 #plot initial learning curves
 plt.figure(figsize = (10, 16))
 plt.style.use('ggplot')
@@ -515,7 +515,7 @@ In general, the first few layers detect generic feature that are present in almo
 
 The number of top layers to train during fine-tuning is a hyperparameter that can be tuned. When the amount of layers trained is too few, the performance of the model is not optimized as it has not fully adapted to detect specialized features in the dataset. However, when too many layers are trained, the model might overfit to the training dataset and lose generalizability. The choice of the number of layers to train is typically determined through experimentation on the validation dataset. 
 
-```
+```python
 #fine tuning
 base_model.trainable = True
 print(f'number of layers in the base model: {len(base_model.layers)}')
@@ -535,7 +535,7 @@ To train additional layers, we unfreeze the base_model, then re-freeze the layer
 
 During fine-tuning, it is important to lower the learning rate to avoid overfitting. If the learning rate is too high, the gradient updates during fine-tuning can be too large, causing the weights to be updated too quickly and potentially diverge from the optimal weights learned during pre-training. This can cause the model's performance to deteriorate. For the same reason, we should divide our training into two phases: an initial training phase and fine-tuning. If the model has not converged during initial training, massive gradient updates from the huge losses may cause the pre-trained layers to change too much, potentially resulting in the loss of the previously learned general features. 
 
-```
+```python
 #compile the model
 optimizer = tf.keras.optimizers.Adam(learning_rate=1e-5) #lower lr
 model.compile(optimizer=optimizer,
@@ -575,7 +575,7 @@ Non-trainable params: 11,261,344
 _________________________________________________________________
 ```
 
-```
+```python
 len(model.trainable_variables)
 ```
 
@@ -585,7 +585,7 @@ output:
 ```
 ### Continue training the model
 
-```
+```python
 history_fine = model.fit(training_tf,
                          validation_data=validation_tf,
                          initial_epoch = 15,
@@ -598,7 +598,7 @@ model.load_weights('weights_fine')
 ```
 After training, we save our progress again and update the history of metrics.
 
-```
+```python
 #update metrics
 history_fine = history_fine.history 
 
@@ -623,7 +623,7 @@ with open('history_fine.pkl', 'rb') as f:
 ```
 
 Let's see how the fine-tuned model performs.
-```
+```python
 model.evaluate(validation_tf)
 ```
 
@@ -634,7 +634,7 @@ output:
 
 This is the outcome of the fine-tuned model. From this output, we can already see an improvement in performance. Lets take a closer look by plotting the learning curves. 
 
-```
+```python
 #plot learning curves after fine tuning
 plt.figure(figsize = (12, 12))
 plt.style.use('ggplot')
@@ -682,7 +682,7 @@ After this, I've attempted to fine-tune the model further by unfreezing more lay
 ## Evaluation and Prediction
 Finally, we evaluate the performance of the model on unseen data.
 
-```
+```python
 #evaluation
 loss, auc, f1_score, accuracy = model.evaluate(test_tf)
 
@@ -702,7 +702,7 @@ accuracy = 0.9692832827568054
 ```
 
 ### Confusion matrix
-```
+```python
 #confusion matrix
 predictions = model.predict(test_tf)
 predictions = tf.nn.sigmoid(predictions)
@@ -735,7 +735,7 @@ In their research, Szepesi and Szilágyi (2022) have provided evidence to suppor
 
 ### Plot of CXR images and their predicted labels
 
-```
+```python
 categories = ['healthy', 'pneumonia']
 plt.figure(figsize=(10, 10))
 for i in range(9):
