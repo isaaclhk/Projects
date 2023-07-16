@@ -45,7 +45,7 @@ If one or more of these assumptions are violated, then the results of our linear
 First, the relevant libraries and dataset were loaded. The column names were changed to all lowercase letters for simplicity, 
 then we have a brief overview of the dataset.
 
-```
+```r
 #loading the relevant libraries
 library(tidyverse)
 library(Hmisc)
@@ -75,7 +75,7 @@ However, since this dataset is fictitious, the missing value will be left empty.
 The categorical and binary variables will be changed to factors, and the first two columns of the dataset were removed as they were not required.
 </br>
 
-```
+```r
 #changing categorical variables to factors
 data <- data %>% mutate(
   copdseverity = as.factor(copdseverity),
@@ -96,7 +96,7 @@ select(-c(...1, id))
 Each continuous variable was examined individually. This gives us a sense of the variable's distribution and help us to identify outliers.
 </br>
 
-```
+```r
 #examining continuous variables individually
 summary(data$age)
 hist(data$age, main = "Age")
@@ -152,7 +152,7 @@ sometimes the error can be rectified by replacing erroneous data with the accura
 However for this project, the incorrect data was removed.
 </br>
 
-```
+```r
 #removing false values
 data$had[data$had > 21] <- NA
 data$cat[data$cat > 40] <- NA
@@ -169,7 +169,7 @@ hist(data$had, main = "had")
 As with the continuous variables, the categorical and binary variables were also examined.
 </br>
 
-```
+```r
 describe(data$copdseverity)
 describe(data$copd)
 describe(data$agequartiles)
@@ -191,7 +191,7 @@ After looking at the data, we note that:
 Hence, copdseverity was removed. mwt1 and mwt2 were also removed as they are measures that directly determine the outcome mwt1best, so they should not be considered as candidate predictors.
 </br>
 
-```
+```r
 data <- data %>% select(-c(copd, mwt1, mwt2))
 ```
 
@@ -200,7 +200,7 @@ Due to limitations of sample size, comorbid conditions could not be analysed as 
 They were combined to a single binomial variable "comorbid" to reduce the number of predictors and avoid overfitting.
 </br>
 
-```
+```r
 data <- data %>% mutate(comorbid = ifelse(
   diabetes == 0 & 
   muscular == 0 &
@@ -221,7 +221,7 @@ The relationships between each candidate predictor variable and the outcome vari
 By visualizing the data as such, we can determine whether linear relationships exist between the independent and outcome variables, which informs us whether or not it makes sense to include any particular variable in the multiple linear regression model. 
 </br>
 
-```
+```r
 #fitting simple linear regression models between the outcome variable(MTW1Best) and each candidate predictor variable
 plot(data$age, data$mwt1best)
 lr1 <- lm(mwt1best ~ age, data, main = "Age")
@@ -337,7 +337,7 @@ CAT and SGRQ are also expected to be correlated as they are both measures of COP
 This was confirmed by examining the correlation matrix.
 </br>
 
-```
+```r
 #correlation matrix
 continuous <- data[, c("age", "packhistory","fev1", "fev1pred", "fvc", "fvcpred", "cat", "had", "sgrq")]
 cor_matrix <- cor(continuous, method = "spearman", use = "complete.obs")
@@ -369,7 +369,7 @@ The predictor variables included in the final regression model were:
 5. sgrq
 6. comorbid
 
-```
+```r
 # fitting the multiple linear regression model
 mlr1<- lm(mwt1best ~ age + packhistory + fev1 + had + sgrq + comorbid, data)
 summary(mlr1)
