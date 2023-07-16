@@ -47,7 +47,7 @@ This analysis was performed on a dataset obtained from the final course of the S
 ## Code
 First, the relevant libraries and dataset were loaded. The column names were changed to all lowercase letters for simplicity, then we have a brief overview of the dataset. 
 
-```
+```r
 #loading libraries and dataset
 HF <- read.csv("~/Projects/datasets/HF_mort_data.csv") %>% rename_all(tolower)
 
@@ -63,7 +63,7 @@ str(HF) #all integers
 There are 1000 observations, and all variables are integers. </br> </br>
 Categorical variables are changed to factors. senile and dementia variables were combined to form the variable "cognitive_imp", then id was removed as it is not useful for the analysis.
 
-```
+```r
 HF <- HF %>% mutate(
   gender = factor(gender),
   cancer = factor(cancer),
@@ -96,7 +96,7 @@ str(HF)
 
 Each variable was examined individually to observe the data's distribution and identify outliers.
 
-```
+```r
 #examining variables individually
 death_table <- table(HF$death, exclude = NULL)
 addmargins(death_table, FUN = sum)
@@ -153,7 +153,7 @@ If this were to be included in a cox regression model, the model would fail to c
 43 participants were found to have missing ethnicgroup values. As this proportion of participants is sizable, a new level of ethnicgroup, "unknown", was added to the variable.</br></br>
 More information on the various techniques for handling missing data can be found [in this paper](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3668100/).
 
-```
+```r
 #combining cardiac device factors, removing level 0 in quintile
 HF <- HF %>% mutate(
   cardiac_device = factor(ifelse(crt == 1 | defib == 1 | pacemaker == 1, 1, 0)),
@@ -173,7 +173,7 @@ describe(HF$quintile)
 The linearity assumption was verified for all continuous variables. Although prior_appts_attended and prior_dnas are ordinal variables, they were also checked for linearity because they have many levels. If they turn out to be linear, then they can be treated as continuous for this analysis. Otherwise, we'd have to combine their levels and analyse them as categorical variables.
 
 
-```
+```r
 #Checking linearity assumption
 ggcoxfunctional(Surv(fu_time, death)~ los + age + prior_appts_attended + prior_dnas, data = HF)
 #linearity assumption not met for prior_appts_attended and prior_dnas. therefore categorize!
@@ -185,7 +185,7 @@ ggcoxfunctional(Surv(fu_time, death)~ los + age + prior_appts_attended + prior_d
 As observed from the plots of martingale residuals above, "los" and "age" are somewhat linear, but "prior_appts_attended" and "prior_dnas" have failed to meet the linearity assumption. Therefore, their levels were grouped and analysed as categorical variables. "prior_appts_attended" was factored into 3 levels: <=10, >10 <= 20,
 and >20. "prior_dnas" was dichotomised to either 0(no) or 1(yes). The decision for this factorization was based on the distribution of these variables as examined earlier.
 
-```
+```r
 HF <- HF %>% mutate(
   prior_appts_attended = factor(ifelse(prior_appts_attended <= 10, "<= 10",
                                        ifelse(prior_appts_attended <= 20, "> 10 <= 20", "> 20"))),
@@ -200,7 +200,7 @@ The advantage of using the log-rank test is that we don’t need to know anythin
 It compares the observed numbers and expected number of events using a chi-square test to determine if there is a difference in probability of event between the groups. </br></br>
 kaplan-meier plots help us to visualize the survival probabilities of the variable being analysed over time.
 
-```
+```r
 #kaplan-meier plots
 ##no predictors
 km_fit <- survfit(Surv(fu_time, death) ~ 1, data = HF)
@@ -223,7 +223,7 @@ survdiff(Surv(fu_time, death)~ prior_dnas, data = HF)
 ```
 Cox regression is more useful for analyzing multiple variables at once. First, all variables were included in the cox regression model. The variables that were statistically non-significant at the conventional p value of .05 were then removed by backward elimination, then the remaining variables were analysed in another model.
 
-```
+```r
 #fitting cox regression
 cox <- coxph(Surv(fu_time, death)~ 
     los + age + gender + cancer + cabg + diabetes + hypertension + ihd + 
@@ -240,7 +240,7 @@ summary(cox_reduced)
 ```
 After performing backward elimination,  ethnicgroup was no longer statistically significant. The variable will be removed in the next step of elimination according to the pre-determined p-value threshold. No unexpectedly large changes in coefficients were seen after the elimination. The largest difference seen was in metastatic cancer, but this was expected given the relatively high hazards ratio.
 
-```
+```r
 #remove ethnic group
 cox_reduced2 <- coxph(Surv(fu_time, death)~ 
                         los + age + gender + ihd + valvular_disease + metastatic_cancer + pneumonia + quintile,
@@ -249,7 +249,7 @@ summary(cox_reduced2)
 ```
 No unexpectedly large chnges in coefficents were seen after this step of elimination. Before interpreting the results proper, the assumption of proportional hazards was tested.
 
-```
+```r
 #testing proportionality assumption
 test <- cox.zph(cox_reduced2)
 print(test)
@@ -288,7 +288,7 @@ A possible explanation for this change in hazards in the "ihd" variable over tim
 One way of dealing with the problem of non-proportional hazards is to stratify the analysis by the nonconforming variable. This allows us to estimate effects in different strata and then average them together. 
 Other methods for addressing non-proportional hazards can be [read here](https://cran.r-project.org/web/packages/Greg/vignettes/timeSplitter.html).
 
-```
+```r
 #strata
 cox_reduced3 <- coxph(Surv(fu_time, death)~ 
                         los + age + gender + strata(ihd) + valvular_disease + metastatic_cancer + pneumonia + quintile + ethnicgroup,
@@ -298,7 +298,7 @@ summary(cox_reduced3)
 
 After stratifying ihd, valvular disease was no longer statistically significant. Therefore, it is eliminated according to the predetermined threshold of p<.05. The proportional hazards assumption was also rechecked.
 
-```
+```r
 cox_reduced4 <- coxph(Surv(fu_time, death)~ 
                         los + age + gender + strata(ihd) + metastatic_cancer + pneumonia + quintile,
                       data = HF)
@@ -325,7 +325,7 @@ In a normal distribution, 5% of observations are more than 1.96 standard deviati
 - Negative values correspond to individual that “lived too long” compared with expected survival times.
 - Very large or small values are outliers, which are poorly predicted by the model. 
 
-```
+```r
 #outliers
 ggcoxdiagnostics(cox_reduced4, type = "deviance",
                  linear.predictions = FALSE, ggtheme = theme_bw())
