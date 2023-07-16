@@ -62,7 +62,7 @@ df.info()
 
 id is dropped because it is not germane to the analysis, 'Unnamed: 32' is also dropped because it consists of only null values.
 
-```
+```python
 #drop Unnamed 32 because all nulls
 df.drop(['Unnamed: 32', 'id'], axis = 1, inplace = True)
 
@@ -73,7 +73,7 @@ df.shape
 
 The dependent variable is examined to understand the distribution between malignant and benign tumors in the dataset.
 
-```
+```python
 #examine diagnosis variable
 df['diagnosis'].unique()
 df['diagnosis'].value_counts()
@@ -92,7 +92,7 @@ There are 357 benign tumors and 212 malignant tumors in the dataset. </br>
 Next, the remaining features are described and visualized using scatterplot matrices to identify patterns. </br>
 3 sets of scatterplot matrices are made to compare means, standard errors and worsts respectively.
 
-```
+```python
 #describe the data
 pd.options.display.max_columns= df.shape[1]
 df.describe()
@@ -130,7 +130,7 @@ Worst**
 From the above plots, we note that the relationships between radius, perimeter and area attributes appear to be strongly linear. Concavity, concave_points and compactness may also possibly be multicollinear. </br>
 To ensure that there is no multicollinearity, correlations between the features are visualized using a correlation matrix.
 
-```
+```python
 #checking for multicollinearity
 corr = df.corr().round(2)
 #creating triangular heatmap
@@ -142,7 +142,7 @@ sns.heatmap(corr, annot = True, mask = mask, xticklabels = True, yticklabels = T
 
 Based on the correlation coefficients, the worsts and means are highly correlated. This is expected as the worsts are a subset of means. To avoid multicollinearity, attributes of the worsts columns will be dropped. In addition, radius, perimeter and area attributes are confirmed to be multicollinear. This is expected as these attributes are related measures of cell size. As the cell's area and perimeter can both be determined by its radius, the perimeter and radius attributes will be discarded from the analysis. Lastly, compactness, concavity and concave points are also highly correlated. This is also expected given that they are all indicators of cell shape. As compactness is a measure of overall shape that would account for both concavity and number of concave points, compactness will be retained while concavity  and concave points are dropped from the analysis.
 
-```
+```python
 #drop worst
 df.drop(df.loc[:,'radius_worst': 'fractal_dimension_worst'], axis = 1, inplace = True)
 df.columns
@@ -158,7 +158,7 @@ df.columns
 
 After the multicollinear features are removed, the correlation matrix is plotted once again.
 
-```
+```python
 #replot correlation matrix
 corr = df.corr().round(2)
 mask = np.triu(np.ones_like(corr, dtype = np.bool))
@@ -175,7 +175,7 @@ We begin by splitting the dataset into two parts: </br>
 </br>
 The model will be fitted on the training set and executed on the testing set. This practice helps us to evaluate whether the model is truly able to predict unseen data, and tells us if the model could be over or underfit. For this analysis, 70% of the data will be used for training before the model is tested on the remaining 30%. Random state is set to 42 to obtain reproducible results.
 
-```
+```python
 #Assign x and y, split data
 x = df.drop('diagnosis', axis = 1)
 y = df['diagnosis']
@@ -196,7 +196,7 @@ Before we begin to train the model, it is often good practice to scale the featu
 
 ![zscore](https://user-images.githubusercontent.com/71438259/209116595-a0a06d05-f859-4046-a8b6-89f19fc5a414.jpg)
 
-```
+```python
 #z-score normalization
 def norm(x_train, X):    
     # find the mean value of each column/feature
@@ -216,7 +216,7 @@ x_test_norm = norm(x_train, x_test)
 ![sigmoid](https://user-images.githubusercontent.com/71438259/209121022-399d130b-48a0-4009-be85-9ab73b72bd23.jpg)
 </br>
 
-```
+```python
 #sigmoid function
 def sigmoid(z):
     g = 1/(1 + np.exp(-z))
@@ -225,7 +225,7 @@ def sigmoid(z):
 
 ![costfunction](https://user-images.githubusercontent.com/71438259/209120704-13f7578a-0900-40ea-868a-b7c33d875b3a.jpg)
 </br>
-```
+```python
 #cost funciton
 def compute_cost(X, y, w, b):
     
@@ -246,7 +246,7 @@ def compute_cost(X, y, w, b):
 </br>
 ![gradient2](https://user-images.githubusercontent.com/71438259/209122843-7962eb70-81b1-4019-9987-33c16e696439.jpg)
 </br>
-```
+```python
 #compute gradient
 def compute_gradient(X, y, w, b):
     
@@ -305,7 +305,7 @@ Based on the weights and bias of the fitted model, we can compute the probabilit
 ![predict](https://user-images.githubusercontent.com/71438259/209127535-6abe1ed2-4e95-4018-81d9-76b95ed07b38.jpg)
 </br>
 
-```
+```python
 #predict
 def predict(X, w, b):
     
@@ -322,7 +322,7 @@ def predict(X, w, b):
 ## Prediction results
 Finally, we fit the model.
 
-```
+```python
 #fitting the model
 initial_w = np.zeros(x_train_norm.shape[1])
 initial_b = 0
@@ -371,7 +371,7 @@ print(b)
 
 The stepwise cost reduction process of gradient descent can be visualized in this plot
 
-```
+```python
 #plot cost against interations
 sns.lineplot(x= i_history, y= J_history)
 plt.title('Gradient Descent')
@@ -384,7 +384,7 @@ plt.ylabel('Total cost')
 
 Finally, we run the predict function and produce a confusion matrix to evaluate our model's accuracy.
 
-```
+```python
 #evaluating accuracy
 print(f'Accuracy: {round(np.mean(p == y_test) * 100, 2)}')
 from sklearn.metrics import confusion_matrix, accuracy_score
@@ -414,7 +414,7 @@ array([[104,   4],
 </br>
 Next, we run logistic regression using the sklearn and see how it compares.
 
-```
+```python
 #performing logistic regression using sklearn library
 from sklearn.linear_model import LogisticRegression
 logreg = LogisticRegression(random_state = 42)
@@ -454,7 +454,7 @@ The model we built demonstrates a prediction accuracy of 95.32%, while the one g
 ### Note for deployment of model in clinical settings
 For purposes of clinical deployment, it might sometimes be prudent to lower the threshold for prediction from the default value of 0.5 to a lower value to reduce the chance of having false negative results. The remaining potentially positive results can then be reviewed manually to avoid missed diagnoses. The prediction threshold can be modified with the following code:
 
-```
+```python
 #changing default threshold for clinical deployment
 y_pred2 = np.where(logreg.predict_proba(x_test_norm)[:, 1] > 0.05, 1, 0)
 y_pred2
