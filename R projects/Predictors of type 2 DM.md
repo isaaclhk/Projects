@@ -300,7 +300,7 @@ anova(model, test = "Chisq")
 ```
 The results of the initial model are shown below:
 
-```r
+```
 Call:
 glm(formula = dm ~ age + gender + height + location + smoking + 
     fh + bp.1s + bmi + chol + insurance, family = binomial(link = "logit"), 
