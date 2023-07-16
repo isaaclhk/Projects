@@ -23,7 +23,7 @@ diff = max - min</br>
 relative diff = diff/median</br>
 
 ## Data cleaning and Exploratory Analysis
-```
+```python
 import pandas as pd
 import numpy as np
 
@@ -36,7 +36,7 @@ data.info(verbose = True, show_counts = True)
 
 Based on the output from 'info', we see that majority of the features are floats, and there is a significant proportion of null values. To better understand the distribution of data in this dataset, we start by examining the non-float features individually.
 
-```
+```python
 data['AGE_ABOVE65'].value_counts(dropna = False)
 data['AGE_PERCENTIL'].value_counts(dropna = False)
 data['GENDER'].value_counts(dropna = False)
@@ -50,7 +50,7 @@ data['OTHER'].value_counts(dropna = False)
 By looking at the above features, we note that 'HTN', 'IMMUNOCOMPROMISED', and 'OTHER' consists of 5 NaN values. 
 we investigate further by finding where these NaN values originate.
 
-```
+```python
 #investigate NaN values
 data.loc[data['HTN'].isnull() == True]
 data.loc[data['HTN'].isnull() == True]
@@ -59,7 +59,7 @@ data.loc[data['OTHER'].isnull() == True]
 After investigation, we find that these 5 NaN values all come from the same patient: PATIENT_VISIT_IDENTIFIER 199. </br>
 The data from this particular patient looks suspiciously empty as it provided us with no data apart from age and gender. As there is only one patient with almost no data, this patient will be dropped from the dataset.
 
-```
+```python
 #drop patient 199 as it contains no data
 data.drop(index = data.index[995:1000], inplace = True)
 data.loc[data['PATIENT_VISIT_IDENTIFIER'] == 199]
@@ -67,7 +67,7 @@ data.loc[data['PATIENT_VISIT_IDENTIFIER'] == 199]
 
 Next, we examine the remaining features' distributions.
 
-```
+```python
 pd.set_option('display.max_rows', None)
 pd.set_option('display.max_columns', None)
 pd.set_option('display.width', None)
@@ -103,7 +103,7 @@ From the charts above, we observe that 195 out of 384 patients who were included
 
 Based on the output of data.describe, we can see that majority of the features have been scaled by min max normalization. The only features that havent been scaled are 'AGE_PERCENTIL' and 'WINDOW'. Although tree based models like xgboost are invariant to monotonic transformation of features, the 'AGE_PERCENTIL' feature will be min max scaled to match the other features in the dataset. However, we will not scale the window feature as it will not be included as a potential predictor of ICU admission. The reason for its exclusion is that admission of patients to ICU is contingent upon the patients' medical condition, of which window is not an element.
 
-```
+```python
 #preprocessing and scaling
 data['AGE_PERCENTIL'] = pd.factorize(data['AGE_PERCENTIL'])[0]
 
@@ -115,7 +115,7 @@ data['AGE_PERCENTIL'].unique()
 
 As the project aims to predict whether or not a patient will eventually require ICU admission based on his or her clinical parameters prior to admission, we will remove examples where the ICU status is positive. This will ensure that the machine learning model is trained on pre-ICU admission data. After which, the 'ICU' column will be updated to indicate whether or not the patient in each example is eventually admitted to ICU.
 
-```
+```python
 #update ICU column. If patient is eventually admitted into ICU, ICU = 1
 dataf.rename(columns = {'ICU': 'ICU_old'}, inplace = True)
 dataf.columns
@@ -127,7 +127,7 @@ df.info(verbose = True, show_counts = True)
 
 we note from the info ouput that there is a significant portion of null values in the labs and vital signs monitoring features. This is likely because labs and vital signs of these patients were not monitored at strict 2 hourly intervals. The missing data will first be imputed by forward filling. Forward filling is the appropriate method of imputation as it mimics the actual clinical scenario where the latest results are interpreted. The remaining null values will then be imputed by backward filling. Furthermore, examples will be grouped by 'PATIENT_VISIT_IDENTIFIER' to prevent the clinical parameters of one patient from spilling over to adjacent patients during imputation.
 
-```
+```python
 #impute missing data using forward and backward fill by patient
 df = df.groupby('PATIENT_VISIT_IDENTIFIER').apply(lambda x: x.ffill().bfill())
 df.info(verbose = True, show_counts = True)
@@ -135,7 +135,7 @@ df.info(verbose = True, show_counts = True)
 
 After imputing missing data with forward and backward fill, we note that there are still some null values present in the dataset. Fortunately, xgboost is able to handle missing data using a sparsity-aware split finding algorithm. This algorithm finds the optimal direction to split missing values by trying both directions in a split and choosing the one which proposes a maximum gain. </br></br>
 Next, features that are impertinent to the model are dropped, and the outcome variable is separated.
-```
+```python
 #drop irrelevant columns
 df.drop(columns = ['ICU_old', 'WINDOW', 'PATIENT_VISIT_IDENTIFIER'], inplace = True)
 list(df.columns)
@@ -149,7 +149,7 @@ Y = df['ICU']
 </br></br>
 We begin by importing the relevant libraries.
 
-```
+```python
 from xgboost import XGBClassifier
 from sklearn.model_selection import RandomizedSearchCV
 from sklearn.model_selection import StratifiedKFold
@@ -158,7 +158,7 @@ import shap
 ```
 
 Next, we establish the CV scheme for the outer and inner loops and specify the hyperparameters to be tuned. For this analysis we will have 5 folds in the outer loop and 3 folds in the inner loop.
-```
+```python
 #Establish CV scheme
 CV = StratifiedKFold(n_splits=5, shuffle=True, random_state=42)
 
@@ -177,7 +177,7 @@ params['eta'] = np.round(np.arange(0.1, 0.3, 0.05), 2)
 ```
 Now we begin to train the model. As the outer loop is split into 5 folds for cross validation, the test sets from every fold are concatenated to form a complete dataset of every example that is included in the analysis. The shap values obtained from each fold are likewise concatenated. This will allow us to calculate the total prediction accuracy and visualize shap values of the cross validated model from every fold combined.
 
-```
+```python
 #lists to append during loops
 ix_training, ix_test = [], []
 list_shap_values = []
@@ -292,7 +292,7 @@ By comparing the training and testing accuracy, we can assess how much a model i
 ### Model Evaluation
 
 Finally, we evaluate the model's test accuracy and plot a confusion matrix to visualize the model's sensitivity, specificity, precision and recall.
-```
+```python
 #total prediction accuracy after cross validation
 total_accuracy = accuracy_score(y_test_set, total_prediction)
 print('The model\'s total test accuracy is %.2f' %(total_accuracy*100))
@@ -323,7 +323,7 @@ While the metrics appear impressive, these metrics have told us nothing about ho
 [SHAP](https://www.researchgate.net/profile/Scott-Lundberg/publication/317062430_A_Unified_Approach_to_Interpreting_Model_Predictions/links/5a18eb21a6fdcc50ade7ed19/A-Unified-Approach-to-Interpreting-Model-Predictions.pdf) is an algorithm based on game theory that helps us to interpret and explain complex machine learning models. Shapley values are calculated by quantifying for each example, the contribution of each feature to the model's prediction. </br></br>
 With SHAP, we are able to create plots that help us to interpret feature importances and understand the outputs of predictive models intuitively.
 
-```
+```python
 #bringing back variable names    
 x_test_set = pd.DataFrame(x_test_set, columns = X.columns)
 
