@@ -48,7 +48,7 @@ Class distribution: 357 benign, 212 malignant
 
 We begin by importing relevant libraries and loading the dataset before describing and visualizing the data.
 
-```
+```python
 import pandas as pd
 import numpy as np
 import seaborn as sns
