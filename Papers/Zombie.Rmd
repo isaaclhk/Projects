@@ -1,0 +1,670 @@
+---
+title: 'Battling the Undead: Social Isolation, Vaccination, Civilian Armament, and Revivification in SEIR-V Zombie Pandemic Simulations'
+authors:
+  - name: Isaac Lam Hong Kei
+    thanks: ilam7@gatech.edu
+    department: H. Milton Stewart School of ISyE
+    affiliation: Georgia Institute of Technology
+    location: Atlanta, GA 30332
+    email: Project Group 43
+abstract:
+  The SEIR framework is a fundamental tool in epidemiology for understanding the dynamics of infectious disease spread. This study demonstrates the implementation of the SEIR-V model, highlighting its adaptability in incorporating nuanced elements. By applying the SEIR framework to a series of hypothetical zombie pandemic simulations of varying parameters, the impact of various public health interventions was examined. The effectiveness of these interventions was evaluated by examining the population compartment dynamics and reproduction numbers associated with each scenario. Among the simulations conducted, life sustaining equilibrium was achieved only after the introduction of civilian armament or antiviral revivification in combination with social isolation and vaccination strategies. These simulations emphasize the critical role of the SEIR framework in adaptive modeling and demonstrate its utility in monitoring public health responses to emerging infectious threats.
+keywords:
+  - epidemic model
+  - SEIR
+  - vaccination
+  - reproduction number
+bibliography: references.bib
+biblio-style: unsrt
+output: rticles::arxiv_article
+---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+	echo = FALSE,
+	message = FALSE,
+	warning = FALSE,
+	collapse = TRUE,
+	results = "hide"
+)
+```
+# Introduction
+
+## Background
+
+The concept of a global pandemic resulting in the transformation of humans into zombie-like creatures was first introduced by Richard Matheson in his 1954 novel, “I Am Legend.” This seminal work has significantly influenced subsequent portrayals of zombie pandemics across various media, including films, books, and television series.
+
+$\quad$ In these narratives, the outbreak typically originates from a virus or pathogen that infects humans through bites or direct contact with bodily fluids. The infection spreads rapidly as zombies bite or attack healthy individuals, perpetuating the transmission cycle. Clinically, infected individuals exhibit symptoms such as fever, heightened aggression, and cognitive decline, ultimately leading to a state of mindless, flesh-eating behavior.Efforts to contain these fictional outbreaks often involve the establishment of quarantine zones, military interventions, and the pursuit of a cure or vaccine. These strategies mirror real-world public health responses to infectious disease outbreaks.
+
+$\quad$ While zombies remain a fictional construct, the narratives often draw on real scientific principles. The depiction of a virus or pathogen causing zombification serves as an allegory for actual infectious disease transmission, providing a unique framework for discussing emergency preparedness and public health strategies.
+
+$\quad$ The Susceptible-Exposed-Infectious-Recovered (SEIR) model is a fundamental tool in epidemiology for understanding the dynamics of infectious disease spread \cite{kuhl2021classical}. The SEIR-Vaccine (SEIR-V) model is an important extension of the traditional SEIR model, specifically designed to incorporate the effects of vaccination on disease dynamics. Applying the SEIR-V model to a zombie pandemic provides a unique and engaging way to explore the dynamics of disease transmission and the effectiveness of containment measures. 
+
+## Problem Description
+This study investigates a hypothetical scenario set in Z-town, a community with a population of 100,000 individuals. Upon identifying a single case of viral exposure, the local government promptly declared a crisis and implemented an immediate town-wide lockdown, restricting all ingress and egress. The objective of this study is to demonstrate the application of the SEIR-V model in simulating a hypothetical zombie pandemic. This serves as an educational tool for understanding the theoretical framework and practical implementation of the SEIR-V model, highlighting it's adaptability in epidemiological modeling. By manipulating model parameters, we can observe the potential impact of various interventions on disease spread. These insights underscore the importance of preparedness, timely intervention, and the role of public health strategies in managing infectious diseases. 
+
+# Theory
+
+## The Susceptible-Exposed-Infectious-Recovered (SEIR) Model
+
+The SEIR model is a compartmental model used in epidemiology to simulate the spread of infectious diseases. It divides the population into four compartments: Susceptible (S), Exposed (E), Infectious (I), and Recovered (R). Each compartment represents a different stage of the disease progression, and individuals transition between these stages based on certain rates \cite{bjornstad2020seirs}.
+
+$\quad$ In the model, the Susceptible (S) compartment includes individuals who are not yet infected with the disease but are at risk of becoming infected. The Exposed (E) compartment consists of individuals who have been exposed to the disease and are in the incubation period, but may not yet be infectious. The Infectious (I) compartment includes individuals who have become infectious and can transmit the disease to susceptible individuals. Finally, the Recovered (R) compartment consists of individuals who have recovered from the disease and are assumed to have immunity, thus no longer susceptible to infection.
+
+$\quad$ The transition rates in the SEIR model include the transmission rate $\beta$, which represents the rate at which susceptible individuals become exposed due to contact with infectious individuals; the incubation rate $\sigma$, which denotes the rate at which exposed individuals become infectious; and the recovery rate $\gamma$, which indicates the rate at which infectious individuals recover and transition to the recovered compartment. Additionally, the model can incorporate parameters such as the natural birth and death rate $\mu$, the disease-induced mortality rate $\alpha$, and the rate of waning immunity $\omega$. Here, $N$ denotes the total population size.   
+
+## The Susceptible-Exposed-Infectious-Recovered-Vaccinated (SEIR-V) Model
+The SEIR model serves as a robust framework for modeling the dynamics of infectious diseases; however, effective public health responses to pandemics frequently incorporate vaccination programs. Given the well-documented efficacy of vaccines, the integration of a vaccination compartment into the SEIR-V model enhances its utility. This extension introduces a distinct compartment for vaccinated individuals, facilitating a more nuanced understanding of disease dynamics. Furthermore, the SEIR-V model incorporates additional parameters: $\delta$, representing the rate of vaccination uptake; $\varepsilon$, indicating the relative risk reduction of infection conferred by vaccination; and $\zeta$, denoting the time required to achieve protective immunity post-vaccination (Figure 1). While the dynamics of the SEIR-V model cannot be solved analytically, we can explore the final solution for the converged final sizes, $S_\infty$, $E_\infty$, $I_\infty$, and $R_\infty$, as $t \to \infty$ \cite{kuhl2021classical}.
+
+$\quad$ The dynamics of the SEIR-V model are governed by a set of differential equations \cite{rajapaksha2021extended}:
+
+$$
+\begin{aligned}
+&\frac{dS}{dt} = \mu N - \frac{\beta SI}{N} + \omega R - \mu S - \delta\epsilon S\\
+\\
+&\frac{dE}{dt} = \frac{\beta SI}{N} - \sigma E - \mu E + \frac{\beta V I}{N}\\
+\\
+&\frac{dI}{dt} = \sigma E - \gamma I - (\mu + \alpha)I \\
+\\
+&\frac{dR}{dt} = \gamma I - \omega  R - \mu R + \zeta V \\
+\\
+&\frac{dV}{dt} = \delta\varepsilon S - \frac{\beta V I}{N} - \mu V -\zeta V
+\end{aligned}
+$$
+
+## Other Extensions to the SEIR Model
+
+Despite the valuable insights provided by the SEIR model, it has inherent limitations. The model assumes homogeneous mixing of the population, constant rates, and does not account for factors like varying susceptibility, reinfection, or demographic changes. To address these limitations, the SEIR model can be extended to stratify sections of the population into subgroups based on specific characteristics \cite{bjornstad2020seirs}. For instance, the susceptible group $S$ can be divided into multiple subgroups $S_1, S_2 ..$ etc. This stratification can be particularly useful as different characteristics within the population influence susceptibility to disease. For example, subdividing the population into different age brackets can potentially help models better capture the reality of disease spread, since age-related changes to the immune system can cause elderly to become more prone to infections \cite{quiros2024impact}. Similarly, the infectious group $I$ can be subdivided to account for multiple routes of transmission, such as community transmission ($I_C$), hospital transmission ($I_H$), or transmission within migrant worker dormitories ($I_D$).
+
+```{r fig_1, fig.cap='Population Flow between Compartments in a SEIR-V model', fig.align='center', out.width = '60%', out.height = '39.5%', echo = FALSE, results = 'markup', fig.pos = 'H'}
+knitr::include_graphics("C:\\OMSA\\SIM-ISYE6644\\Project\\SEIRV.png")
+```
+
+## The Reproduction Numbers $R_0$ and $R_t$
+In epidemiological modeling, understanding the dynamics of disease transmission is crucial for predicting and controlling outbreaks. A fundamental parameter within these models is the basic reproduction number $R_0$, which is defined as the average number of secondary infections produced by a single infected individual in a wholly susceptible population \cite{delamater2019complexity}. Estimation of $R_0$ values is dependent on model structures and assumptions. In the context of SEIR models, $R_0$ can be computed as $R_0 = \frac{\sigma}{\sigma + \mu} \cdot \frac{\beta}{\gamma + \mu + \alpha}$ \cite{bjornstad2020seirs}. 
+
+$\quad$ Another critical parameter is the effective reproductive number, $R_t = R_0 \cdot s$, where $s$ denotes the susceptible population proportion. Unlike $R_0$, $R_t$ accounts for the proportion of the population that is immune to the disease, and varies over time as it is influenced by changes in population immunity, which may occur through interventions like vaccination \cite{delamater2019complexity}. Monitoring $R_t$ provides real-time insights into the current state of an epidemic and the impact of public health interventions. When $R_t$ is maintained below 1, the disease spread is expected to decline, indicating effective control measures. Conversely, an $R_t$ above 1 suggests that the infection is spreading, necessitating enhanced intervention efforts \cite{gopalaseir}. Incorporating the reproduction numbers $R_0$ and $R_t$ into analyses gives insight into intervention effectiveness and control strategies on disease progression.
+
+# Application and Results
+
+In the context of a system of differential equations such as the SEIR-V model, an initial value problem is one that deterministically forecasts a future state based on some initial conditions \cite{gopalaseir}. 
+
+$\quad$ To mitigate the challenges associated with handling large population numbers, the state variables $S$, $E$, $I$, $R$ and $V$ are normalized by the total population size $N$. This normalization transforms these absolute counts into proportions, represented as $s$, $e$, $i$, $r$, and $v$. By operating with these proportions, the model can effectively analyze dynamics without the complications of absolute population figures. For the purposes of our experiments, the initial conditions are established as follows:
+
+$$
+s = 0.99999, \; e = 0.00001, \; i = 0, \; r = 0, \; v = 0
+$$
+These conditions correspond to a scenario where a single individual is initially exposed to the virus. Furthermore, a natural birth and death rate $\mu$ 0.0002 is assumed for the population of Z-town. The incubation period of the virus set to fourteen days, corresponding to a $\sigma$ value of $\frac{1}{14}$. Additionally, these experiments will later explore a scenario of increased virulence, characterized by a reduced incubation period.
+
+$\quad$ Scipy's integrate module provides the `solve_ivp` module for addressing initial value problems \cite{virtanen2020scipy}. This function is designed to handle initial value problems of the form
+
+$$
+\begin{aligned}
+&\frac{dY}{dt} = f(t, Y), \hspace{50pt} t_0 \leq t \leq t1 \\
+\\
+&Y(t_0) = Y_0, \hspace{63pt} t = t_0
+\end{aligned}
+$$
+
+Here, $t$ denotes a one-dimensional independent variable (time), $Y(t)$ is an N-dimensional vector-valued function (state), and $f(t, Y)$ is an N-dimensional vector-valued function that specifies the differential equations. The objective is to approximate $Y_t$ in a manner that satisfies the differential equations, given the initial condition $Y(t_0) = Y_0$.
+
+$\quad$ In the context of our experiments, $t$ denotes the length of time in days. The state $Y(t)$ and system of differential equations $f(t, Y)$ are given by
+
+$$
+\begin{aligned}
+Y = &\begin{bmatrix}
+s \\
+e \\
+i \\
+r \\
+v
+\end{bmatrix} \\
+\\
+&\text{and}
+\\ 
+\\
+f(t, Y) = &\begin{bmatrix}
+\mu - \beta si + \omega r - \mu s - \delta\varepsilon s \\
+\beta si - \sigma e - \mu e + \beta v i \\
+\sigma e - \gamma i - (\mu + \alpha)i \\
+\gamma i - \omega  r - \mu r + \zeta v \\
+\delta \varepsilon s - \beta v i - \mu v - \zeta v
+\end{bmatrix}
+\end{aligned} \\
+$$
+
+```{python def_functions}
+#load required software packages
+import os
+from scipy.integrate import solve_ivp
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+from matplotlib import font_manager as fm
+
+# Specify the path to your font file
+font_path = r'..\fonts\FreightTextProBook-Regular.ttf'
+font = fm.FontProperties(fname=os.path.abspath(font_path))
+
+# define baseline parameters
+alpha = 0
+beta = 5
+sigma = 1/14
+gamma = 0
+omega = 0
+mu = 0.0002
+delta = 0
+varepsilon = 0
+zeta = 0
+
+#define system of differential equations
+def diff_eqs(t, y, alpha, beta, sigma, gamma, omega, mu, delta, varepsilon, zeta):
+  s, e, i, r, v = y
+  return np.array([mu - (beta*i*s) + omega*r - mu*s - delta*varepsilon*s,
+                  beta*s*i - sigma*e - mu*e + beta*v*i,
+                  sigma*e - gamma*i - (mu + alpha)*i,
+                  gamma*i - omega*r - mu*r + zeta*v,
+                  delta*varepsilon*s - beta*v*i -mu*v - zeta*v])
+                  
+
+# define function to model viral spread
+def seir_model(alpha = alpha, 
+               beta = beta, 
+               sigma = sigma, 
+               gamma = gamma, 
+               omega =  omega, 
+               mu = mu, 
+               delta = delta, 
+               varepsilon = varepsilon, 
+               zeta = zeta, 
+               span = 120,
+               initial_state = [0.999999, 0.00001, 0, 0, 0]): # initial state =  [s, e, i, r]
+                 
+  # find solution
+  sol = solve_ivp(fun = diff_eqs, 
+                  t_span = [0, span], 
+                  y0 = initial_state, 
+                  rtol = 1e-7,
+                  args=(alpha, beta, sigma, gamma, omega, mu, delta, varepsilon, zeta))
+  
+  # exposed, infected, recovered, and death peaks
+  #exposed
+  peak_exposed = max(sol.y[1])
+  peak_exposed_index = np.argmax(sol.y[1])
+  peak_exposed_time = sol.t[peak_exposed_index]
+  
+  #infected
+  peak_infected = max(sol.y[2])
+  peak_infected_index = np.argmax(sol.y[2])
+  peak_infected_time = sol.t[peak_infected_index]
+  
+  #recovered
+  peak_recovered = max(sol.y[3])
+  peak_recovered_index = np.argmax(sol.y[3])
+  peak_recovered_time = sol.t[peak_recovered_index]
+  
+  # calculate basic reprodution number R_0                
+  R_0 = sigma/(sigma + mu) * beta/(mu + gamma + alpha)
+  
+  # susceptible population required for R to reach 1
+  equilibrium_t = 1/R_0 
+  # index where susceptible population first reaches <1, or last day of simulation if not reached
+  equilibrium_index = next((i for i, x in enumerate(sol.y[0]) if x < equilibrium_t), -1) 
+  # first day where R reaches <1 (or last day of simulation if not reached)
+  equilibrium_time = sol.t[equilibrium_index] 
+  # R value when it first reaches <1 or at the end of simulation
+  R_t = R_0*sol.y[0][equilibrium_index]
+  
+  # print key details
+  print(f'Peak exposed: {peak_exposed:.2%} at {round(peak_exposed_time)} days')
+  print(f'Peak infected: {peak_infected:.2%} at {round(peak_infected_time)} days')
+  print(f'Peak recovered: {peak_recovered:.2%} at {round(peak_recovered_time)} days')
+  print(f'R_0 = {round(R_0, 2)}')
+  print(f'R_t = {round(R_t,2)} when t = {int(equilibrium_time)} days') 
+  print('')
+  
+  # return curves
+  return sol
+
+
+def plot_single(sol, scenario):
+  # plot S, E, I, R curves
+  plt.clf() #close previous plot
+  sns.set(style = 'white')
+  fig, ax = plt.subplots(figsize = (10, 6))
+  curves = ax.plot(sol.t, sol.y[0:4].T, linewidth = 2)
+  
+  # Set the font properties for the legend
+  legend_font = font.copy()
+  legend_font.set_size(20)  # Set the desired font size for the legend
+  legend = ax.legend(curves, ['S', 'E', 'I', 'R'], title = 'Compartments', prop = legend_font);
+  legend.get_title().set_font_properties(legend_font)
+  
+  # title and labels
+  plt.title('Dynamics of S, E, I, R Compartments over Time (Scenario {})'.format(scenario), 
+            fontweight = 'bold', font = font, fontsize = 20)
+  plt.xlabel('Days', font = font, fontsize = 20)
+  plt.ylabel('Population Proportion', font = font, fontsize = 20)
+  plt.yticks(font = font, fontsize = 20)
+  plt.xticks(font = font, fontsize = 20)
+  plt.tight_layout()
+  plt.show()
+```
+
+## Scenario A: UGA Students
+
+Suppose that Z-Town is, unfortunately, somehow inhabited by 100,000 UGA students. Incidentally, they also happen to be Bieber fans. These students fail to adhere to social isolation protocols during a zombie apocalypse. The resulting transmission rate $\beta$ is an exceptionally high value of 5. Consequently, the zombie population rapidly increases as they freely prey upon the UGA students, leading to widespread chaos and uncontrolled spread of the infection throughout the city.
+
+```{python scenario_A}
+# simulate scenario A
+scenario_A = seir_model()
+```
+
+```{python fig_2, fig.cap = 'The temporal evolution of the S, E, I and R compartments in the zombie pandemic model over 120 days in scenario A.', out.height = '30%', out.width = '67.5%', fig.align='center', fig.pos = 'H'}
+# plot figure for scenario A
+plot_single(scenario_A, scenario = 'A')
+```
+$\quad$ The basic reproduction number $R_0$, for this virus is estimated to be an astonishing 24,930, indicating an unparalleled level of transmissibility. This suggests that each infected individual is, on average, capable of transmitting the virus to about 24,930 individuals in a fully susceptible population. At day 120, $R_t$ stands at 1.01, suggesting that disease-free equilibrium has not been reached within in this simulation. In this regrettable scenario, the simulation indicates that a single initial exposure leads to a swift escalation in the number of infections. The peak exposed population reaches 73.11% at 24 days, while the population of population infected at 120 days is observed at 99.63%. Given the absence of a remedy for the zombie virus, the recovery rate remains at zero. Within a period of 120, nearly the entire population of UGA students succumbs to the infection, resulting in a complete transformation into zombies (Figure 2). 
+
+## Scenario B: Social Isolation
+Consider a case where Z-Town is inhabited by conscientious citizens who strictly adhere to social isolation protocols. Despite the absence of countermeasures, the strict adherence to isolation measures significantly influences the transmission dynamics. Consequently, the $\alpha$, $\gamma$, and $\omega$ values remain at zero, while the beta value is substantially reduced from 5 to 1. 
+```{python scenario_B}
+# simulate scenario B
+scenario_B = seir_model(beta = 1, span = 180)
+```
+
+```{python fig_3, fig.cap = 'The temporal evolution of the S, E, I and R compartments in the zombie pandemic model over 180 days in scenario B.', out.height = '30%', out.width = '67.5%', fig.align='center', fig.pos = 'H'}
+#plot figure for scenario B
+plot_single(scenario_B, scenario = 'B')
+```
+$\quad$ For this scenario, the analyses indicate that the exposure and infection rates are reduced compared to Scenario A, which involved intractable citizens. The basic reproduction number is reduced by a factor of five ($R_0$ = 4986), demonstrating a marked decrease in transmission potential. $R_t$ reaches 1.0 only at the conclusion of the simulation, indicating that disease-free equilibrium has not been achieved within in this simulation. Although the entire population of Z-Town is ultimately transformed into zombies, this process extends over a prolonged period (Figure 3). In particular, the peak exposed population reaches 53.59% at 57 days, while the proportion of population infected at 180 days is 99.69%. 
+
+## Scenario C: Vaccination
+In this scenario, vaccines are available to the residents of Z-town. These vaccines require a seven day period to take effect, corresponding to a $\zeta$ value of $\frac{1}{7}$. Furthermore, the immunity conferred by this vaccine is expected to wane after a period of 120 days, represented by an $\omega$ value of $\frac{1}{120}$. This investigation focuses on the implications of varying vaccination efficacies and uptake rates. The efficacy parameter, $\varepsilon$, is evaluated at three distinct levels: 0.3, 0.6, and 0.9. Concurrently, the uptake rate, $\delta$, is analyzed at values of 0.02, 0.04, and 0.06, mirroring real world limitations imposed by vaccine supply and the degree of public compliance with vaccination protocols.
+
+```{python scenario_c}
+# simulate variations of scenario C
+
+## delta = 0.02, varepsilon = 0.5
+scenario_Cai = seir_model(beta = 1, omega = 1/120, span = 240, delta = 0.02, varepsilon = 0.3, zeta = 1/7)
+
+## delta = 0.02, varepsilon = 0.7
+scenario_Caj = seir_model(beta = 1, omega = 1/120, span = 240, delta = 0.02, varepsilon = 0.6, zeta = 1/7)
+
+## delta = 0.02, varepsilon = 0.9
+scenario_Cak = seir_model(beta = 1, omega = 1/120, span = 240, delta = 0.02, varepsilon = 0.9, zeta = 1/7)
+
+## delta = 0.04, varepsilon = 0.5
+scenario_Cbi = seir_model(beta = 1, omega = 1/120, span = 240, delta = 0.04, varepsilon = 0.3, zeta = 1/7)
+
+## delta = 0.04, varepsilon = 0.7
+scenario_Cbj = seir_model(beta = 1, omega = 1/120, span = 240, delta = 0.04, varepsilon = 0.6, zeta = 1/7)
+
+## delta = 0.04, varepsilon = 0.9
+scenario_Cbk = seir_model(beta = 1, omega = 1/120, span = 240, delta = 0.04, varepsilon = 0.9, zeta = 1/7)
+
+## delta = 0.06, varepsilon = 0.5
+scenario_Cci = seir_model(beta = 1, omega = 1/120, span = 240, delta = 0.06, varepsilon = 0.3, zeta = 1/7)
+
+## delta = 0.06, varepsilon = 0.7
+scenario_Ccj = seir_model(beta = 1, omega = 1/120, span = 240, delta = 0.06, varepsilon = 0.6, zeta = 1/7)
+
+## delta = 0.06, varepsilon = 0.9
+scenario_Cck = seir_model(beta = 1, omega = 1/120, span = 240, delta = 0.06, varepsilon = 0.9, zeta = 1/7)
+```
+
+\begin{table}[ht]
+\centering
+\caption{Impact of $\varepsilon$ and $\delta$ on Peak Infection, Exposure, and Recovery Rates (Scenario C)}
+\begin{tabular}{llccc}
+
+\toprule
+\multicolumn{2}{l}{Parameters} & Peak Exposed$^a$ (\%)$^d$ & Peak Recovered$^b$ (\%) & Peak Infected$^c$ (\%)\\
+\midrule
+
+\multirow{3}{*}{$\varepsilon = 0.3$} 
+& $\delta = 0.02$ & 60(41.29) & 55(18.62) & 240(95.14)\\
+& $\delta = 0.04$ & 63(31.62) & 57(33.87) & 240(91.18)\\
+& $\delta = 0.06$ & 68(24.25) & 59(46.13) & 240(87.76)\\
+
+\multirow{3}{*}{$\varepsilon = 0.6$} 
+& $\delta = 0.02$ & 63(31.62) & 57(33.87) & 240(91.18)\\
+& $\delta = 0.04$ & 71(18.95) & 61(55.77) & 240(84.82)\\
+& $\delta = 0.06$ & 83(12.56) & 63(68.90) & 240(80.01)\\
+
+\multirow{3}{*}{$\varepsilon = 0.9$} 
+& $\delta = 0.02$ & 68(24.25) & 59(46.13) & 240(87.76)\\
+& $\delta = 0.04$ & 82(12.56) & 63(68.90) & 240(80.01)\\
+& $\delta = 0.06$ & 106(9.35) & 67(78.94) & 240(74.43)\\
+
+\bottomrule
+\multicolumn{5}{p{\textwidth}}{\small $^a$Day of peak viral exposure} \\
+\multicolumn{5}{p{\textwidth}}{\small $^b$Day of peak recovered population} \\ 
+\multicolumn{5}{p{\textwidth}}{\small $^c$Day of peak infected population} \\
+\multicolumn{5}{p{\textwidth}}{\small $^d$Percentage population in the respective compartments} \\
+\multicolumn{5}{p{\textwidth}}{\small $^\delta$Rate of vaccination uptake} \\
+\multicolumn{5}{p{\textwidth}}{\small $^\varepsilon$Vaccine efficacy parameter}
+
+\end{tabular}
+\end{table}
+
+
+```{python fig_4, fig.cap = 'The temporal evolution of the S, E, I and R compartments across varying levels of vaccination uptake rate $\\delta$ and vaccine efficacy $\\varepsilon$ over 240 days in Scenario C.', out.height = '40%', out.width = '80%', fig.align='center', fig.pos = 'H'}
+# S E I R plots for all 9 variations of scenario C
+fig, axs = plt.subplots(3,3, sharex = True, sharey = True)
+
+axs[0,0].plot(scenario_Cai.t, scenario_Cai.y[0:4].T, linewidth = 1.2)
+axs[0,0].set_title('$\epsilon$ =  0.3', font = font, fontsize = 11)
+axs[0,0].set_yticks([0, 1])
+axs[0,0].set_yticklabels(font = font, labels = [0, 1], fontsize = 11)
+
+axs[0,1].plot(scenario_Caj.t, scenario_Caj.y[0:4].T, linewidth = 1.2)
+axs[0,1].set_title('$\epsilon$ =  0.6', font = font, fontsize = 11)
+
+axs[0,2].plot(scenario_Cak.t, scenario_Cak.y[0:4].T, linewidth = 1.2)
+axs[0,2].set_title('$\epsilon$ =  0.9', font = font, fontsize = 11)
+axs[0,2].set_ylabel('$\delta$ = 0.02', font = font, fontsize = 11)
+axs[0,2].yaxis.set_label_position("right")
+
+axs[1,0].plot(scenario_Cbi.t, scenario_Cbi.y[0:4].T, linewidth = 1.2)
+axs[1,0].set_yticks([0, 1])
+axs[1,0].set_yticklabels(font = font, labels = [0, 1], fontsize = 11)
+
+axs[1,1].plot(scenario_Cbj.t, scenario_Cbj.y[0:4].T, linewidth = 1.2)
+
+axs[1,2].plot(scenario_Cbk.t, scenario_Cbk.y[0:4].T, linewidth = 1.2)
+axs[1,2].set_ylabel('$\delta$ = 0.04', font = font, fontsize = 11)
+axs[1,2].yaxis.set_label_position("right")
+
+axs[2,0].plot(scenario_Cci.t, scenario_Cci.y[0:4].T, linewidth = 1.2)
+axs[2,0].set_xticks([0, 240])
+axs[2,0].set_xticklabels(font = font, labels = [0, 240], fontsize = 11)
+axs[2,0].set_yticks([0, 1])
+axs[2,0].set_yticklabels(font = font, labels = [0, 1], fontsize = 11)
+
+axs[2,1].plot(scenario_Ccj.t, scenario_Ccj.y[0:4].T, linewidth = 1.2)
+axs[2,1].set_xticks([0, 240])
+axs[2,1].set_xticklabels(font = font, labels = [0, 240], fontsize = 11)
+
+axs[2,2].plot(scenario_Cck.t, scenario_Cck.y[0:4].T, linewidth = 1.2)
+axs[2,2].set_ylabel('$\delta$ = 0.06', font = font, fontsize = 11)
+axs[2,2].yaxis.set_label_position("right")
+axs[2,2].set_xticks([0, 240])
+axs[2,2].set_xticklabels(font = font, labels = [0, 240], fontsize = 11)
+
+fig.suptitle('Dynamics of S, E, I, R Compartments over Time in all Cases of Scenario C', fontsize = 11, font = font)
+fig.supxlabel('Days', fontsize = 11, font = font)
+fig.supylabel('Population Proportion', fontsize = 11, font = font)
+
+# Set the font properties for the legend
+legend_font = font.copy()
+legend_font.set_size(11)  # Set the desired font size for the legend
+legend = fig.legend(labels = ['S', 'E', 'I', 'R'], loc = 'center right', prop = legend_font, title = 'Compartments')
+legend.get_title().set_font(font)
+
+plt.tight_layout(rect=[0, 0, 0.83, 1])
+
+# display plot
+plt.show()
+```
+
+$\quad$ The exposure and infection curves exhibit a reduced gradient with increasing values of $\varepsilon$ and $\delta$. Concurrently, the susceptibility curve demonstrates a more pronounced decline as both parameters rise, indicating a decrease in overall population susceptibility to the virus with improved vaccine efficacy and uptake. Additionally, the recovery curve becomes increasingly pronounced with rising $\varepsilon$ and $\delta$, reflecting enhanced population immunity against the virus (Figure 4). Notably, the influence of $\delta$ is more pronounced in simulations where $\varepsilon$ is elevated (Figure 5), suggesting a synergistic relationship between vaccine efficacy and uptake. Furthermore, as $\delta$ and $\varepsilon$ increase, the peak infected and exposed populations diminish, and the peak exposed and recovered day is increasingly delayed. As anticipated, the peak recovered population escalates with higher $\delta$ and $\varepsilon$ values (Table 1). Despite the evident protective effect of vaccines in mitigating disease spread, the basic reproduction number $R_0$ remains unchanged. Additionally, $R_t$ is maintained above one in all cases of this scenario. Extending the span of the simulation to 1000 days in the best case where $\varepsilon = 0.9$ and $\delta = 0.06$, $R_t$ reaches 1 at 868 days- after near complete transformation of the population into zombies (Figure 6). These experiments indicate that vaccination is insufficient to achieve disease-free equilibrium in this catastrophic pandemic.
+
+$\quad$ Subsequent analyses will assume an efficacy parameter $\varepsilon$ of 0.6. In addition, a vaccination uptake rate of $\delta$ = 0.04 will be considered, corresponding to approximately 4,000 vaccinations administered daily.
+
+```{python fig_5, fig.cap = 'Infection rate trends across varying levels of vaccine efficacy $\\varepsilon$ and uptake rate $\\delta$ over 240 days in scenario C.', out.height = '40%', out.width = '80%', fig.align='center', fig.pos = 'H'}
+# clear previous plots
+plt.clf()
+
+# Plots focusing on infection rates
+fig, axs = plt.subplots(3, sharex = True, sharey = True)
+axs[0].plot(scenario_Cai.t, scenario_Cai.y[2].T, linewidth = 1.2)
+axs[0].plot(scenario_Cbi.t, scenario_Cbi.y[2].T, linewidth = 1.2)
+axs[0].plot(scenario_Cci.t, scenario_Cci.y[2].T, linewidth = 1.2)
+axs[0].set_title('$\epsilon$ =  0.3', font = font, fontsize = 12)
+axs[0].yaxis.set_label_position("right")
+axs[0].set_yticks([0, 1])
+axs[0].set_yticklabels(font = font, labels = [0, 1], fontsize = 12)
+
+axs[1].plot(scenario_Caj.t, scenario_Caj.y[2].T, linewidth = 1.2)
+axs[1].plot(scenario_Cbj.t, scenario_Cbj.y[2].T, linewidth = 1.2)
+axs[1].plot(scenario_Ccj.t, scenario_Ccj.y[2].T, linewidth = 1.2)
+axs[1].set_title('$\epsilon$ =  0.6', font = font, fontsize = 12)
+axs[1].yaxis.set_label_position("right")
+axs[1].set_yticks([0, 1])
+axs[1].set_yticklabels(font = font, labels = [0, 1], fontsize = 12)
+
+axs[2].plot(scenario_Cak.t, scenario_Cak.y[2].T, linewidth = 1.2)
+axs[2].plot(scenario_Cbk.t, scenario_Cbk.y[2].T, linewidth = 1.2)
+axs[2].plot(scenario_Cck.t, scenario_Cck.y[2].T, linewidth = 1.2)
+axs[2].set_title('$\epsilon$ =  0.9', font = font, fontsize = 12)
+axs[2].yaxis.set_label_position("right")
+axs[2].set_xticks([0, 40, 80, 120, 160, 200, 240])
+axs[2].set_xticklabels(font = font, labels = [0, 40, 80, 120, 160, 200, 240], fontsize = 12)
+axs[2].set_yticks([0, 1])
+axs[2].set_yticklabels(font = font, labels = [0, 1], fontsize = 12)
+
+# Set the font properties for the legend
+legend_font = font.copy()
+legend_font.set_size(12)  # Set the desired font size for the legend
+legend = fig.legend(labels = ['0.01', '0.03', '0.05'], loc = 'center right', title = '$\delta$', prop = legend_font)
+legend.get_title().set_font(font)
+
+plt.suptitle('Infection Rates Across Varying Vaccination Efficacies and Uptake Levels', 
+              font = font, fontsize = 12)
+fig.supxlabel('Days', font = font, fontsize = 12)
+fig.supylabel('Proportion of Population Infected', font = font, fontsize = 12)
+plt.tight_layout(rect=[0, 0, 0.85, 1])
+
+plt.show(sns)
+```
+
+```{python fig_6, fig.cap = 'The temporal evolution of the S, E, I and R compartments in the zombie pandemic model over 1000 days in scenario C, where vaccine efficacy $\\varepsilon$ = 0.9 and uptake rate $\\delta = 0.06$.', out.height = '30%', out.width = '67.5%', fig.align='center', fig.pos = 'H'}
+scenario_Cck = seir_model(beta = 1, omega = 1/120, span = 1000, delta = 0.06, varepsilon = 0.9, zeta = 1/7)
+plot_single(scenario_Cck, scenario = 'C')
+```
+
+## Scenario D: Civillian Armament
+In response to the viral outbreak and the critical discovery that zombies can be effectively neutralized through the destruction of their brains, the government of Z-town has implemented a rapid distribution of rifles and ammunition to all civilians. This initiative instructs residents to neutralize infected individuals on sight, capitalizing on the fact that zombies lack proficiency in using firearms. This strategy complements existing vaccination and social distancing measures. The rate of zombie extermination is a function of both the infected and non-infected populations. To realistically capture this dynamic, the $\alpha$ parameter is redefined as a new parameter, $\kappa$, expressed as $\kappa = \alpha^{(\frac{1}{1 - i + \eta})}$. Here, $\eta$ is a small constant introduced to prevent zero division errors in cases where the entire population is infected. To simulate this scenario, $\alpha$ is set at 0.15.
+
+```{python scenario_D}
+# import numpy package
+import numpy as np
+
+# redefine system of differential equations to accommodate new parameter kappa
+def diff_eqs(t, y, alpha, beta, sigma, gamma, omega, mu, delta, varepsilon, zeta):
+  s, e, i, r, v , d = y
+  
+  # eta = numpy machine epsilon
+  eta = np.finfo(float).eps
+  
+  # define kappa
+  kappa = alpha**(1/ (1-i+eta))
+
+  return np.array([mu - (beta*i*s) + omega*r - mu*s - delta*varepsilon*s,
+                  beta*s*i - sigma*e - mu*e + beta*v*i,
+                  sigma*e - gamma*i - (mu + kappa)*i,
+                  gamma*i - omega*r - mu*r + zeta*v,
+                  delta*varepsilon*s - beta*v*i -mu*v - zeta*v,
+                  kappa*i]) # additional state variable to track number of zombies exterminated
+
+scenario_D = seir_model(beta = 1, 
+                        omega = 1/120, 
+                        span = 365, 
+                        delta = 0.04, 
+                        varepsilon = 0.6, 
+                        zeta = 1/7, 
+                        alpha = 0.15, 
+                        initial_state = [0.999999, 0.00001, 0, 0, 0, 0]) # start with 1 exposed case
+
+# Calculate proportion of deaths                           
+D_deaths = scenario_D.y[5][-1]
+print(f'Deaths by the end of the simulation period: {D_deaths:.2%}')
+```
+
+```{python fig_7, fig.cap = '(a) The temporal evolution of the S, E, I and R compartments over 365 days in scenario D, assuming an $\\alpha$ value of 0.15; (b) Cumulative mortality trend over 365 days in scenario D.', out.height = '40%', out.width = '80%',fig.align='center', fig.pos = 'H'}
+
+def plot_SEIR_death(sol, scenario):
+  # clear previous plots
+  plt.clf()
+  
+  # plot SEIR compartments and death toll over time
+  fig, axs = plt.subplots(2, sharex = True, sharey = True)
+  
+  # Dynamics of SEIR compartments over time
+  axs[0].plot(sol.t, sol.y[0:4].T, linewidth = 1.2)
+  axs[0].set_title(f'Dynamics of S, E, I, R Compartments over Time (Scenario {scenario})', font = font, fontsize = 12)
+  custom_font_prop = font.copy()
+  custom_font_prop.set_size(8) # set legend font size
+  legend = axs[0].legend(labels = ['S', 'E', 'I', 'R'], title = 'Compartments', prop = custom_font_prop)
+  legend.get_title().set_font(font)
+  legend.get_title().set_fontsize(8)
+  axs[0].set_yticks([0, 0.5, 1])
+  axs[0].set_yticklabels(font = font, labels = [0, 0.5, 1], fontsize = 12)
+  
+  # plot Death toll over time
+  axs[1].plot(sol.t, sol.y[5].T, color = 'grey', linewidth = 1.2)
+  axs[1].set_title(f'Death Toll over Time (Scenario {scenario})', font = font, fontsize = 12)
+  axs[1].set_xticks(range(0, 365, 50))
+  axs[1].set_xticklabels(font = font, labels = range(0, 365, 50), fontsize = 12)
+  axs[1].set_yticks([0, 0.5, 1])
+  axs[1].set_yticklabels(font = font, labels = [0, 0.5, 1], fontsize = 12)
+  
+  # sup labels
+  fig.supxlabel('Days', fontsize = 12, font = font)
+  fig.supylabel('Population Proportion', fontsize = 12, font = font)
+  
+  plt.tight_layout()
+  
+  # display plot
+  plt.show()
+
+# call function to generate plots for scenario D  
+plot_SEIR_death(scenario_D, 'D')
+```
+$\quad$ In this calamitous scenario, it is observed that approximately 56.87% of the initial population of Z-town perishes as a result of the outbreak within 365 days (Figure 7b). The peak exposed population reaches 5.78% at 155 days, while the peak infected population is observed at 2.87% at 162 days. The peak recovered population is noted at 66.07% at 101 days, attributed to substantial vaccination efforts (Figure 7a). Despite this significant mortality rate, the introduction of firearms among civilians effectively curtails the potential for uncontrolled infection spread, corresponding to a markedly reduced $R_0$ of 6.64. Equilibrium is achieved at day 140, with $R_t$ reaching 0.98 Importantly, while $\alpha$ is replaced by $\kappa$ as the parameter representing the rate of death from infection, the calculation of $R_0$ still employs $\alpha$ because $R_0$ assumes a fully susceptible population, implying $I = 0$ and $\kappa = \alpha$.
+
+## Scenario E: Revivification
+In an unprecedented incident, a zombie infiltrated a vaccine manufacturing facility. During the ensuing confrontation, a technician, in self-defense, administered a syringe containing a vaccine directly into the zombie’s jugular vein. Remarkably, three days after the injection, the zombie exhibited complete revitalization, reverting to human form.
+Recognizing the potential of this serendipitous event, researchers at Georgia Tech’s Center for Drug Design, Development, and Delivery developed a novel intervention. They engineered ammunition infused with a zombie tranquilizer and the active compound responsible for reversing the viral infection. This intervention was optimized to instantaneously eliminate all viral presence in the targets, rendering them non-infectious. The proposed strategy involved deploying this specialized ammunition to neutralize zombies, followed by their safe transfer to treatment facilities for monitored recovery and rehabilitation. 
+
+$\quad$ The treatment demonstrates a success rate of approximately 0.4, indicating that 40% of treated individuals are successfully restored to human form, while the remaining 60% perish. To reflect this, the parameter $\gamma$ is defined as 0.4$\kappa$, and $\kappa$ is adjusted to $0.6\kappa$. Incorporation of these adjusted values into  the calculation of $R_0$ results in $\gamma$ + 0.6$\kappa$ = 0.4$\kappa$ + 0.6$\kappa$ = $\kappa$ = $\alpha$, assuming a fully susceptible population where $I$ = 0. Therefore, the estimated $R_0$ remains unchanged from Scenario E. After treatment, recovered individuals are expected to exhibit immunity to the virus for about 120 days, corresponding to an $\omega$ value of 1/120.
+
+$\quad$ Upon the detection of viral exposure in Z-town, this innovative ammunition was rapidly distributed to the residents of Z-Town, aiming to curb the zombie outbreak and restore affected individuals to their human state.
+
+```{python scenario_E}
+# redefine system of differential equations to accommodate new parameter kappa
+def diff_eqs(t, y, alpha, beta, sigma, gamma, omega, mu, delta, varepsilon, zeta):
+  s, e, i, r, v , d = y
+  
+  # eta = numpy machine epsilon
+  eta = np.finfo(float).eps
+  
+  # define kappa
+  kappa = alpha**(1/ (1-i+eta))
+  
+  # gamma and kappa readjusted as weighted values of kappa
+  gamma = 0.4 * kappa
+  kappa = 0.6* kappa
+
+  return np.array([mu - (beta*i*s) + omega*r - mu*s - delta*varepsilon*s,
+                  beta*s*i - sigma*e - mu*e + beta*v*i,
+                  sigma*e - gamma*i - (mu + kappa)*i,
+                  gamma*i - omega*r - mu*r + zeta*v,
+                  delta*varepsilon*s - beta*v*i -mu*v - zeta*v,
+                  kappa*i]) # additional state variable to track number of zombies exterminated
+                  
+# define function to model viral spread for scenario E
+# Only thing that changed is the calculation for R_0
+def seir_model_E(alpha = alpha, 
+                 beta = beta, 
+                 sigma = sigma, 
+                 gamma = gamma, 
+                 omega =  omega, 
+                 mu = mu, 
+                 delta = delta, 
+                 varepsilon = varepsilon, 
+                 zeta = zeta, 
+                 span = 365,
+                 initial_state = [0.999999, 0.00001, 0, 0, 0]): # initial state =  [s, e, i, r]
+                 
+  # find solution
+  sol = solve_ivp(fun = diff_eqs, 
+                  t_span = [0, span], 
+                  y0 = initial_state, 
+                  rtol = 1e-7,
+                  args=(alpha, beta, sigma, gamma, omega, mu, delta, varepsilon, zeta))
+  
+  # exposed, infected, recovered, and death peaks
+  #exposed
+  peak_exposed = max(sol.y[1])
+  peak_exposed_index = np.argmax(sol.y[1])
+  peak_exposed_time = sol.t[peak_exposed_index]
+  
+  #infected
+  peak_infected = max(sol.y[2])
+  peak_infected_index = np.argmax(sol.y[2])
+  peak_infected_time = sol.t[peak_infected_index]
+  
+  #recovered
+  peak_recovered = max(sol.y[3])
+  peak_recovered_index = np.argmax(sol.y[3])
+  peak_recovered_time = sol.t[peak_recovered_index]
+  
+  # calculate basic reprodution number R_0                
+  R_0 = sigma/(sigma + mu) * beta/(mu + gamma + alpha)
+  
+  # susceptible population required for R to reach 1
+  equilibrium_t = 1/R_0 
+  # index where susceptible population first reaches <1, or last day of simulation if not reached
+  equilibrium_index = next((i for i, x in enumerate(sol.y[0]) if x < equilibrium_t), -1) 
+  # first day where R reaches <1 (or last day of simulation if not reached)
+  equilibrium_time = sol.t[equilibrium_index] 
+  # R value when it first reaches <1 or at the end of simulation
+  R_t = R_0*sol.y[0][equilibrium_index]
+  
+  # print key details
+  print(f'Peak exposed: {peak_exposed:.2%} at {round(peak_exposed_time)} days')
+  print(f'Peak infected: {peak_infected:.2%} at {round(peak_infected_time)} days')
+  print(f'Peak recovered: {peak_recovered:.2%} at {round(peak_recovered_time)} days')
+  print(f'R_0 = {round(R_0, 2)}')
+  print(f'R_t = {round(R_t,2)} when t = {int(equilibrium_time)} days') 
+  
+  # return curves
+  return sol
+
+# call function
+scenario_E = seir_model_E(beta = 1, 
+                          omega = 1/120, 
+                          span = 365, 
+                          delta = 0.04, 
+                          varepsilon = 0.6, 
+                          zeta = 1/7, 
+                          alpha = 0.15, 
+                          initial_state = [0.999999, 0.00001, 0, 0, 0, 0]) # start with 1 exposed case
+
+# Calculate proportion of deaths                        
+E_deaths = scenario_E.y[5][-1]
+print(f'Deaths by the end of the simulation period: {E_deaths:.2%}')
+```
+
+```{python fig_8, fig.cap = '(a) The temporal evolution of the S, E, I and R compartments over 365 days in scenario E; (b) Cumulative mortality trend over 365 days in scenario E.', out.height = '40%', out.width = '80%',fig.align='center', fig.pos = 'H'}
+# Generate plot for scenario E        
+plot_SEIR_death(scenario_E, 'E')
+```
+
+$\quad$ In this simulation, it is observed that 42.79% of the initial population perishes as a result of the outbreak within 365 days (Figure 8b). The peak exposed population reaches 6.11% at 155 days, while the peak infection rate is observed at 3.04% at 162 days (Figure 8a). The peak recovery rate is noted at 67.50% at 115 days, attributed to both vaccination efforts and antiviral treatments. Despite sub optimal cure rate, the introduction of antiviral ammunition significantly reduces mortality and effectively controls the spread of the infection. Equilibrium is reached at 147 days, with an $R_t$ value of 0.93. 
+
+# Discussion
+The simulations presented in this study investigate the effects of various interventions on the transmission dynamics of a hypothetical zombie pandemic. The experiments show that social isolation could significantly reduces the spread of the infection, while vaccination provides a robust defense against the outbreak. Yet, the $R_0$ values in scenarios A, B, and C exceeded one, and none of the simulations in these scenarios achieved disease-free equilibrium. This indicates that each infected individual was spreading the virus to more than one susceptible person, which resulted in the escalation of viral spread, as the infection continued to propagate through the populations. As the simulations advanced, the proportion of susceptible individuals in each population diminished due to increased infection rates and immunity acquisition through vaccination, particularly in scenario C. This reduction in the susceptible population led to a decline in $R_t$ towards the end of the simulations.
+
+$\quad$ Although vaccination proves to be an effective measure for mitigating disease spread, it does not change $R_0$ because the calculation of $R_0$ presumes a completely susceptible population. Consequently, while vaccination programs reduce the susceptible population and are effective in curbing outbreaks, they do not technically change $R_0$. To account for the size of the susceptible population, the effective reproduction number $R_t$ is a more appropriate metric \cite{delamater2019complexity}. Vaccinations can potentially terminate an epidemic by reducing $R_t$ to less than 1. Although none of the simulations in scenario C achieved disease-free equilibrium, the combination of vaccination and other interventions in subsequent scenarios pushed the $R_t$ value below the critical threshold.
+
+$\quad$ Unlike infectious diseases where patients either recover or perish from the illness, the zombie virus presents a unique case in which victims do not recover and persist as undead entities. Consequently, the cessation of disease transmission necessitates the elimination of zombies. In Scenario D, civilian armament served as the primary method for zombie extermination to control the spread of the disease. Notably, a drastic reduction in viral transmissibility, as well as in the values of $R_0$ and $R_0$, is observed with the introduction of the $\alpha$ parameter representing mortality rate of the infected. This observation is consistent with the understanding that viral transmissibility increases with the duration of contagiousness \cite{delamater2019complexity} and aligns with the virulence trade-off hypothesis \cite{acevedo2019virulence}. In this context, the death of infected individuals shortens the period during which they can spread the virus, thereby reducing overall transmissibility.
+
+$\quad$ While zombie extermination proved effective for controlling disease spread, it was associated with a high mortality rate, as death was the sole resolution for those infected. In scenario E, the introduction of an antiviral treatment to revivify infected individuals resulted in a lower mortality rate while maintaining effective control of disease spread. Despite having a lower death rate of infected individuals, $R_0$ remains the same as it is offset by gain in recovery rate $\gamma$.
+
+$\quad$ The simulations conducted in this study effectively illustrate the application of the SEIR model and its adaptability in incorporating additional elements. In particular, $\alpha$ was redesigned to address the nuances of a zombie pandemic, and the SEIR-V model extends the traditional SEIR framework to include vaccination, demonstrating its potential for further adaptation in a variety of epidemiological scenarios. The scenarios presented are simplified representations, and real-world applications may require additional considerations. For example, evolving public health interventions over time may necessitate the integration of multiple SEIR models or the creation of additional compartments to account for varying levels of immunity, different stages of infection, or the impact of sociobehavioral differences across diverse communities. This study serves as an introduction to the SEIR framework, highlighting the importance of flexibility in epidemiological modeling. This adaptability is crucial for developing effective responses to emerging infectious diseases, where intervention strategies must rapidly evolve in response to changing conditions.
+
+# Conclusion
+Although the zombie pandemic scenarios illustrated in this paper are fictitious events, they have educational value, providing a unique and engaging introduction to understanding the dynamics of disease spread and the critical importance of timely public health responses. Overall, the experiments presented in this study underscore the vital role of preparedness, timely intervention, and the implementation of robust public health strategies in managing infectious diseases. By introducing and applying the SEIR model, and extending it to the SEIR-V model to incorporate vaccination, this study highlights the model’s adaptability and relevance in various epidemiological contexts. Furthermore, the discussion on the reproduction numbers $R_0$ and $R_t$ demonstrates their utility in evaluating the effectiveness of public health interventions within the SEIR framework. These insights emphasize the importance of flexible and responsive epidemiological modeling in developing effective strategies to combat emerging infectious diseases. 
