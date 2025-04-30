@@ -2,7 +2,7 @@
 
 
 
-## Overview
+## Abstract
 Radiomics is an emerging field in medical science that involves extracting quantitative features from medical images using data characterization algorithms. 
 These features, known as radiomic features, provide a quantitative approach to medical image analysis. 
 In the context of lung cancer, radiomics-based approaches are transforming disease management by improving early detection, 
@@ -16,9 +16,7 @@ This finding enhances confidence in the effect of this feature, suggesting that 
 This study highlights the potential of Bayesian methods to address the challenges of limited data in medical image analysis, 
 offering a robust alternative to traditional statistical approaches and contributing to improved clinical decision-making.
 
-For more details, refer to the corresponding paper.
-
-## Data Source
+## Data Access
 The radiomics data utilized in this study is publicly accessible in the Mendeley database under the accession code [10.17632/rxn95mp24d.1](https://data.mendeley.com/datasets/rxn95mp24d/1).
 
 ## Installation and Usage
@@ -36,17 +34,34 @@ You may define the desired paths in `config.py`. The default paths are:
         'B_path': 'data/Features_Train.csv'
     }
     ```
-3. **Run the project**:
+3. **Run the script**:
     ```bash
     python main.py
     ```
 
     *Note: to view the plots, you need to run the file in an interactive window.*
 
+### Saving and loading traces
+By default, all traces are saved to the `saved` folder. 
+The list of significant features identified during preliminary feature selection is also saved to this folder as `significant_features.txt`. To load traces in subsequent runs,
+you may modify the 'main' dictionary in `config.py`.
+
+**Example**:
+```python
+main = {
+    'load_svss': True,
+    'load_logreg_001': True,
+    'load_logreg_01': True,
+    'load_logreg_1': True,
+    'load_logreg_10': True,
+    'plot_trace': True
+    }   
+```
+The above configuration will load all traces from the `saved` folder.
+
 ## File Descriptions
 
 ### Scripts
-
 - **main.py**: This is the entry point of the project. It initializes the application and handles the main workflow.
 - **evaluate_utils.py**: Includes functions for evaluating the performance of the model.
 - **preprocessor.py**: Handles data loading, preprocessing tasks, and performs the first layer of feature selection using univariate logistic regressions with FDR correction.
@@ -56,8 +71,8 @@ You may define the desired paths in `config.py`. The default paths are:
 
 
 ### Folders
-- **saved**: Contains saved traces from the Bayesian models, as well as a text file of significant features from the first layer of feature selection.
-- **data**: Contains two files, `Features_Train` and `Features_Test`. For this study, data from both files are concatenated to obtain the full dataset.
+- **saved**: This folder is generated during the initial execution of the script. It stores traces from the Bayesian models and includes a text file named significant_features.txt, which lists the significant features identified during the preliminary feature selection phase.
+- **images**: Contains the trace and AUROC plots generated from the scripts.
 
 ## Results
 For detailed results and analysis, please refer to the accompanying paper.

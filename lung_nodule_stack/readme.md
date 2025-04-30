@@ -1,14 +1,26 @@
 # Title: Radiomics-Based Lung Nodule Classification Using a Stacking Ensemble
 
-### Team Members
+## Team Members
 - Shao Ming Koh
 - Isaac Lam Hong Kei
 - Nguyen Thi Thanh Mai
 
-### Description
-This project focuses on classifying lung nodules using radiomics features and a stacking ensemble method. For detailed information, please refer to the accompanying paper.
+## Abstract
+Radiomics, an emerging field in medical imaging, leverages advanced mathematical analysis to extract quantitative
+metrics from medical images, aiding in the early detection, diagnosis, and treatment of lung cancer. This study
+focuses on improving the risk prediction of small lung nodules using machine learning models. We employed a
+stacking ensemble approach, integrating Principal Component Analysis (PCA) for dimensionality reduction and selected
+features from the Small Nodule Radiomics-Predictive Vector (SN-RPV). Base models employed in the stacking
+ensemble were Support Vector Machine (SVM), Random Forest, k-Nearest Neighbors (KNN), and Naive Bayes classifiers.
+Despite the theoretical advantages of stacking ensembles, our models demonstrated poorer performance on the
+test set compared to the simpler SN-RPV model by Hunter et al. This outcome highlights the challenges of overfitting
+and underscores the importance of model simplicity and interpretability in clinical applications. Future research
+should explore alternative regularization techniques to improve the generalization of complex ensemble methods.
 
-### Installation and Setup
+## Data Access
+The radiomics data used in this study is publicly accessible in the Mendeley database under the accession code [10.17632/rxn95mp24d.1](https://data.mendeley.com/datasets/rxn95mp24d/1).
+
+## Installation and Usage
 1. **Install the dependencies:**
     ```sh
     pip install -r requirements.txt
@@ -18,21 +30,35 @@ This project focuses on classifying lung nodules using radiomics features and a 
     train_dir = 'data/Features_Train.csv'
     test_dir = 'data/Features_Test.csv'
     ```
+3. **Run the script**\
+    To execute the baseline model:
+    ```bash
+    python replicate_hunters.py
+    ```
+    To run the stacking ensemble pipelines:
+    ```bash
+    python stack.py
+    ```
 
-### Usage
-- **Hunter's SN-RPV:** Execute the script `replicate_hunters.py`.
-- **Stacking Ensemble:** Execute the script `stack.py`.
-- **Hyperparameter Tuning:** Adjust the range of hyperparameters in `config.py`.
-- **Evaluation Methods:** Methods for evaluation are stored in `evaluate_utils.py`.
+## File Descriptions
 
-### Results
+### Scripts
+- **replicate_hunters.py**: The python script to reproduce the baseline model.
+- **stack.py**: Executes the stacking ensemble pipelines.
+- **config.py**: Stores configuration settings and parameters used throughout the project.
+- **evaluate_utils.py**: Includes functions for evaluating the performance of the model.
+
+### Folders
+- **images**: Contains the pipeline flowchart, and AUROC plots generate from the scripts.
+
+## Results
 For detailed results and analysis, please refer to the accompanying paper.
 
-### Visualizations
+## Visualizations
 Plots and visualizations are saved in the `images` folder.
 
-### Acknowledgements
+## Acknowledgements
 All authors contributed equally to this project.
 
-### License
+## License
 This project is licensed under the MIT License. See the LICENSE file for more details.
