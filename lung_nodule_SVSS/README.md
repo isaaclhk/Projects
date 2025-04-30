@@ -2,7 +2,7 @@
 
 
 
-## Abstract
+## Overview
 Radiomics is an emerging field in medical science that involves extracting quantitative features from medical images using data characterization algorithms. 
 These features, known as radiomic features, provide a quantitative approach to medical image analysis. 
 In the context of lung cancer, radiomics-based approaches are transforming disease management by improving early detection, 
@@ -17,6 +17,9 @@ This study highlights the potential of Bayesian methods to address the challenge
 offering a robust alternative to traditional statistical approaches and contributing to improved clinical decision-making.
 
 For more details, refer to the corresponding paper.
+
+## Data Source
+The radiomics data utilized in this study is publicly accessible in the Mendeley database under the accession code [10.17632/rxn95mp24d.1](https://data.mendeley.com/datasets/rxn95mp24d/1).
 
 ## Installation and Usage
 
