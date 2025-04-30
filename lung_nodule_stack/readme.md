@@ -58,7 +58,10 @@ For detailed results and analysis, please refer to the accompanying paper.
 Plots and visualizations are saved in the `images` folder.
 
 ## Acknowledgements
-All authors contributed equally to this project.
+All authors contributed equally to this study.
+
+## Citation
+Please cite the following article: https://doi.org/10.1101/2025.04.28.25326620.
 
 ## License
 This project is licensed under the MIT License. See the LICENSE file for more details.
