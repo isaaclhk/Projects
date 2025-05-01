@@ -83,6 +83,9 @@ Plots and visualizations are saved in the `images` folder.
 ## License
 This project is licensed under the MIT License. See the LICENSE file for more details.
 
+## Citation
+Please cite the following article: https://www.medrxiv.org/content/10.1101/2025.04.29.25326704v1
+
 ## Contact
 If you have any questions or feedback, feel free to reach out to me:\
 ilam7@gatech.edu
