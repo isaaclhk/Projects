@@ -161,7 +161,7 @@ Logs are written in JSON format to the following files (rotated at 10MB each):
 - **fine_tune**: Unfreezes two additional layers for fine-tuning.
 - **load_checkpoint**: Load model from checkpoint.
 
-⚠️ *Note: This project currently supports only the EfficientNet-V2-l architecture. \
+⚠️ *Note: This project currently supports only the EfficientNet-V2-s architecture. \
 If you wish to use a different model, you will need to:*
 1. Modify the transform() function in data_loader.py to match the input requirements of your chosen architecture.
 2. Update the replace_classifier() function in train_utils.py to replace the classifier layer accordingly.
