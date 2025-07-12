@@ -113,7 +113,7 @@ MLflow is integrated for experiment tracking. You can enable or disable it via t
 setup_mlflow: true
 mlflow_tracking_uri: ./mlruns
 mlflow_exp_name: "CXR"
-mlflow_run_name: "efficientnet_v2_l"
+mlflow_run_name: "efficientnet_v2_s"
 resume: false
 ```
 - **Tracking URI**: Specifies the MLflow server to log experiments to.
