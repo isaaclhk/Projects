@@ -1,0 +1,4 @@
+- fine_tune=true
+- resume=true
+- optimizer.lr=1e-5
+- load_checkpoint=checkpoints/model.pt

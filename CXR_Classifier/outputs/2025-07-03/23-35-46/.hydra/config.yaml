@@ -1,0 +1,35 @@
+setup_mlflow: true
+mlflow_autolog: false
+mlflow_tracking_uri: https://mlflow.aiap19.aisingapore.net
+mlflow_exp_name: CXR
+mlflow_run_name: efficientnet_b0
+no_cuda: false
+no_mps: true
+seed: 42
+epochs: 50
+early_stopping: true
+patience: 3
+model_checkpoint_interval: 2
+model_checkpoint_dir_path: checkpoints
+model_checkpoint_name: model.pt
+model_config_dir_path: config.json
+pytorch_model_name: efficientnet_b0
+resume: false
+log_dir: ./logs
+model:
+  _target_: torchvision.models.efficientnet_b0
+  weights: EfficientNet_B0_Weights.DEFAULT
+fine_tune: false
+load_checkpoint: false
+optimizer:
+  _target_: torch.optim.Adam
+  lr: 0.001
+loss_fn:
+  _target_: torch.nn.CrossEntropyLoss
+metric:
+  _target_: torchmetrics.classification.MulticlassF1Score
+  num_classes: 3
+data_path: data
+batch_size: 64
+evaluate: true
+evaluate_dir_path: evaluate

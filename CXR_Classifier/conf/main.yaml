@@ -1,0 +1,59 @@
+# mlflow setup
+setup_mlflow: true
+mlflow_tracking_uri: ./mlruns
+mlflow_exp_name: "Chest X-Ray"
+mlflow_run_name: "efficientnet_v2_s"
+
+# device settings
+no_cuda: false
+no_mps: true
+
+# random seed
+seed: 42
+
+# model parameters
+epochs: 50
+early_stopping: true
+patience: 3
+
+# checkpoints
+model_checkpoint_interval: 2
+model_checkpoint_dir_path: "checkpoints"
+model_checkpoint_name: "model.pt"
+model_config_dir_path: "config.json"
+pytorch_model_name: "efficientnet_v2_s"
+resume: false
+
+# log dir
+log_dir: "./logs"
+
+# model
+model:
+  _target_: torchvision.models.efficientnet_v2_s
+  weights: EfficientNet_V2_S_Weights.DEFAULT
+fine_tune: false
+load_checkpoint: false
+
+# optimizer:
+optimizer: 
+  _target_: torch.optim.Adam
+  lr: 1e-4
+
+# loss function
+loss_fn:
+  _target_: torch.nn.CrossEntropyLoss
+balance_loss_weights: true
+
+# metric
+metric: 
+  _target_: torchmetrics.classification.MulticlassF1Score
+  num_classes: 3
+
+# data
+data_path: 'data'
+batch_size: 64
+val_split: 0.2
+
+# evaluate
+evaluate: True
+evaluate_dir_path: 'evaluate'
