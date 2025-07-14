@@ -218,4 +218,12 @@ The model was evaluated on the test set with the following results:
 
 **Test Loss**: 0.6357 \
 **Test F1-Score**: 0.7762
+
 ![alt text](evaluate/confusion_matrix.png)
+
+## License
+This project is licensed under the MIT License. See the LICENSE file for more details.
+
+## Contact
+If you have any questions or feedback, feel free to reach out to me: \
+isaac_lam_hk@aiap.sg
