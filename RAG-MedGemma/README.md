@@ -69,6 +69,9 @@ Project_directory
 │   ├── RAG.py
 │   ├── frontend.py
 │   └── main.py
+├── images
+│   ├── pipeline.png
+│   ├── settings.jpg
 └── LICENSE.txt
 ```
 ## Setup and Execution
@@ -81,8 +84,8 @@ Project_directory
 ### Installation
 #### Clone the repository
 ```bash
-git clone <repo-id>
-cd A8P5
+git clone https://github.com/isaaclhk/Projects.git
+cd RAG-MedGamma
 ```
 
 #### Run the script
