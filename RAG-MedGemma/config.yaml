@@ -1,0 +1,3 @@
+model_variant: 4b-it
+use_quantization: true
+embed_model: abhinand/MedEmbed-small-v0.1
