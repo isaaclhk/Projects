@@ -48,11 +48,6 @@ class MedGamma:
         self.use_quantization = use_quantization
         self.pipe = self.load_pipeline()
 
-        # snapshot_download(
-        #     repo_id=self.model_id, 
-        #     token=os.getenv("HUGGINGFACE_TOKEN")
-        #     )
-
     def load_pipeline(self):
         '''
         Load the MedGamma model pipeline with optional quantization.
