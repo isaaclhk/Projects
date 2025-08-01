@@ -28,12 +28,14 @@ class MedGemma:
         pipe (pipeline): The Hugging Face pipeline for image-text-to-text tasks.
     '''
     def __init__(self, 
-                 model_variant: str=None, 
-                 use_quantization: bool=False
-                 ):
+                embed_model: str,
+                model_variant: str=None, 
+                use_quantization: bool=False
+                ):
         '''
         Initialize the MedGamma model with the specified variant and quantization option.
         Args:
+            embed_model (str): Model used for embedding retrieved chunks.
             model_variant (str): The variant of the MedGamma model to use.
             use_quantization (bool): Whether to use quantization for the model.
         '''
@@ -46,6 +48,7 @@ class MedGemma:
 
         self.model_id = f"google/medgemma-{model_variant}"
         self.use_quantization = use_quantization
+        self.embed_model = embed_model
         self.pipe = self.load_pipeline()
 
     def load_pipeline(self):
@@ -134,7 +137,7 @@ class MedGemma:
                         documents = RAG.extract_text_from_pptx(f.name)
                     
                     chunks = RAG.split_documents(documents)
-                    vectorstore = RAG.embed_chunks(chunks)
+                    vectorstore = RAG.embed_chunks(chunks, self.embed_model)
                     query = message
                     results = RAG.search_similar_chunks(query, vectorstore)
 
@@ -186,6 +189,7 @@ def main():
             config = safe_load(file)
             model_variant = config.get("model_variant")
             use_quantization = config.get("use_quantization")
+            embed_model = config.get("embed_model")
     except ImportError as e:
         print(f"Error loading config.yaml: {e}. Using default settings.")
         model_variant = "4b-it"
@@ -193,6 +197,7 @@ def main():
         
     # Initialize MedGamma with the specified model variant and quantization option
     medgemma = MedGemma(
+        embed_model = embed_model,
         model_variant=model_variant, 
         use_quantization=use_quantization
         )
