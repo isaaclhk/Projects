@@ -16,7 +16,7 @@ from yaml import safe_load
 import RAG
 from frontend import gradio_ui
 
-class MedGamma:
+class MedGemma:
     '''
     A class to interact with the MedGamma model for image-text-to-text tasks.
     This class initializes the model, loads it, 
@@ -192,12 +192,12 @@ def main():
         use_quantization = True
         
     # Initialize MedGamma with the specified model variant and quantization option
-    medgamma = MedGamma(
+    medgemma = MedGemma(
         model_variant=model_variant, 
         use_quantization=use_quantization
         )
     # Start the Gradio UI for the MedGamma model
-    gradio_ui(medgamma.consult)
+    gradio_ui(medgemma.consult)
     
 if __name__ == "__main__":
     main()
