@@ -33,6 +33,6 @@ explicit = true
 
 [dependency-groups]
 eval = [
-    "langchain-nvidia-ai-endpoints>=0.3.13",
+    "langchain-openai>=0.3.28",
     "ragas>=0.3.0",
 ]

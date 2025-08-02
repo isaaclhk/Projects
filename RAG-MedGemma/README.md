@@ -237,6 +237,10 @@ MedGemma models were rigorously evaluated across a diverse set of medical and ge
 These results highlight MedGemma’s effectiveness as a domain-specialized foundation model, offering strong performance across modalities while remaining efficient and adaptable for downstream medical applications.
 
 ### Custom Retrieval Evaluation
+To install additional dependencies for evaluation:
+```bash
+uv sync --group eval
+```
 This project uses the `Ragas` evaluation framework to assess the performance of the Retrieval-Augmented Generation (RAG) system. Evaluation was conducted exclusively on the `4b-it` model variant. To test other variants, update the configuration in `config.py` and re-run `eval.ipynb`.
 
 Throughout the evaluation, the model was given a standardized system prompt :
