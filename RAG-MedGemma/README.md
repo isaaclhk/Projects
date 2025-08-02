@@ -305,6 +305,7 @@ This project is licensed under the MIT License. See `LICENSE.txt` for more infor
 
 ## References
 1. Google. (n.d.). MedGemma | Health AI Developer Foundations. Google for Developers. https://developers.google.com/health-ai-developer-foundations/medgemma
-2. Mahamulkar, P. (2024, February 9). Introduction to retrieval-augmented generation (RAG) using LangChain and LlamaIndex. Towards AI. https://pub.towardsai.net/introduction-to-retrieval-augmented-generation-rag-using-langchain-and-lamaindex-bd0047628e2a
-3. Sellergren, A., Kazemzadeh, S., Jaroensri, T., Kiraly, A., Traverse, M., Kohlberger, T., ... & Yang, L. (2025). MedGemma Technical Report. arXiv preprint arXiv:2507.05201.
+2. Lam, I. (2025). Radiomics-Based Lung Nodule Classification with Stochastic Search Variable Selection and Bayesian Logistic Regression. medRxiv, 2025-04.
+3. Mahamulkar, P. (2024, February 9). Introduction to retrieval-augmented generation (RAG) using LangChain and LlamaIndex. Towards AI. https://pub.towardsai.net/introduction-to-retrieval-augmented-generation-rag-using-langchain-and-lamaindex-bd0047628e2a
+4. Sellergren, A., Kazemzadeh, S., Jaroensri, T., Kiraly, A., Traverse, M., Kohlberger, T., ... & Yang, L. (2025). MedGemma Technical Report. arXiv preprint arXiv:2507.05201.
 
