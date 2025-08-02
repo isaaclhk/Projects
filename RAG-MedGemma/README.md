@@ -29,6 +29,9 @@ Contact: isaac_lam_hk@aiap.sg
         <li><a href="#ui-framework-gradio">UI Framework</a></li>
       </ul>
     <li><a href="#evaluation-benchmarks">Evaluation Benchmarks</a></li>
+      <ul>
+        <li><a href="#base-model-evaluation">Base Model Evaluation</a></li>
+        <li><a href="#custom-retrieval-evaluation">Custom Retrieval Evaluation</a></li>
     <li><a href="#limitations">Limitations</a></li>
   </ol>
 </details>
@@ -56,7 +59,6 @@ For more information about MedGemma, visit the  [official model page](https://de
 > ⚠️ **Disclaimer**  
 > This system is intended for research and informational purposes only. It is not a substitute for professional medical advice. Always consult a qualified healthcare provider for medical concerns or decisions.
 
-
 ## Project Structure
 ```
 Project_directory
@@ -65,6 +67,9 @@ Project_directory
 ├── pyproject.toml
 ├── uv.lock
 ├── run.sh
+├── eval
+│   ├── eval.csv
+│   ├── report.pdf
 ├── src
 │   ├── RAG.py
 │   ├── frontend.py
@@ -74,6 +79,7 @@ Project_directory
 │   ├── settings.jpg
 └── LICENSE.txt
 ```
+
 ## Setup and Execution
 ### Prerequisites
 - `python 3.12+`
@@ -229,6 +235,40 @@ MedGemma models were rigorously evaluated across a diverse set of medical and ge
 - **General-Purpose Tasks**: Evaluated on MMLU Pro, Global MMLU Lite, and MMMU to assess trade-offs in general reasoning. Despite being optimized for medical tasks, MedGemma showed only slight performance drops compared to the general-purpose Gemma 3 models of the same size, demonstrating its versatility for both specialized and broad instruction-following applications.
 
 These results highlight MedGemma’s effectiveness as a domain-specialized foundation model, offering strong performance across modalities while remaining efficient and adaptable for downstream medical applications.
+
+### Custom Retrieval Evaluation
+This project uses the `Ragas` evaluation framework to assess the performance of the Retrieval-Augmented Generation (RAG) system. Evaluation was conducted exclusively on the `4b-it` model variant. To test other variants, update the configuration in `config.py` and re-run `eval.ipynb`.
+
+Throughout the evaluation, the model was given a standardized system prompt :
+
+> "You are a helpful medical assistant". 
+
+A [sample paper](https://www.medrxiv.org/content/10.1101/2025.04.29.25326704v2) was provided for context retrieval. 
+A curated dataset of 25 question-answer pairs, derived from the paper, was used to assess the system's ability to retrieve and generate accurate, relevant responses.
+
+The evaluation focused on the following key metrics:
+
+- **Context Precision**  
+  Measures the proportion of retrieved context that is actually relevant to answering the question.
+
+- **Context Recall**  
+  Assesses whether all necessary information required to answer the question was successfully retrieved.
+
+- **Answer Relevancy**  
+  Evaluates how directly and appropriately the generated answer addresses the question.
+
+- **Faithfulness**  
+  Checks whether the generated answer is factually consistent with the retrieved context, avoiding hallucinations.
+
+The following results were obtained from the evaluation:
+- **Context Precision**: `0.6633`  
+- **Context Recall**: `0.6000`  
+- **Answer Relevancy**: `0.8015`  
+- **Faithfulness**: `0.7060`
+
+These results suggest that while the system generates relevant and faithful answers, there is room for improvement in retrieving more complete and targeted context.
+
+For full implementation details, refer to `eval.ipynb`.
 
 ## Limitations
 
